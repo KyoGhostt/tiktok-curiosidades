@@ -3,6 +3,6 @@ Scout (Wikipedia) -> Roteirista (LLM via Hugging Face) -> Voz (edge-tts) -> Víd
 Roda 2x/dia pelo GitHub Actions. Se falhar, abre uma Issue.
 
 Secrets necessários (Settings > Secrets > Actions):
-- HF_TOKEN (obrigatório, token "read" do Hugging Face)
+- Pelo menos UM destes para o LLM: GROQ_API_KEY (console.groq.com) ou GEMINI_API_KEY (aistudio.google.com/apikey), ambos grátis. HF_TOKEN fica como reserva.
 - PIXABAY_API_KEY (opcional, grátis em pixabay.com/api/docs; sem ele usa fundo gradiente). PEXELS_API_KEY também é aceito.
 - TIKTOK_ACCESS_TOKEN (depois do OAuth; sem ele os vídeos ficam só como artefato)
