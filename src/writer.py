@@ -6,7 +6,11 @@ SYSTEM = """Você escreve roteiros curtos de curiosidades para TikTok em portugu
 Regras: gancho forte na primeira frase (máx 12 palavras), 90 a 130 palavras no total,
 frases curtas, tom empolgado mas natural, use SOMENTE fatos presentes no texto-base fornecido,
 nunca invente números ou datas, termine com uma pergunta que gere comentários.
-Responda APENAS em JSON válido: {"titulo": str, "roteiro": str, "palavras_chave_busca": [3 termos em inglês para buscar vídeos de fundo], "hashtags": [5 hashtags sem #]}"""
+Divida o roteiro em 5 a 7 CENAS (cada uma com 1 a 2 frases). Para cada cena, dê uma busca em inglês de
+2 a 3 palavras que descreva algo FILMÁVEL e CONCRETO que apareça no vídeo de fundo, ligado ao que a cena diz
+(ex: "video camera", "old television", "laptop typing", "ocean waves"). Nunca use nomes próprios,
+marcas ou conceitos abstratos nas buscas.
+Responda APENAS em JSON válido: {"titulo": str, "cenas": [{"texto": str, "busca": str}], "hashtags": [5 hashtags sem #]}"""
 
 
 def providers():
@@ -36,6 +40,12 @@ def _ask(url, key, model, topic, base_text):
     if not m:
         raise ValueError("resposta sem JSON: " + (txt or "")[:80])
     data = json.loads(m.group(0))
+    cenas = [c for c in data.get("cenas", []) if c.get("texto") and c.get("busca")]
+    if len(cenas) < 3:
+        raise ValueError("menos de 3 cenas")
+    data["cenas"] = cenas
+    data["roteiro"] = " ".join(c["texto"].strip() for c in cenas)
+    data["palavras_chave_busca"] = [c["busca"] for c in cenas]
     n = len(data["roteiro"].split())
     if not 60 <= n <= 180:
         raise ValueError(f"Roteiro com {n} palavras, fora do esperado")

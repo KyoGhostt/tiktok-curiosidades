@@ -24,15 +24,34 @@ def _ts(t):
     return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 
 
-def make_ass(words, path, per=3):
-    head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\n"
-            "Format: Name,Fontname,Fontsize,PrimaryColour,OutlineColour,BorderStyle,Outline,Shadow,Alignment,MarginV\n"
-            "Style: Default,DejaVu Sans,78,&H00FFFFFF,&H00000000,1,6,0,2,520\n\n"
-            "[Events]\nFormat: Layer,Start,End,Style,Text\n")
-    lines = []
-    for i in range(0, len(words), per):
-        g = words[i:i + per]
-        end = words[i + per][0] if i + per < len(words) else g[-1][1]
-        lines.append(f"Dialogue: 0,{_ts(g[0][0])},{_ts(end)},Default,{' '.join(w[2] for w in g).upper()}")
-    open(path, "w", encoding="utf-8").write(head + "\n".join(lines) + "\n")
+def _clean(w):
+    return w.strip().strip('"\'()[]{}«»“”').rstrip(".,;:").upper()
+
+
+def make_ass(words, path, script=None, per=3):
+    """Legenda estilo TikTok: grupos de até 3 palavras, palavra falada em amarelo."""
+    toks = script.split() if script else []
+    disp = toks if len(toks) == len(words) else [w[2] for w in words]
+    head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 2\n\n[V4+ Styles]\n"
+            "Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,"
+            "Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding\n"
+            "Style: Default,Montserrat ExtraBold,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,8,3,2,60,60,620,1\n\n"
+            "[Events]\nFormat: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text\n")
+    # grupos: quebra em pontuação final/vírgula ou ao chegar em `per` palavras
+    groups, cur = [], []
+    for i, d in enumerate(disp):
+        cur.append(i)
+        if len(cur) >= per or d.endswith((".", "?", "!", ",", ":", ";")):
+            groups.append(cur); cur = []
+    if cur: groups.append(cur)
+    ev = []
+    for gi, g in enumerate(groups):
+        gend = words[groups[gi + 1][0]][0] if gi + 1 < len(groups) else words[g[-1]][1] + 0.3
+        for k, wi in enumerate(g):
+            st = words[wi][0]
+            en = words[g[k + 1]][0] if k + 1 < len(g) else gend
+            txt = " ".join(("{\\c&H0000E5FF&\\fscx112\\fscy112}" + _clean(disp[j]) + "{\\r}") if j == wi
+                           else _clean(disp[j]) for j in g)
+            ev.append(f"Dialogue: 0,{_ts(st)},{_ts(en)},Default,,0,0,0,,{txt}")
+    open(path, "w", encoding="utf-8").write(head + "\n".join(ev) + "\n")
     return words[-1][1] if words else 0
