@@ -46,3 +46,56 @@ def pick_topic():
             HIST.write_text(json.dumps(sorted(used), ensure_ascii=False))
             return t, s
     raise RuntimeError("Nenhum tópico encontrado")
+
+
+def _local(tag):
+    return tag.split("}")[-1]
+
+
+def google_trends(geo="BR"):
+    """Google Trends (RSS público, sem chave): buscas em alta no Brasil + manchetes ligadas."""
+    import xml.etree.ElementTree as ET
+    r = requests.get(f"https://trends.google.com/trending/rss?geo={geo}", headers=UA, timeout=20)
+    r.raise_for_status()
+    out = []
+    for it in ET.fromstring(r.content).iter("item"):
+        d = {"term": "", "traffic": "", "news": []}
+        for ch in it:
+            n = _local(ch.tag)
+            if n == "title": d["term"] = (ch.text or "").strip()
+            elif n == "approx_traffic": d["traffic"] = (ch.text or "").strip()
+            elif n == "news_item":
+                for x in ch:
+                    if _local(x.tag) == "news_item_title" and x.text: d["news"].append(x.text.strip())
+        if d["term"]: out.append(d)
+    return out
+
+
+def get_trends():
+    """Lista de assuntos do momento (mais recente primeiro). Tolerante a falhas de cada fonte."""
+    trends = []
+    try:
+        trends += google_trends()
+    except Exception as e:
+        print("google trends indisponível:", type(e).__name__)
+    try:
+        for t in trending_topics(10):
+            trends.append({"term": t, "traffic": "wikipedia", "news": []})
+    except Exception:
+        pass
+    used = _used()
+    return [t for t in trends if t["term"] not in used][:20]
+
+
+def mark_used(term):
+    used = _used(); used.add(term)
+    HIST.write_text(json.dumps(sorted(used), ensure_ascii=False))
+
+
+def wiki_lookup(term, max_items=2):
+    """Acha artigos da Wikipedia PT sobre o termo e devolve o texto-base (fatos verificáveis)."""
+    r = requests.get("https://pt.wikipedia.org/w/api.php", headers=UA, timeout=20, params={
+        "action": "opensearch", "search": term, "limit": max_items, "namespace": 0, "format": "json"})
+    titles = r.json()[1] if r.ok else []
+    texts = [summary(t) for t in titles]
+    return " ".join(t for t in texts if t)[:2500]

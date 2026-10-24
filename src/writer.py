@@ -3,20 +3,29 @@ import json, os, re, time, requests
 from config import HF_TOKEN, LLM_MODEL
 
 SYSTEM = """Você escreve roteiros curtos de curiosidades para TikTok em português do Brasil.
-Regras: gancho forte na primeira frase (máx 12 palavras), 90 a 130 palavras no total,
-frases curtas, tom empolgado mas natural, use SOMENTE fatos presentes no texto-base fornecido,
-nunca invente números ou datas, termine com uma pergunta que gere comentários.
+O vídeo pega carona num ASSUNTO EM ALTA no momento: o gancho (primeira frase, máx 14 palavras) deve citar o assunto
+("Todo mundo está falando de X, mas você sabia...?") e o resto traz uma CURIOSIDADE factual ligada a ele.
+Regras: 90 a 130 palavras no total, frases curtas, tom empolgado mas natural, use SOMENTE fatos presentes no
+texto-base fornecido, nunca invente números, datas ou citações, termine com uma pergunta que gere comentários.
+NEUTRALIDADE: foque em história, origem, como funciona, números do texto-base. Nunca dê opinião, não acuse, não elogie
+nem critique pessoas vivas ou partidos, não faça previsões nem afirme quem está certo. Política pode ser tema, desde
+que a curiosidade seja educativa e neutra (instituições, história, processos, símbolos, mecanismos).
+Se o assunto envolver vítimas de tragédia, crime/violência, sexo ou drogas, ou o texto-base não tiver fatos
+suficientes para uma curiosidade, responda APENAS {"rejeitar": true}.
 Divida o roteiro em 5 a 7 CENAS (cada uma com 1 a 2 frases). Para cada cena, dê uma busca em inglês de
-1 a 2 palavras (substantivos comuns) que descreva algo FILMÁVEL e CONCRETO que apareça no vídeo de fundo, ligado ao que a cena diz
-(ex: "camera", "television", "laptop", "ocean", "microscope", "volcano"). Nunca use nomes próprios,
-marcas ou conceitos abstratos nas buscas.
-FILTRO DE TEMA: o canal é de curiosidades leves para o público geral (ciência, natureza, animais, espaço, corpo humano,
-história antiga, tecnologia, comida, geografia, cultura pop antiga). Se o tema for sobre política, políticos, pessoa viva,
-religião, crime, tragédia, sexo, drogas, esportes de resultado do dia, ou for obscuro demais para surpreender, responda
-APENAS {"rejeitar": true}.
-BUSCAS VISUAIS: prefira cenas genéricas e comuns em bancos de vídeo (natureza, objetos, tecnologia, cidades, laboratório,
-espaço, animais, comida) em vez de lugares ou instituições específicas; nunca use "flag", "government", "army", "politics".
+1 a 2 palavras (substantivos comuns) que descreva algo FILMÁVEL e CONCRETO ligado ao que a cena diz
+(ex: "camera", "television", "laptop", "ocean", "microscope", "volcano"). Prefira cenas genéricas e comuns em bancos
+de vídeo; nunca use nomes próprios nem "flag", "government", "army", "politics".
+Para o TÍTULO: curto, curioso, com a palavra-chave do assunto em alta. HASHTAGS: 5, misturando a do assunto em alta
+com as de nicho (curiosidades, voceSabia...), sem #.
 Responda APENAS em JSON válido: {"titulo": str, "cenas": [{"texto": str, "busca": str}], "hashtags": [5 hashtags sem #]}"""
+
+PLAN_SYSTEM = """Você é editor de um canal de curiosidades no TikTok Brasil. Recebe a lista de assuntos em alta agora
+(com manchetes). Escolha UM assunto com bom potencial de curiosidade educativa, factual e neutra (história, origem,
+como funciona), sobre o qual exista artigo na Wikipedia. Pode ser política, desde que o ângulo seja educativo (instituição,
+processo, história, símbolo), nunca sobre disputas ou pessoas específicas. Evite tragédias com vítimas, crimes, sexo e drogas.
+Responda APENAS em JSON: {"indice": int, "pesquisa": "termo curto em português para achar o artigo educativo na Wikipedia",
+"angulo": "uma frase: a curiosidade que o vídeo vai explorar"}. Se nenhum servir: {"indice": -1}."""
 
 
 class TopicRejected(Exception):
@@ -39,17 +48,24 @@ def providers():
     return out
 
 
-def _ask(url, key, model, topic, base_text):
+def _chat(url, key, model, system, user, tokens=4096):
     r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=120,
-        json={"model": model, "temperature": 0.8, "max_tokens": 4096, "response_format": {"type": "json_object"},
-              "messages": [{"role": "system", "content": SYSTEM},
-                           {"role": "user", "content": f"Tema: {topic}\nTexto-base: {base_text}"}]})
+        json={"model": model, "temperature": 0.8, "max_tokens": tokens, "response_format": {"type": "json_object"},
+              "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]})
     r.raise_for_status()
     txt = r.json()["choices"][0]["message"]["content"]
     m = re.search(r"\{.*\}", txt or "", re.S)
     if not m:
         raise ValueError("resposta sem JSON: " + (txt or "")[:80])
-    data = json.loads(m.group(0))
+    return json.loads(m.group(0))
+
+
+def _ask(url, key, model, topic, base_text, trend=None):
+    ctx = ""
+    if trend:
+        ctx = (f"Assunto em alta agora: {trend['term']}. Manchetes: {'; '.join(trend.get('news', [])[:3])}\n"
+               f"Ângulo: {trend.get('angulo', '')}\n")
+    data = _chat(url, key, model, SYSTEM, f"{ctx}Tema do artigo: {topic}\nTexto-base: {base_text}")
     if data.get("rejeitar"):
         raise TopicRejected("tema rejeitado pelo filtro")
     cenas = [c for c in data.get("cenas", []) if c.get("texto") and c.get("busca")]
@@ -64,12 +80,27 @@ def _ask(url, key, model, topic, base_text):
     return data
 
 
-def write_script(topic, base_text):
+def plan_from_trends(trends):
+    """Pede ao LLM para escolher o melhor assunto em alta e o ângulo de curiosidade."""
+    lista = "\n".join(f"{i}. {t['term']} ({t['traffic']}) — {' | '.join(t['news'][:2])}" for i, t in enumerate(trends))
+    for name, url, key, model in providers():
+        try:
+            d = _chat(url, key, model, PLAN_SYSTEM, lista, tokens=1500)
+            i = int(d.get("indice", -1))
+            if 0 <= i < len(trends) and d.get("pesquisa"):
+                return {**trends[i], "pesquisa": d["pesquisa"], "angulo": d.get("angulo", "")}
+            return None
+        except Exception as e:
+            print(f"plano falhou ({name}):", str(e)[:100])
+    return None
+
+
+def write_script(topic, base_text, trend=None):
     errs = []
     for name, url, key, model in providers():
         for attempt in range(3):
             try:
-                return _ask(url, key, model, topic, base_text)
+                return _ask(url, key, model, topic, base_text, trend)
             except TopicRejected:
                 raise
             except Exception as e:

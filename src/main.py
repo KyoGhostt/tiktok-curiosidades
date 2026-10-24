@@ -5,14 +5,32 @@ import scout, writer, tts, video, reviewer, publisher
 
 
 def one():
-    for _ in range(8):
-        topic, base = scout.pick_topic()
+    meta, trend = None, None
+    trends = scout.get_trends()
+    for _ in range(4):
+        if not trends:
+            break
+        plan = writer.plan_from_trends(trends)
+        if not plan:
+            break
+        trends = [t for t in trends if t["term"] != plan["term"]]
+        scout.mark_used(plan["term"])
+        base = scout.wiki_lookup(plan["pesquisa"])
+        if len(base) < 200:
+            print("sem texto-base para", plan["pesquisa"]); continue
         try:
-            meta = writer.write_script(topic, base); break
+            meta = writer.write_script(plan["pesquisa"], base, plan); trend = plan; topic = plan["term"]
+            print(f"assunto em alta: {plan['term']} -> {plan['pesquisa']}"); break
         except writer.TopicRejected:
-            print(f"tema rejeitado: {topic}")
-    else:
-        raise RuntimeError("8 temas seguidos rejeitados")
+            print("rejeitado:", plan["term"])
+    if meta is None:  # reserva: tema aleatório da Wikipedia
+        print("sem tendência utilizável; usando tema da Wikipedia")
+        for _ in range(8):
+            topic, base = scout.pick_topic()
+            try: meta = writer.write_script(topic, base); break
+            except writer.TopicRejected: print(f"tema rejeitado: {topic}")
+        else:
+            raise RuntimeError("nenhum tema aprovado")
     d = OUT / datetime.now().strftime("%Y%m%d-%H%M%S"); d.mkdir(parents=True)
     mp3, ass, mp4 = d / "voz.mp3", d / "legenda.ass", d / "video.mp4"
     words = tts.synth(meta["roteiro"], mp3)
@@ -29,9 +47,14 @@ def one():
     scenes = [(q, max(d, 1.0)) for q, d in scenes]
     video.build(scenes, mp3, ass, total_len, d, mp4)
     problems, total = reviewer.check(mp4, meta)
-    cap = f"{meta['titulo']} " + " ".join("#" + h.lstrip("#") for h in meta["hashtags"]) + " #curiosidades #ia"
+    tags = [h.lstrip("#").replace(" ", "") for h in meta["hashtags"]]
+    if trend:
+        slug = "".join(ch for ch in trend["term"].title() if ch.isalnum())
+        tags = [slug] + [t for t in tags if t.lower() != slug.lower()]
+    tags += [t for t in ("curiosidades", "voceSabia", "fy") if t.lower() not in [x.lower() for x in tags]]
+    cap = f"{meta['titulo']} " + " ".join("#" + t for t in tags[:8]) + " #ia"
     status = "REPROVADO: " + "; ".join(problems) if problems else publisher.publish(mp4, cap)
-    (d / "info.json").write_text(json.dumps({"topic": topic, **meta, "caption": cap, "status": status},
+    (d / "info.json").write_text(json.dumps({"topic": topic, "trend": trend and {k: trend[k] for k in ("term", "traffic", "angulo")}, **meta, "caption": cap, "status": status},
                                             ensure_ascii=False, indent=2))
     print(f"[{topic}] {total:.0f}s -> {status}")
     if problems: raise RuntimeError(status)
