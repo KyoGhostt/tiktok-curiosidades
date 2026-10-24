@@ -88,7 +88,9 @@ def get_trends():
     except Exception:
         pass
     used = _used()
-    return [t for t in trends if t["term"] not in used][:20]
+    res = [t for t in trends if t["term"] not in used][:20]
+    DEBUG.append("trends: " + " | ".join(f"{t['term']}[{t['traffic']}]" for t in res))
+    return res
 
 
 def mark_used(term):
