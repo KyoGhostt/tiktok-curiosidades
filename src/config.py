@@ -6,6 +6,7 @@ OUT = ROOT / "output"
 OUT.mkdir(exist_ok=True)
 
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
+PIXABAY_KEY = os.environ.get("PIXABAY_API_KEY", "")
 PEXELS_KEY = os.environ.get("PEXELS_API_KEY", "")
 # Modelo free via Hugging Face Inference Providers (troque se sair do ar)
 LLM_MODEL = os.environ.get("LLM_MODEL", "Qwen/Qwen2.5-72B-Instruct")

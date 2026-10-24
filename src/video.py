@@ -1,25 +1,45 @@
 """Editor: fundo vertical 9:16 (Pexels free, ou fundo animado) + voz + legenda queimada via FFmpeg."""
 import random, subprocess, requests
-from config import PEXELS_KEY
+from config import PEXELS_KEY, PIXABAY_KEY
+
+
+def _pixabay(kw):
+    r = requests.get("https://pixabay.com/api/videos/", params={"key": PIXABAY_KEY, "q": kw, "per_page": 10,
+                     "safesearch": "true"}, timeout=30)
+    out = []
+    for h in (r.json().get("hits", []) if r.ok else []):
+        v = h["videos"].get("medium") or h["videos"].get("small")
+        if v and v.get("url"):
+            out.append((v["url"], h.get("duration", 8)))
+    return out
+
+
+def _pexels(kw):
+    r = requests.get("https://api.pexels.com/videos/search", headers={"Authorization": PEXELS_KEY},
+                     params={"query": kw, "orientation": "portrait", "per_page": 8}, timeout=30)
+    out = []
+    for v in (r.json().get("videos", []) if r.ok else []):
+        f = min((x for x in v["video_files"] if x.get("width", 0) >= 540), key=lambda x: x["width"], default=None)
+        if f:
+            out.append((f["link"], v.get("duration", 8)))
+    return out
 
 
 def fetch_backgrounds(keywords, dest, need_seconds):
-    if not PEXELS_KEY:
+    search = _pixabay if PIXABAY_KEY else _pexels if PEXELS_KEY else None
+    if not search:
         return []
     files, total = [], 0
     for kw in keywords:
-        r = requests.get("https://api.pexels.com/videos/search", headers={"Authorization": PEXELS_KEY},
-                         params={"query": kw, "orientation": "portrait", "per_page": 8}, timeout=30)
-        vids = r.json().get("videos", []) if r.ok else []
+        try:
+            vids = search(kw)
+        except Exception:
+            continue
         random.shuffle(vids)
-        for v in vids[:2]:
-            f = min((x for x in v["video_files"] if x.get("width", 0) >= 540),
-                    key=lambda x: x["width"], default=None)
-            if not f:
-                continue
+        for url, dur in vids[:2]:
             p = dest / f"bg{len(files)}.mp4"
-            p.write_bytes(requests.get(f["link"], timeout=120).content)
-            files.append(p); total += v.get("duration", 8)
+            p.write_bytes(requests.get(url, timeout=120).content)
+            files.append(p); total += dur
             if total >= need_seconds:
                 return files
     return files
