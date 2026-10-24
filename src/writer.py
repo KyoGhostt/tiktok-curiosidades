@@ -1,5 +1,5 @@
 """Roteirista: LLM free via Hugging Face Inference Providers."""
-import json, os, re, requests
+import json, os, re, time, requests
 from config import HF_TOKEN, LLM_MODEL
 
 SYSTEM = """Você escreve roteiros curtos de curiosidades para TikTok em português do Brasil.
@@ -18,6 +18,8 @@ def providers():
     if os.environ.get("GEMINI_API_KEY"):
         out.append(("gemini", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
                     os.environ["GEMINI_API_KEY"], os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")))
+        out.append(("gemini-lite", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+                    os.environ["GEMINI_API_KEY"], "gemini-2.5-flash-lite"))
     if HF_TOKEN:
         out.append(("hf", "https://router.huggingface.co/v1/chat/completions", HF_TOKEN, LLM_MODEL))
     return out
@@ -25,12 +27,15 @@ def providers():
 
 def _ask(url, key, model, topic, base_text):
     r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=120,
-        json={"model": model, "temperature": 0.8, "max_tokens": 900,
+        json={"model": model, "temperature": 0.8, "max_tokens": 4096, "response_format": {"type": "json_object"},
               "messages": [{"role": "system", "content": SYSTEM},
                            {"role": "user", "content": f"Tema: {topic}\nTexto-base: {base_text}"}]})
     r.raise_for_status()
     txt = r.json()["choices"][0]["message"]["content"]
-    data = json.loads(re.search(r"\{.*\}", txt, re.S).group(0))
+    m = re.search(r"\{.*\}", txt or "", re.S)
+    if not m:
+        raise ValueError("resposta sem JSON: " + (txt or "")[:80])
+    data = json.loads(m.group(0))
     n = len(data["roteiro"].split())
     if not 60 <= n <= 180:
         raise ValueError(f"Roteiro com {n} palavras, fora do esperado")
@@ -40,11 +45,12 @@ def _ask(url, key, model, topic, base_text):
 def write_script(topic, base_text):
     errs = []
     for name, url, key, model in providers():
-        for _ in range(2):
+        for attempt in range(3):
             try:
                 return _ask(url, key, model, topic, base_text)
             except Exception as e:
                 errs.append(f"{name}: {type(e).__name__} {str(e)[:120]}")
+                time.sleep(8 * (attempt + 1))
                 if "402" in str(e) or "401" in str(e) or "403" in str(e):
                     break
     raise RuntimeError("Nenhum LLM funcionou -> " + " | ".join(errs) if errs else
