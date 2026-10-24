@@ -37,7 +37,7 @@ def summary(title):
 
 def pick_topic():
     used = _used()
-    pool = [t for t in trending_topics() + random_topics() if t not in used]
+    pool = [t for t in random_topics(20) + trending_topics(5) if t not in used]
     random.shuffle(pool)
     for t in pool:
         s = summary(t)

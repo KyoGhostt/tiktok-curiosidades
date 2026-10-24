@@ -10,7 +10,17 @@ Divida o roteiro em 5 a 7 CENAS (cada uma com 1 a 2 frases). Para cada cena, dê
 2 a 3 palavras que descreva algo FILMÁVEL e CONCRETO que apareça no vídeo de fundo, ligado ao que a cena diz
 (ex: "video camera", "old television", "laptop typing", "ocean waves"). Nunca use nomes próprios,
 marcas ou conceitos abstratos nas buscas.
+FILTRO DE TEMA: o canal é de curiosidades leves para o público geral (ciência, natureza, animais, espaço, corpo humano,
+história antiga, tecnologia, comida, geografia, cultura pop antiga). Se o tema for sobre política, políticos, pessoa viva,
+religião, crime, tragédia, sexo, drogas, esportes de resultado do dia, ou for obscuro demais para surpreender, responda
+APENAS {"rejeitar": true}.
+BUSCAS VISUAIS: prefira cenas genéricas e comuns em bancos de vídeo (natureza, objetos, tecnologia, cidades, laboratório,
+espaço, animais, comida) em vez de lugares ou instituições específicas; nunca use "flag", "government", "army", "politics".
 Responda APENAS em JSON válido: {"titulo": str, "cenas": [{"texto": str, "busca": str}], "hashtags": [5 hashtags sem #]}"""
+
+
+class TopicRejected(Exception):
+    pass
 
 
 def providers():
@@ -40,6 +50,8 @@ def _ask(url, key, model, topic, base_text):
     if not m:
         raise ValueError("resposta sem JSON: " + (txt or "")[:80])
     data = json.loads(m.group(0))
+    if data.get("rejeitar"):
+        raise TopicRejected("tema rejeitado pelo filtro")
     cenas = [c for c in data.get("cenas", []) if c.get("texto") and c.get("busca")]
     if len(cenas) < 3:
         raise ValueError("menos de 3 cenas")
@@ -58,6 +70,8 @@ def write_script(topic, base_text):
         for attempt in range(3):
             try:
                 return _ask(url, key, model, topic, base_text)
+            except TopicRejected:
+                raise
             except Exception as e:
                 errs.append(f"{name}: {type(e).__name__} {str(e)[:120]}")
                 time.sleep(8 * (attempt + 1))

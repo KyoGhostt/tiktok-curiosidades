@@ -5,8 +5,14 @@ import scout, writer, tts, video, reviewer, publisher
 
 
 def one():
-    topic, base = scout.pick_topic()
-    meta = writer.write_script(topic, base)
+    for _ in range(8):
+        topic, base = scout.pick_topic()
+        try:
+            meta = writer.write_script(topic, base); break
+        except writer.TopicRejected:
+            print(f"tema rejeitado: {topic}")
+    else:
+        raise RuntimeError("8 temas seguidos rejeitados")
     d = OUT / datetime.now().strftime("%Y%m%d-%H%M%S"); d.mkdir(parents=True)
     mp3, ass, mp4 = d / "voz.mp3", d / "legenda.ass", d / "video.mp4"
     words = tts.synth(meta["roteiro"], mp3)
