@@ -4,7 +4,7 @@ from config import VOICE
 
 
 async def _run(text, mp3):
-    com = edge_tts.Communicate(text, VOICE, rate="+8%")
+    com = edge_tts.Communicate(text, VOICE, rate="+8%", boundary="WordBoundary")
     words = []
     with open(mp3, "wb") as f:
         async for ch in com.stream():
