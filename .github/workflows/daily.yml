@@ -19,7 +19,7 @@ jobs:
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
-        run: python src/main.py
+        run: python -u src/main.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -33,5 +33,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create --title "Pipeline falhou em $(date +%F)" \
-            --body "Veja o run em $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          { echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; echo; echo '```'; tail -n 40 run.log | cut -c1-400; echo '```'; } > body.md
+          gh issue create --title "Pipeline falhou em $(date +%F)" --body-file body.md
