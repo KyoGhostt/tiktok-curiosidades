@@ -35,11 +35,13 @@ def make_ass(words, path, script=None, per=3):
     head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 2\n\n[V4+ Styles]\n"
             "Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,"
             "Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding\n"
-            "Style: Default,Montserrat ExtraBold,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,8,3,2,60,60,620,1\n\n"
+            "Style: Default,Montserrat ExtraBold,80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,8,3,2,60,60,620,1\n\n"
             "[Events]\nFormat: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text\n")
     # grupos: quebra em pontuação final/vírgula ou ao chegar em `per` palavras
     groups, cur = [], []
     for i, d in enumerate(disp):
+        if cur and sum(len(_clean(disp[j])) + 1 for j in cur) + len(_clean(d)) > 15:
+            groups.append(cur); cur = []
         cur.append(i)
         if len(cur) >= per or d.endswith((".", "?", "!", ",", ":", ";")):
             groups.append(cur); cur = []

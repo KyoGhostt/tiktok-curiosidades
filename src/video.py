@@ -15,14 +15,45 @@ def run(cmd):
         raise RuntimeError("ffmpeg falhou: " + r.stderr[-600:])
 
 
+AI_TAGS = ("ai generated", "ai-generated", "generative", "midjourney", "artificial intelligence", "ai art", "digital art")
+
+
+def _norm(w):
+    w = w.lower().strip()
+    return w[:-1] if w.endswith("s") and len(w) > 3 else w
+
+
+def _score(tags, query):
+    t = {_norm(x) for x in ",".join(tags).replace(" ", ",").split(",") if x}
+    return sum(1 for w in query.split() if _norm(w) in t)
+
+
+def _is_ai(tags):
+    j = tags.lower()
+    return any(a in j for a in AI_TAGS) or j.split(", ").count("ai") > 0
+
+
 def _pixabay_videos(q):
     r = requests.get("https://pixabay.com/api/videos/", timeout=30,
-                     params={"key": PIXABAY_KEY, "q": q, "per_page": 20, "safesearch": "true"})
+                     params={"key": PIXABAY_KEY, "q": q, "per_page": 30, "safesearch": "true"})
     out = []
     for h in (r.json().get("hits", []) if r.ok else []):
         v = h["videos"].get("medium") or h["videos"].get("small")
-        if v and v.get("url") and h.get("duration", 0) >= 4:
-            out.append(v["url"])
+        tags = h.get("tags", "")
+        if v and v.get("url") and h.get("duration", 0) >= 4 and not _is_ai(tags):
+            out.append((v["url"], "video", _score([tags], q)))
+    return out
+
+
+def _pixabay_images(q):
+    r = requests.get("https://pixabay.com/api/", timeout=30,
+                     params={"key": PIXABAY_KEY, "q": q, "per_page": 30, "orientation": "vertical",
+                             "image_type": "photo", "safesearch": "true"})
+    out = []
+    for h in (r.json().get("hits", []) if r.ok else []):
+        tags = h.get("tags", "")
+        if h.get("largeImageURL") and not _is_ai(tags):
+            out.append((h["largeImageURL"], "image", _score([tags], q)))
     return out
 
 
@@ -32,47 +63,57 @@ def _pexels_videos(q):
     out = []
     for v in (r.json().get("videos", []) if r.ok else []):
         f = min((x for x in v["video_files"] if x.get("width", 0) >= 540), key=lambda x: x["width"], default=None)
-        if f: out.append(f["link"])
+        if f: out.append((f["link"], "video", 1))
     return out
 
 
-def _pixabay_images(q):
-    r = requests.get("https://pixabay.com/api/", timeout=30,
-                     params={"key": PIXABAY_KEY, "q": q, "per_page": 20, "orientation": "vertical",
-                             "image_type": "photo", "safesearch": "true"})
-    return [h["largeImageURL"] for h in (r.json().get("hits", []) if r.ok else []) if h.get("largeImageURL")]
-
-
-def find_media(query, used):
-    """Tenta vídeo -> foto, com a busca da cena e depois com a primeira palavra. Evita repetir clipe."""
-    qs = [query] + ([query.split()[0]] if len(query.split()) > 1 else [])
+def candidates(query, used):
+    """Ordem: vídeo relevante > foto relevante > vídeo qualquer. Só aceita o que bate com as tags da busca."""
+    words = query.split()
+    qs = [query] + ([w for w in words if len(w) > 3][:1] if len(words) > 1 else [])
+    found = []
     for q in qs:
-        for fn, ok in ((_pixabay_videos, PIXABAY_KEY), (_pexels_videos, PEXELS_KEY)):
+        for fn, ok in ((_pixabay_videos, PIXABAY_KEY), (_pixabay_images, PIXABAY_KEY), (_pexels_videos, PEXELS_KEY)):
             if not ok: continue
-            try: urls = [u for u in fn(q) if u not in used]
-            except Exception: continue
-            if urls: return random.choice(urls[:6]), "video"
-        if PIXABAY_KEY:
-            try: urls = [u for u in _pixabay_images(q) if u not in used]
-            except Exception: urls = []
-            if urls: return random.choice(urls[:6]), "image"
-    return None, None
+            try: found += [c for c in fn(q) if c[0] not in used and c[2] > 0]
+            except Exception: pass
+        if found: break
+    found.sort(key=lambda c: (-c[2], c[1] != "video", random.random()))
+    top = found[:12]
+    random.shuffle(top)
+    top.sort(key=lambda c: (-c[2], c[1] != "video"))
+    return top[:4]
+
+
+def _luma(path):
+    r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-vf", "select=eq(n\\,20),signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-",
+                        "-frames:v", "1", "-f", "null", "-"], capture_output=True, text=True)
+    import re
+    m = re.search(r"YAVG=([\d.]+)", r.stderr + r.stdout)
+    return float(m.group(1)) if m else 128.0
+
+
+def _render_media(url, kind, dur, workdir, i, out):
+    src = workdir / f"src{i}.{'mp4' if kind == 'video' else 'jpg'}"
+    src.write_bytes(requests.get(url, timeout=120).content)
+    if kind == "video":
+        run(["ffmpeg", "-y", "-stream_loop", "-1", "-i", str(src), "-t", f"{dur:.3f}", "-vf", VF_VIDEO, *ENC, str(out)])
+    else:
+        run(["ffmpeg", "-y", "-loop", "1", "-framerate", "30", "-i", str(src), "-t", f"{dur:.3f}", "-vf", VF_IMAGE, *ENC, str(out)])
 
 
 def render_scene(query, dur, workdir, i, used):
     out = workdir / f"cena{i}.mp4"
-    url, kind = find_media(query, used)
-    if url:
+    for url, kind, _ in candidates(query, used):
         used.add(url)
-        src = workdir / f"src{i}.{'mp4' if kind == 'video' else 'jpg'}"
-        src.write_bytes(requests.get(url, timeout=120).content)
-        if kind == "video":
-            run(["ffmpeg", "-y", "-stream_loop", "-1", "-i", str(src), "-t", f"{dur:.3f}", "-vf", VF_VIDEO, *ENC, str(out)])
-        else:
-            run(["ffmpeg", "-y", "-loop", "1", "-framerate", "30", "-i", str(src), "-t", f"{dur:.3f}", "-vf", VF_IMAGE, *ENC, str(out)])
-    else:  # sem mídia: gradiente animado
-        run(["ffmpeg", "-y", "-f", "lavfi", "-i", f"gradients=s=1080x1920:d={dur:.3f}:speed=0.02:c0=0x1a1a2e:c1=0x16213e:c2=0x0f3460:n=3",
-             "-vf", "fps=30", *ENC, str(out)])
+        try:
+            _render_media(url, kind, dur, workdir, i, out)
+            if _luma(out) >= 35:
+                return out
+        except Exception:
+            continue
+    run(["ffmpeg", "-y", "-f", "lavfi", "-i", f"gradients=s=1080x1920:d={dur:.3f}:speed=0.02:c0=0x1a1a2e:c1=0x16213e:c2=0x0f3460:n=3",
+         "-vf", "fps=30", *ENC, str(out)])
     return out
 
 

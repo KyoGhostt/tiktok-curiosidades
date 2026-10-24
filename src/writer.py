@@ -7,8 +7,8 @@ Regras: gancho forte na primeira frase (máx 12 palavras), 90 a 130 palavras no 
 frases curtas, tom empolgado mas natural, use SOMENTE fatos presentes no texto-base fornecido,
 nunca invente números ou datas, termine com uma pergunta que gere comentários.
 Divida o roteiro em 5 a 7 CENAS (cada uma com 1 a 2 frases). Para cada cena, dê uma busca em inglês de
-2 a 3 palavras que descreva algo FILMÁVEL e CONCRETO que apareça no vídeo de fundo, ligado ao que a cena diz
-(ex: "video camera", "old television", "laptop typing", "ocean waves"). Nunca use nomes próprios,
+1 a 2 palavras (substantivos comuns) que descreva algo FILMÁVEL e CONCRETO que apareça no vídeo de fundo, ligado ao que a cena diz
+(ex: "camera", "television", "laptop", "ocean", "microscope", "volcano"). Nunca use nomes próprios,
 marcas ou conceitos abstratos nas buscas.
 FILTRO DE TEMA: o canal é de curiosidades leves para o público geral (ciência, natureza, animais, espaço, corpo humano,
 história antiga, tecnologia, comida, geografia, cultura pop antiga). Se o tema for sobre política, políticos, pessoa viva,
