@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from config import OUT
 
 UA = {"User-Agent": "curiosidades-bot/1.0"}
+DEBUG = []
 HIST = OUT / "used_topics.json"
 
 
@@ -55,7 +56,10 @@ def _local(tag):
 def google_trends(geo="BR"):
     """Google Trends (RSS público, sem chave): buscas em alta no Brasil + manchetes ligadas."""
     import xml.etree.ElementTree as ET
-    r = requests.get(f"https://trends.google.com/trending/rss?geo={geo}", headers=UA, timeout=20)
+    r = requests.get(f"https://trends.google.com/trending/rss?geo={geo}", timeout=20, headers={
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        "Accept": "application/rss+xml,text/xml,*/*", "Accept-Language": "pt-BR,pt;q=0.9"})
+    DEBUG.append(f"google_trends http {r.status_code} {len(r.content)}b {r.text[:80]!r}")
     r.raise_for_status()
     out = []
     for it in ET.fromstring(r.content).iter("item"):
@@ -77,7 +81,7 @@ def get_trends():
     try:
         trends += google_trends()
     except Exception as e:
-        print("google trends indisponível:", type(e).__name__)
+        DEBUG.append("google_trends erro: " + type(e).__name__ + " " + str(e)[:150])
     try:
         for t in trending_topics(10):
             trends.append({"term": t, "traffic": "wikipedia", "news": []})

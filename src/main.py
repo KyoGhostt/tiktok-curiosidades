@@ -54,7 +54,7 @@ def one():
     tags += [t for t in ("curiosidades", "voceSabia", "fy") if t.lower() not in [x.lower() for x in tags]]
     cap = f"{meta['titulo']} " + " ".join("#" + t for t in tags[:8]) + " #ia"
     status = "REPROVADO: " + "; ".join(problems) if problems else publisher.publish(mp4, cap)
-    (d / "info.json").write_text(json.dumps({"topic": topic, "trend": trend and {k: trend[k] for k in ("term", "traffic", "angulo")}, **meta, "caption": cap, "status": status},
+    (d / "info.json").write_text(json.dumps({"debug": scout.DEBUG, "topic": topic, "trend": trend and {k: trend[k] for k in ("term", "traffic", "angulo")}, **meta, "caption": cap, "status": status},
                                             ensure_ascii=False, indent=2))
     print(f"[{topic}] {total:.0f}s -> {status}")
     if problems: raise RuntimeError(status)
