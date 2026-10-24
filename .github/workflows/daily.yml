@@ -24,7 +24,9 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-          TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          HF_WRITE_TOKEN: ${{ secrets.HF_WRITE_TOKEN }}
         run: python -u src/main.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Publicar prévia (branch previews)
         if: always()
