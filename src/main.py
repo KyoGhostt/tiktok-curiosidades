@@ -47,12 +47,18 @@ def one():
     scenes = [(q, max(d, 1.0)) for q, d in scenes]
     video.build(scenes, mp3, ass, total_len, d, mp4)
     problems, total = reviewer.check(mp4, meta)
+    import unicodedata
+    def key(t): return "".join(c for c in unicodedata.normalize("NFD", t.lower()) if c.isalnum())
     tags = [h.lstrip("#").replace(" ", "") for h in meta["hashtags"]]
-    if trend:
+    if trend:  # hashtag do assunto em alta, só se for curta o bastante para ser usável
         slug = "".join(ch for ch in trend["term"].title() if ch.isalnum())
-        tags = [slug] + [t for t in tags if t.lower() != slug.lower()]
-    tags += [t for t in ("curiosidades", "voceSabia", "fy") if t.lower() not in [x.lower() for x in tags]]
-    cap = f"{meta['titulo']} " + " ".join("#" + t for t in tags[:8]) + " #ia"
+        if 3 <= len(slug) <= 20: tags.insert(0, slug)
+    tags += ["curiosidades", "voceSabia", "fy"]
+    seen, uniq = set(), []
+    for t in tags:
+        if t and len(t) <= 30 and key(t) not in seen: seen.add(key(t)); uniq.append(t)
+    tags = uniq[:8]
+    cap = f"{meta['titulo']} " + " ".join("#" + t for t in tags) + " #ia"
     status = "REPROVADO: " + "; ".join(problems) if problems else publisher.publish(mp4, cap)
     (d / "info.json").write_text(json.dumps({"debug": scout.DEBUG, "topic": topic, "trend": trend and {k: trend[k] for k in ("term", "traffic", "angulo")}, **meta, "caption": cap, "status": status},
                                             ensure_ascii=False, indent=2))
