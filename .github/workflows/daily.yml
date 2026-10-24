@@ -48,7 +48,7 @@ jobs:
           path: |
             output/**/*.mp4
             output/**/info.json
-          retention-days: 14
+          retention-days: 2
       - name: Abrir Issue se falhar
         if: failure()
         env:
