@@ -1,7 +1,7 @@
 import json, sys, traceback
 from datetime import datetime
 from config import OUT, VIDEOS_PER_RUN
-import scout, writer, tts, video, reviewer, publisher
+import scout, writer, tts, video, reviewer, publisher, publisher_yt
 
 
 def one():
@@ -59,7 +59,15 @@ def one():
         if t and len(t) <= 30 and key(t) not in seen: seen.add(key(t)); uniq.append(t)
     tags = uniq[:8]
     cap = f"{meta['titulo']} " + " ".join("#" + t for t in tags) + " #ia"
-    status = "REPROVADO: " + "; ".join(problems) if problems else publisher.publish(mp4, cap)
+    if problems:
+        status = "REPROVADO: " + "; ".join(problems)
+    else:
+        outs = []
+        for name, fn in (("tiktok", lambda: publisher.publish(mp4, cap)),
+                         ("youtube", lambda: publisher_yt.publish(mp4, meta["titulo"], cap, tags))):
+            try: outs.append(fn())
+            except Exception as e: outs.append(f"{name} FALHOU: {str(e)[:200]}")
+        status = " | ".join(outs)
     (d / "info.json").write_text(json.dumps({"debug": scout.DEBUG, "topic": topic, "trend": trend and {k: trend[k] for k in ("term", "traffic", "angulo")}, **meta, "caption": cap, "status": status},
                                             ensure_ascii=False, indent=2))
     print(f"[{topic}] {total:.0f}s -> {status}")

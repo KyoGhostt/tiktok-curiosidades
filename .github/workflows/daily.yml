@@ -27,6 +27,8 @@ jobs:
           TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
           TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
           HF_WRITE_TOKEN: ${{ secrets.HF_WRITE_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: python -u src/main.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Publicar prévia (branch previews)
         if: always()
