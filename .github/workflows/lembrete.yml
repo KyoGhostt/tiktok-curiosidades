@@ -1,0 +1,20 @@
+name: lembrete-postagem
+on:
+  schedule:
+    - cron: "0 15,21 * * *"   # 12h e 18h de Brasília
+    - cron: "0 0 * * *"       # 21h de Brasília
+  workflow_dispatch:
+jobs:
+  lembrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - name: Buscar agenda mais recente
+        run: |
+          git fetch origin previews --depth=1 && git show FETCH_HEAD:info.json > info.json || echo '{"partes":[]}' > info.json
+      - name: Enviar lembrete
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python src/lembrete.py info.json
