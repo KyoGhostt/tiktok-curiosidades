@@ -36,8 +36,9 @@ def build_package():
                        f"\\NPARTE {i+1} {schedule.quando(slots[i], slots[i-1]).upper()}", "End"))
         dur = tts.make_ass(words, ass, script=p["texto"], overlays=ov)
         total = dur + 0.6
-        fundos = (data["fundos"] * 3)[:3]
-        scenes = [(q, total / 3) for q in fundos]
+        fundos = data["fundos"]
+        n = 6  # cortes mais curtos (~10s), cada um com um clipe diferente
+        scenes = [(fundos[i % len(fundos)], total / n) for i in range(n)]
         video.build(scenes, mp3, ass, total, d, mp4)
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
         titulo = f"{data['titulo']} (Parte {i}/3)"

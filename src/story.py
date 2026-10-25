@@ -21,7 +21,7 @@ Rejeite com {"rejeitar": true} se envolver: menores de idade em situação sexua
 suicídio, drogas pesadas, política ou partidos, discurso de ódio, ou pessoas públicas reais.
 Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a palavra parte", "genero_narrador": "m" ou "f",
 "partes": [{"texto": str, "gancho_final": "4 a 8 palavras chamando para a próxima parte (vazio na parte 3)"}, {..}, {..}],
-"fundos": ["3 buscas em inglês de 1 a 2 palavras, de vídeo de fundo calmo e genérico, ex: rain window, night city, driving road"],
+"fundos": ["4 buscas em inglês de 1 a 2 palavras, de vídeo de fundo calmo, variado e com movimento, ex: rain window, night city, driving road, coffee shop"],
 "hashtags": ["4 hashtags específicas da história, sem #"]}"""
 
 
