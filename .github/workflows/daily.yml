@@ -30,6 +30,16 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: python -u src/run.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Publicar pacote (Release com os 3 vídeos e a agenda)
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D=$(ls -d output/hist-*/ | tail -1)
+          TAG="story-$(basename "$D")"
+          TITLE=$(jq -r .titulo "$D/info.json")
+          gh release create "$TAG" "$D/parte1.mp4" "$D/parte2.mp4" "$D/parte3.mp4" --title "$TITLE" --notes-file "$D/agenda.md"
+          gh release list --limit 100 --json tagName --jq '.[10:][].tagName' | xargs -r -n1 gh release delete --cleanup-tag -y
       - name: Publicar prévia (branch previews)
         if: always()
         env:
