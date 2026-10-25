@@ -4,4 +4,4 @@
 <input id="k" placeholder="Client key" style="width:100%;padding:10px;font-size:16px"><p><button onclick="go()" style="padding:10px 16px;font-size:16px">Autorizar no TikTok</button></p>
 <script>function go(){const k=document.getElementById('k').value.trim();if(!k)return;
 const r=encodeURIComponent(location.origin+location.pathname.replace('auth.html','callback.html'));
-location.href='https://www.tiktok.com/v2/auth/authorize/?client_key='+encodeURIComponent(k)+'&scope=user.info.basic,video.publish,video.upload&response_type=code&redirect_uri='+r+'&state='+Date.now();}</script></body></html>
+location.href='https://www.tiktok.com/v2/auth/authorize/?client_key='+encodeURIComponent(k)+'&scope=user.info.basic,video.publish&response_type=code&redirect_uri='+r+'&state='+Date.now();}</script></body></html>

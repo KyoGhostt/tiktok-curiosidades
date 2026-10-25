@@ -2,5 +2,14 @@
 <h1>Curioso em Alta</h1>
 <p>Curioso em Alta is a personal content tool that creates short, original educational videos with fun facts about topics people are talking about, and publishes them to the owner's own TikTok account (<code>@curiosoemalta.br</code>).</p>
 <p><em>Ferramenta pessoal que cria vídeos curtos e originais com curiosidades educativas sobre assuntos em alta e os publica na própria conta do TikTok do autor.</em></p>
+<h2>Painel / Dashboard</h2>
+<div class="box"><p><b>1.</b> Connect the owner's TikTok account (one time) / Conecte a conta do TikTok (uma vez):</p>
+<p><a href="auth.html" style="display:inline-block;background:#fe2c55;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600">Connect TikTok account</a></p>
+<p><b>2.</b> The pipeline generates a new original video automatically / O sistema gera um vídeo novo automaticamente:</p>
+<video id="v" controls playsinline style="max-width:260px;width:100%;border-radius:8px;background:#000" src="https://raw.githubusercontent.com/KyoGhostt/tiktok-curiosidades/previews/latest.mp4"></video>
+<p id="meta" style="font-size:14px;color:#444">Loading latest video info...</p>
+<p><b>3.</b> The video is published with TikTok Direct Post, labeled as AI-generated content / Publicado com Direct Post, marcado como conteúdo de IA.</p></div>
+<script>fetch('https://raw.githubusercontent.com/KyoGhostt/tiktok-curiosidades/previews/info.json').then(r=>r.json()).then(d=>{
+document.getElementById('meta').textContent='Title: '+d.titulo+' | Caption: '+d.caption+' | Status: '+d.status}).catch(()=>{document.getElementById('meta').textContent='No video yet.'})</script>
 <ul><li><a href="privacy.html">Privacy Policy / Política de Privacidade</a></li><li><a href="terms.html">Terms of Service / Termos de Uso</a></li></ul>
 <p>Videos are labeled as AI-generated content. Contact: via the GitHub profile <a href="https://github.com/KyoGhostt">KyoGhostt</a>.</p></body></html>
