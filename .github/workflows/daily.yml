@@ -1,6 +1,6 @@
 name: curiosidades-diario
 on:
-  schedule: [{cron: "0 12,22 * * *"}]   # 09h e 19h de Brasília
+  schedule: [{cron: "0 9 * * *"}]   # 06h de Brasília: gera 1 história (3 partes)
   workflow_dispatch:
 permissions: {contents: write, issues: write}
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Restaurar histórico de temas
         run: |
           mkdir -p output
-          git fetch origin previews --depth=1 2>/dev/null && git show FETCH_HEAD:used_topics.json > output/used_topics.json 2>/dev/null || true
+          if git fetch origin previews --depth=1 2>/dev/null; then for f in used_topics.json used_stories.json schedule_state.json; do git show FETCH_HEAD:$f > output/$f 2>/dev/null || rm -f output/$f; done; fi
       - name: Gerar e publicar
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -29,18 +29,19 @@ jobs:
           HF_WRITE_TOKEN: ${{ secrets.HF_WRITE_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        run: python -u src/main.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+        run: python -u src/run.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Publicar prévia (branch previews)
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          D=$(ls -d output/2*/ 2>/dev/null | tail -1)
+          D=$(ls -d output/hist-*/ output/2*/ 2>/dev/null | tail -1)
           rm -rf /tmp/pv && mkdir /tmp/pv
-          [ -f output/used_topics.json ] && cp output/used_topics.json /tmp/pv/
-          if [ -n "$D" ] && [ -f "$D/video.mp4" ]; then
-            ffmpeg -y -loglevel error -i "$D/video.mp4" -vf "fps=1/4,scale=360:-1,tile=6x2" -frames:v 1 -q:v 3 /tmp/pv/contact.jpg || true
-            ffmpeg -y -loglevel error -i "$D/video.mp4" -vf scale=540:-2 -c:v libx264 -crf 30 -preset veryfast -c:a aac -b:a 96k /tmp/pv/latest.mp4 || true
+          cp output/*.json /tmp/pv/ 2>/dev/null || true
+          V=$(ls $D/parte1.mp4 $D/video.mp4 2>/dev/null | head -1)
+          if [ -n "$D" ] && [ -n "$V" ]; then
+            ffmpeg -y -loglevel error -i "$V" -vf "fps=1/4,scale=360:-1,tile=6x2" -frames:v 1 -q:v 3 /tmp/pv/contact.jpg || true
+            ffmpeg -y -loglevel error -i "$V" -vf scale=540:-2 -c:v libx264 -crf 30 -preset veryfast -c:a aac -b:a 96k /tmp/pv/latest.mp4 || true
             cp "$D/info.json" /tmp/pv/ 2>/dev/null || true
           fi
           cd /tmp/pv && git init -q -b previews && git config user.name github-actions && git config user.email actions@github.com

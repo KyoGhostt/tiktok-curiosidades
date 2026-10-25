@@ -1,0 +1,22 @@
+name: reddit-teste
+on: workflow_dispatch
+permissions: {issues: write, contents: read}
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testar acesso ao Reddit
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: |
+          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          {
+          for u in "https://www.reddit.com/r/AmItheAsshole/top.json?t=week&limit=3" \
+                   "https://old.reddit.com/r/AmItheAsshole/top.json?t=week&limit=3" \
+                   "https://www.reddit.com/r/AmItheAsshole/top/.rss?t=week&limit=3" \
+                   "https://www.reddit.com/r/relatosdereddit/top.json?t=month&limit=3" \
+                   "https://www.reddit.com/r/desabafos/top.json?t=month&limit=3"; do
+            code=$(curl -s -m 25 -A "$UA" -o /tmp/o.txt -w "%{http_code}" "$u")
+            echo "- $code  $u  ($(wc -c </tmp/o.txt) bytes)  $(head -c 90 /tmp/o.txt | tr '\n' ' ')"
+          done
+          } > r.md 2>&1
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "teste reddit $(date +%F-%H%M)" --body-file r.md
