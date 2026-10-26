@@ -83,4 +83,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: cd src && python -c "import telegram as t; t.configured() and t.send_message('❌ O gerador diário falhou. Detalhes: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID')"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          cd src
+          python -c "import os,telegram as t; t.configured() and t.send_message('Falhou o gerador diario. Veja: ' + os.environ['RUN_URL'])"
