@@ -53,6 +53,14 @@ def schedule(d, base_url):
         p["buffer_id"] = r["post"]["id"]
         print(f"buffer: parte {p['parte']} agendada {r['post']['dueAt']} id={p['buffer_id']}")
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))
+    try:
+        import telegram
+        if telegram.configured():
+            linhas = [f"📚 {info['titulo']}", f"({info['origem']})", "", "✅ Agendado no TikTok (Buffer):"]
+            linhas += [f"• Parte {p['parte']}/3: {p['quando']}" for p in info["partes"]]
+            telegram.send_message("\n".join(linhas))
+    except Exception as e:
+        print("aviso telegram:", e)
 
 
 if __name__ == "__main__":

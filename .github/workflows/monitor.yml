@@ -1,0 +1,20 @@
+name: monitor-buffer
+on:
+  schedule:
+    - cron: "30 15,21 * * *"   # 12h30 e 18h30 de Brasília
+    - cron: "30 0 * * *"       # 21h30 de Brasília
+  workflow_dispatch:
+env:
+  BUFFER_KEY_CREATED: "2026-10-25"   # data em que a chave foi criada (vale 1 ano)
+jobs:
+  vigiar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - name: Conferir postagens
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python src/monitor.py

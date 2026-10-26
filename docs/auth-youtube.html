@@ -1,8 +1,0 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Conectar YouTube</title>
-<style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 16px}</style></head><body>
-<h1>Conectar canal do YouTube</h1>
-<p>Cole o <b>Client ID</b> do Google (é público, não é o secret) e clique para autorizar.</p>
-<input id="k" placeholder="xxxx.apps.googleusercontent.com" style="width:100%;padding:10px;font-size:16px"><p><button onclick="go()" style="padding:10px 16px;font-size:16px">Autorizar no Google</button></p>
-<script>function go(){const k=document.getElementById('k').value.trim();if(!k)return;
-const r=encodeURIComponent(location.origin+location.pathname.replace('auth-youtube.html','callback.html'));
-location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(k)+'&redirect_uri='+r+'&response_type=code&scope='+encodeURIComponent('https://www.googleapis.com/auth/youtube.upload')+'&access_type=offline&prompt=consent&include_granted_scopes=true';}</script></body></html>

@@ -1,7 +1,0 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Conectar TikTok</title><style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 16px;color:#1b1b1f}h1{color:#16294f}a{color:#0b5fff}code{background:#f1f1f4;padding:2px 6px;border-radius:4px}.box{background:#fff8c5;border:1px solid #e8d44d;padding:12px 16px;border-radius:8px}</style></head><body>
-<h1>Conectar conta do TikTok</h1>
-<p>Cole o <b>Client key</b> do seu app (é público, não é o secret) e clique para autorizar.</p>
-<input id="k" placeholder="Client key" style="width:100%;padding:10px;font-size:16px"><p><button onclick="go()" style="padding:10px 16px;font-size:16px">Autorizar no TikTok</button></p>
-<script>function go(){const k=document.getElementById('k').value.trim();if(!k)return;
-const r=encodeURIComponent(location.origin+location.pathname.replace('auth.html','callback.html'));
-location.href='https://www.tiktok.com/v2/auth/authorize/?client_key='+encodeURIComponent(k)+'&scope=user.info.basic,video.publish&response_type=code&redirect_uri='+r+'&state='+Date.now();}</script></body></html>

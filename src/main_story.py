@@ -60,12 +60,6 @@ def build_package():
 
 if __name__ == "__main__":
     try:
-        pkg = build_package()
-        import telegram
-        if telegram.configured():
-            import notify
-            notify.deliver(pkg)
-        else:
-            print("Telegram não configurado: pacote só guardado")
+        build_package()
     except Exception:
         traceback.print_exc(); sys.exit(1)

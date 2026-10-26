@@ -1,8 +1,0 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Autorização - Curioso em Alta</title><style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 16px;color:#1b1b1f}h1{color:#16294f}a{color:#0b5fff}code{background:#f1f1f4;padding:2px 6px;border-radius:4px}.box{background:#fff8c5;border:1px solid #e8d44d;padding:12px 16px;border-radius:8px}</style></head><body>
-<h1>Autorização do TikTok</h1><div id="out">Aguardando...</div>
-<script>
-const q=new URLSearchParams(location.search), code=q.get('code'), err=q.get('error_description')||q.get('error');
-const o=document.getElementById('out');
-if(code){o.innerHTML='<p>Autorização recebida. Copie o código abaixo e envie para o Claude <b>agora</b> (vale poucos minutos e só funciona uma vez):</p><p><code id="c" style="word-break:break-all"></code></p><button onclick="navigator.clipboard.writeText(document.getElementById(\'c\').textContent)">Copiar código</button>';document.getElementById('c').textContent=code;}
-else if(err){o.textContent='Erro: '+err;} else {o.textContent='Nenhum código na URL. Volte e refaça a autorização.';}
-</script></body></html>
