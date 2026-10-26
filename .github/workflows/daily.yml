@@ -2,6 +2,8 @@ name: curiosidades-diario
 on:
   schedule: [{cron: "0 9 * * *"}]   # 06h de Brasília: gera 1 história (3 partes)
   workflow_dispatch:
+    inputs:
+      agendar: {description: "Agendar no Buffer? (false = só gerar e ver a prévia)", default: "true"}
 permissions: {contents: write, issues: write}
 jobs:
   run:
@@ -27,6 +29,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python -u src/run.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
       - name: Enviar ao Buffer (agenda no TikTok)
+        if: ${{ github.event.inputs.agendar != 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}

@@ -85,6 +85,23 @@ def candidates(query, used):
     return top[:4]
 
 
+SATISFYING = ["slime", "kinetic sand", "soap cutting", "satisfying", "paint mixing", "hydraulic press",
+              "marble run", "sand art", "slime asmr", "glitter", "foam", "clay"]
+
+
+def satisfying_candidates(used):
+    """Fundo 'que prende' (estilo slime/satisfatório): clipes livres do Pixabay, sem relação com o tema."""
+    qs = random.sample(SATISFYING, 4)
+    found = []
+    for q in qs:
+        try:
+            found += [c for c in _pixabay_videos(q) if c[0] not in used]
+        except Exception:
+            pass
+    random.shuffle(found)
+    return found[:6]
+
+
 def _luma(path):
     r = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-vf", "select=eq(n\\,20),signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-",
                         "-frames:v", "1", "-f", "null", "-"], capture_output=True, text=True)
@@ -104,7 +121,8 @@ def _render_media(url, kind, dur, workdir, i, out):
 
 def render_scene(query, dur, workdir, i, used):
     out = workdir / f"cena{i}.mp4"
-    for url, kind, _ in candidates(query, used):
+    cands = satisfying_candidates(used) if query == "@satisfying" else candidates(query, used)
+    for url, kind, _ in cands:
         used.add(url)
         try:
             _render_media(url, kind, dur, workdir, i, out)
