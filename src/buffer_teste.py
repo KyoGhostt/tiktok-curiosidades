@@ -30,3 +30,6 @@ for pid, inp in [
 ]:
     r = bp.gql(E, {"i": {"id": pid, **inp}})["editPost"]
     print(pid, r)
+    if r["__typename"] != "PostActionSuccess":
+        print(f"::error::editPost {pid}: {r}"); raise SystemExit(1)
+    print(f"::notice::editPost {pid} -> {r}")
