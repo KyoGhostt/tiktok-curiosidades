@@ -23,8 +23,8 @@ def build_package():
     slots = schedule.next_slots(3, now)
     d = OUT / ("hist-" + now.strftime("%Y%m%d-%H%M")); d.mkdir(parents=True)
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
-    tags_base = ["historiasdoreddit", "redditbrasil", "storytime"]
-    esp = [t.lstrip("#").replace(" ", "") for t in data.get("hashtags", [])][:4]
+    tags_base = ["historiasdoreddit", "storytime"]
+    esp = [t.lstrip("#").replace(" ", "") for t in data.get("hashtags", [])][:2]
     partes = []
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
@@ -43,7 +43,7 @@ def build_package():
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
         titulo = f"{data['titulo']} (Parte {i}/3)"
         cta = f"Parte {i+1} {schedule.quando(slots[i], slots[i-1])}!" if i < 3 else "Final! O que você teria feito? Comenta!"
-        tags = [f"parte{i}"] + tags_base + esp + ["fy"]
+        tags = ([f"parte{i}"] + tags_base + esp)[:5]  # TikTok limita a 5 hashtags
         cap = f"{titulo} {cta} {origem}. " + " ".join("#" + t for t in tags)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap, "duracao_s": round(secs),
                        "postar_em": slots[i-1].isoformat(), "quando": schedule.label(slots[i-1]), "avisos": probs})
