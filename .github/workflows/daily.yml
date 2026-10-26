@@ -58,6 +58,7 @@ jobs:
           D=$(ls -d output/hist-*/ output/2*/ 2>/dev/null | tail -1)
           rm -rf /tmp/pv && mkdir /tmp/pv
           cp output/*.json /tmp/pv/ 2>/dev/null || true
+          if [ "${{ github.event.inputs.agendar }}" = "false" ]; then for f in used_topics.json used_stories.json schedule_state.json; do git show FETCH_HEAD:$f > /tmp/pv/$f 2>/dev/null || rm -f /tmp/pv/$f; done; fi
           V=$(ls $D/parte1.mp4 $D/video.mp4 2>/dev/null | head -1)
           if [ -n "$D" ] && [ -n "$V" ]; then
             ffmpeg -y -loglevel error -i "$V" -vf "fps=1/4,scale=360:-1,tile=6x2" -frames:v 1 -q:v 3 /tmp/pv/contact.jpg || true
