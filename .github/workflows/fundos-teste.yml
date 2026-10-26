@@ -1,0 +1,28 @@
+name: fundos-teste
+on:
+  workflow_dispatch:
+    inputs:
+      buscas: {description: "Buscas separadas por | (vazio = padrão)", default: ""}
+permissions: {contents: write}
+jobs:
+  fundos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests pillow
+      - name: Montar folha de contato
+        env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          BUSCAS: ${{ github.event.inputs.buscas }}
+        run: |
+          IFS='|' read -ra Q <<< "$BUSCAS"
+          python src/fundos_teste.py "${Q[@]}"
+      - name: Publicar na branch previews
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          rm -rf /tmp/pv && git clone -q --depth=1 -b previews "$REMOTE" /tmp/pv
+          cp fundos.jpg /tmp/pv/ && cd /tmp/pv
+          git config user.name github-actions && git config user.email actions@github.com
+          git add -A && git commit -q -m "folha de fundos" && git push -q origin previews
