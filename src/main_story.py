@@ -29,20 +29,20 @@ def build_package():
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         words = tts.synth(p["texto"], mp3, voz)
-        ov = [(0, None, f"PARTE {i}/3", "Badge")]
+        ov = [(0, None, f"PARTE {i} DE 3", "Badge")]
         if i < 3:
             fim = (words[-1][1] if words else 0)
             ov.append((fim - 2.2, None, (p.get("gancho_final") or "A história continua").upper() +
-                       f"\\NPARTE {i+1} {schedule.quando(slots[i], slots[i-1]).upper()}", "End"))
+                       f"\\NCONTINUA NA PARTE {i+1}", "End"))
         dur = tts.make_ass(words, ass, script=p["texto"], overlays=ov)
         total = dur + 0.6
         fundos = data["fundos"]
         n = 6  # cortes mais curtos (~10s), cada um com um clipe diferente
-        scenes = [("@satisfying", total / n) for _ in range(n)]  # fundo satisfatório (slime etc.)
+        scenes = [(fundos[k % len(fundos)], total / n) for k in range(n)]  # fundos relacionados ao tema
         video.build(scenes, mp3, ass, total, d, mp4)
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
-        titulo = f"{data['titulo']} (Parte {i}/3)"
-        cta = f"Parte {i+1} {schedule.quando(slots[i], slots[i-1])}!" if i < 3 else "Final! O que você teria feito? Comenta!"
+        titulo = f"{data['titulo']} (Parte {i} de 3)"
+        cta = f"Continua na parte {i+1}!" if i < 3 else "Final! O que você teria feito? Comenta!"
         tags = ([f"parte{i}"] + tags_base + esp)[:5]  # TikTok limita a 5 hashtags
         cap = f"{titulo} {cta} {origem}. " + " ".join("#" + t for t in tags)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap, "duracao_s": round(secs),
