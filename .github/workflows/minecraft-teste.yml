@@ -1,0 +1,28 @@
+name: minecraft-teste
+on: workflow_dispatch
+permissions: {contents: write}
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Listar zips verticais e tamanhos
+        run: |
+          mkdir -p /tmp/mc && cd /tmp/mc
+          curl -sL https://automatesocials.com/gameplays/ | grep -o 'https://automatesocials.com/[0-9/]*minecraft-gameplay-[0-9]*/' | sort -u > pages.txt
+          wc -l pages.txt
+          : > zips.txt
+          while read p; do curl -sL "$p" | grep -o 'https://automatesocials.com/wp-content/uploads/[^"]*Vertical[^"]*\.zip' | sort -u | head -1 >> zips.txt; done < pages.txt
+          cat zips.txt
+          while read z; do echo "$(curl -sIL "$z" | grep -i '^content-length' | tail -1 | tr -d '\r') $z"; done < zips.txt
+      - name: Baixar um e inspecionar
+        run: |
+          cd /tmp/mc && Z=$(head -1 zips.txt) && curl -sL -o a.zip "$Z" && ls -la a.zip && unzip -o -q a.zip -d x && find x -type f | head && for f in $(find x -name '*.mp4' | head -3); do ffprobe -v error -show_entries stream=width,height,r_frame_rate,duration -of csv=p=0 "$f"; done
+          F=$(find x -name '*.mp4' | head -1); ffmpeg -y -loglevel error -ss 5 -i "$F" -frames:v 1 -vf scale=360:-2 /tmp/mc/frame.jpg
+          echo "::notice::zip $(stat -c %s a.zip) bytes"
+      - name: Publicar quadro
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: |
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          rm -rf /tmp/pv && git clone -q --depth=1 -b previews "$REMOTE" /tmp/pv && cp /tmp/mc/frame.jpg /tmp/pv/mc.jpg && cd /tmp/pv
+          git config user.name github-actions && git config user.email actions@github.com
+          git add -A && git commit -q -m "quadro minecraft" && git push -q origin previews
