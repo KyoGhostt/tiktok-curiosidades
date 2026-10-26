@@ -85,21 +85,25 @@ def candidates(query, used):
     return top[:4]
 
 
-SATISFYING = ["slime", "kinetic sand", "soap cutting", "satisfying", "paint mixing", "hydraulic press",
-              "marble run", "sand art", "slime asmr", "glitter", "foam", "clay"]
+SATISFYING = ["slime", "kinetic sand", "soap cutting", "paint mixing", "hydraulic press", "marble run",
+              "sand art", "glitter", "foam", "clay", "slime asmr", "play doh", "ink water"]
 
 
 def satisfying_candidates(used):
-    """Fundo 'que prende' (estilo slime/satisfatório): clipes livres do Pixabay, sem relação com o tema."""
-    qs = random.sample(SATISFYING, 4)
+    """Fundo 'que prende' (estilo slime/satisfatório): clipes livres do Pixabay, sem relação com o tema.
+    Só aceita clipes cujas tags batem com a busca (a busca genérica traz lixo: lâmpada, deserto, academia)."""
+    qs = random.sample(SATISFYING, 5)
     found = []
     for q in qs:
         try:
-            found += [c for c in _pixabay_videos(q) if c[0] not in used]
-        except Exception:
-            pass
+            got = [c for c in _pixabay_videos(q) if c[0] not in used and c[2] > 0]
+            random.shuffle(got)
+            found += got[:3]
+            print(f"fundo '{q}': {len(got)} clipes com tag certa", flush=True)
+        except Exception as e:
+            print(f"fundo '{q}': erro {e}", flush=True)
     random.shuffle(found)
-    return found[:6]
+    return found[:8]
 
 
 def _luma(path):
