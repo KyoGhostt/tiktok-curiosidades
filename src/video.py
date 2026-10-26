@@ -15,6 +15,7 @@ def run(cmd):
         raise RuntimeError("ffmpeg falhou: " + r.stderr[-600:])
 
 
+BAD_TAGS = ("cartoon", "funny", "character", "mascot", "3d", "animation", "ball", "icon", "run")
 AI_TAGS = ("ai generated", "ai-generated", "generative", "midjourney", "artificial intelligence", "ai art", "digital art")
 
 
@@ -40,7 +41,7 @@ def _pixabay_videos(q):
     for h in (r.json().get("hits", []) if r.ok else []):
         v = h["videos"].get("medium") or h["videos"].get("small")
         tags = h.get("tags", "")
-        if v and v.get("url") and h.get("duration", 0) >= 4 and not _is_ai(tags):
+        if v and v.get("url") and h.get("duration", 0) >= 4 and not _is_ai(tags) and not any(b in {x.strip() for x in tags.lower().split(",")} for b in BAD_TAGS):
             out.append((v["url"], "video", _score([tags], q)))
     return out
 
@@ -130,7 +131,7 @@ def render_scene(query, dur, workdir, i, used):
         used.add(url)
         try:
             _render_media(url, kind, dur, workdir, i, out)
-            if _luma(out) >= 35:
+            if 35 <= _luma(out) <= 215:
                 return out
         except Exception:
             continue
