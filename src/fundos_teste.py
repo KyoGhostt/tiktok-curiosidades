@@ -4,7 +4,7 @@ import requests
 from PIL import Image, ImageDraw
 
 KEY = os.environ["PIXABAY_API_KEY"]
-QUERIES = sys.argv[1:] or ["slime", "slime asmr", "soap", "kinetic sand", "play doh", "putty", "satisfying"]
+QUERIES = [a for a in sys.argv[1:] if a.strip()] or ["slime", "slime asmr", "soap", "kinetic sand", "play doh", "putty", "satisfying"]
 cells = []
 for q in QUERIES:
     r = requests.get("https://pixabay.com/api/videos/", params={"key": KEY, "q": q, "per_page": 12, "safesearch": "true"}, timeout=30)
