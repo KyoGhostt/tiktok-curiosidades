@@ -5,20 +5,21 @@ jobs:
   t:
     runs-on: ubuntu-latest
     steps:
-      - name: Listar zips verticais e tamanhos
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg unzip
+      - name: Listar, baixar e inspecionar
         run: |
-          mkdir -p /tmp/mc && cd /tmp/mc
+          mkdir -p /tmp/mc && cd /tmp/mc && R=/tmp/mc/report.txt && : > $R
           curl -sL https://automatesocials.com/gameplays/ | grep -o 'https://automatesocials.com/[0-9/]*minecraft-gameplay-[0-9]*/' | sort -u > pages.txt
-          wc -l pages.txt
+          echo "paginas: $(wc -l < pages.txt)" >> $R
           : > zips.txt
           while read p; do curl -sL "$p" | grep -o 'https://automatesocials.com/wp-content/uploads/[^"]*Vertical[^"]*\.zip' | sort -u | head -1 >> zips.txt; done < pages.txt
-          cat zips.txt
-          while read z; do echo "$(curl -sIL "$z" | grep -i '^content-length' | tail -1 | tr -d '\r') $z"; done < zips.txt
-      - name: Baixar um e inspecionar
-        run: |
-          cd /tmp/mc && Z=$(head -1 zips.txt) && curl -sL -o a.zip "$Z" && ls -la a.zip && unzip -o -q a.zip -d x && find x -type f | head && for f in $(find x -name '*.mp4' | head -3); do ffprobe -v error -show_entries stream=width,height,r_frame_rate,duration -of csv=p=0 "$f"; done
-          F=$(find x -name '*.mp4' | head -1); ffmpeg -y -loglevel error -ss 5 -i "$F" -frames:v 1 -vf scale=360:-2 /tmp/mc/frame.jpg
-          echo "::notice::zip $(stat -c %s a.zip) bytes"
+          echo "zips verticais: $(grep -c . zips.txt)" >> $R
+          while read z; do echo "$(curl -sIL "$z" | grep -i '^content-length' | tail -1 | tr -d '\r' | awk '{printf "%d MB", $2/1048576}') $(basename $z)" >> $R; done < zips.txt
+          Z=$(head -1 zips.txt); curl -sL -o a.zip "$Z"; echo "baixado: $(stat -c %s a.zip) bytes" >> $R
+          unzip -o -q a.zip -d x; find x -type f >> $R
+          for f in $(find x -iname '*.mp4' | head -3); do echo "$f: $(ffprobe -v error -show_entries stream=width,height,r_frame_rate:format=duration -of csv=p=0 "$f" | tr '\n' ' ')" >> $R; done
+          F=$(find x -iname '*.mp4' | head -1); ffmpeg -y -loglevel error -ss 5 -i "$F" -frames:v 1 -vf scale=360:-2 /tmp/mc/frame.jpg
+          echo "::notice title=minecraft::$(tr '\n' '|' < $R | cut -c1-1500)"
       - name: Publicar quadro
         env: {GH_TOKEN: "${{ github.token }}"}
         run: |
