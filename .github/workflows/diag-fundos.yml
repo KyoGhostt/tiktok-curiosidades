@@ -1,0 +1,17 @@
+name: diag-fundos
+on: workflow_dispatch
+permissions: {contents: write}
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core && pip install requests
+      - env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -u src/diag_fundos.py /tmp/d
+          mkdir /tmp/pv && cp /tmp/d/folha.jpg /tmp/d/lista.json /tmp/pv/
+          cd /tmp/pv && git init -q -b diag && git config user.name github-actions && git config user.email actions@github.com
+          git add -A && git commit -q -m diag && git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}" diag
