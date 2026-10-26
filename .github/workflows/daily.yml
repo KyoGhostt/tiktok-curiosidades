@@ -31,7 +31,26 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: python -u src/run.py 2>&1 | tee run.log; exit ${PIPESTATUS[0]}
+      - name: Enviar ao Buffer (agenda no TikTok)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          D=$(ls -d output/hist-*/ output/2*/ 2>/dev/null | tail -1)
+          [ -n "$D" ] && [ -f "$D/info.json" ] || { echo "sem pacote"; exit 0; }
+          [ -n "$BUFFER_API_KEY" ] || { echo "BUFFER_API_KEY ausente: pulando"; exit 0; }
+          D=${D%/}; N=$(basename "$D")
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          rm -rf /tmp/media && mkdir /tmp/media && cd /tmp/media && git init -q -b media
+          git config user.name github-actions && git config user.email actions@github.com
+          if git fetch -q "$REMOTE" media --depth=1 2>/dev/null; then git checkout -q FETCH_HEAD -B media; fi
+          find . -maxdepth 1 -mindepth 1 -type d ! -name .git -mtime +4 -exec rm -rf {} +
+          mkdir -p "$N" && cp "$GITHUB_WORKSPACE/$D"/parte*.mp4 "$N"/
+          git add -A && git commit -q -m "media $N" && git push -q -f "$REMOTE" media
+          cd "$GITHUB_WORKSPACE"
+          python -u src/buffer_post.py "$D" "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/media" 2>&1 | tee -a run.log
       - name: Publicar prévia (branch previews)
         if: always()
         env:
