@@ -40,13 +40,15 @@ jobs:
             E=$(python src/fila.py estoque)
             echo "== estoque $E / alvo $ALVO"
             [ "$E" -ge "$ALVO" ] && break
-            if python -u src/run.py 2>&1 | tee -a run.log; then
+            if python -u src/run.py 2>&1 | tee /tmp/hist.log; then
               D=$(ls -dt output/hist-*/ | head -1)
               python src/fila.py add "${D%/}"
               cp output/used_*.json /tmp/estado/ 2>/dev/null || true
               [ -f /tmp/previa.done ] || { touch /tmp/previa.done; cp -r "${D%/}" /tmp/primeira; }
             else
-              echo "::warning::história $i falhou, tentando outra"
+              echo "::warning::história $i falhou: $(tail -n 4 /tmp/hist.log | tr '\n' '|' | cut -c1-400)"
+              [ "$i" -ge 3 ] && [ "$E" -eq 0 ] && [ "${FALHAS:-0}" -ge 2 ] && break
+              FALHAS=$((${FALHAS:-0}+1))
             fi
           done
           python src/fila.py limpar

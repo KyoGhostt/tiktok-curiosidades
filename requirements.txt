@@ -1,3 +1,4 @@
 edge-tts>=7.3.1
 requests>=2.31
 huggingface_hub>=0.25
+pillow>=10
