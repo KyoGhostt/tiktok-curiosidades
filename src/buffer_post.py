@@ -1,5 +1,4 @@
-"""Agenda as 3 partes da história no Buffer (TikTok, publicação automática).
-O Buffer precisa de um link PÚBLICO e estável até a hora de postar: os vídeos ficam na branch `media`."""
+"""Cliente mínimo da API do Buffer (GraphQL)."""
 import json, os, sys
 from pathlib import Path
 import requests
@@ -33,37 +32,3 @@ def tiktok_channel():
             if c["service"] == "tiktok" and not c["isDisconnected"] and not c["isLocked"]:
                 return c["id"]
     raise RuntimeError("Nenhum canal TikTok conectado no Buffer")
-
-
-def schedule(d, base_url):
-    d = Path(d)
-    info = json.loads((d / "info.json").read_text())
-    ch = tiktok_channel()
-    for p in info["partes"]:
-        if p.get("buffer_id"):
-            continue
-        url = f"{base_url}/{d.name}/{p['arquivo']}"
-        r = gql(M_POST, {"i": {
-            "channelId": ch, "schedulingType": "automatic", "mode": "customScheduled",
-            "dueAt": p["postar_em"], "text": p["legenda"], "aiAssisted": True,
-            "assets": [{"video": {"url": url}}],
-            "metadata": {"tiktok": {"isAiGenerated": True, "title": p["titulo"][:90]}}}})["createPost"]
-        if r["__typename"] != "PostActionSuccess":
-            raise RuntimeError(f"Buffer recusou parte {p['parte']}: {r.get('message')}")
-        p["buffer_id"] = r["post"]["id"]
-        print(f"buffer: parte {p['parte']} agendada {r['post']['dueAt']} id={p['buffer_id']}")
-    (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))
-    try:
-        import telegram
-        if telegram.configured():
-            linhas = [f"📚 {info['titulo']}", f"({info['origem']})", "", "✅ Agendado no TikTok (Buffer):"]
-            linhas += [f"• Parte {p['parte']}/3: {p['quando']}" for p in info["partes"]]
-            telegram.send_message("\n".join(linhas))
-    except Exception as e:
-        print("aviso telegram:", e)
-
-
-if __name__ == "__main__":
-    if not key():
-        print("Buffer não configurado (secret BUFFER_API_KEY ausente)"); sys.exit(0)
-    schedule(sys.argv[1], sys.argv[2])

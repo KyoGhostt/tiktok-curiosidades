@@ -1,20 +1,38 @@
 name: monitor-buffer
 on:
   schedule:
-    - cron: "30 15,21 * * *"   # 12h30 e 18h30 de Brasília
-    - cron: "30 0 * * *"       # 21h30 de Brasília
+    - cron: "30 9,15,21 * * *"   # 06h30, 12h30 e 18h30 de Brasília
+    - cron: "30 0 * * *"         # 21h30 de Brasília
   workflow_dispatch:
+    inputs:
+      retomar: {description: "true = tira a fila da pausa", default: "false"}
+permissions: {contents: write, actions: write}
+concurrency: {group: fila, cancel-in-progress: false}
 env:
   BUFFER_KEY_CREATED: "2026-10-25"   # data em que a chave foi criada (vale 1 ano)
 jobs:
   vigiar:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONPATH: src
+      ESTADO_DIR: /tmp/estado
     steps:
       - uses: actions/checkout@v4
       - run: pip install requests
-      - name: Conferir postagens
-        env:
-          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python src/monitor.py
+      - name: Conferir postagens e agendar o que falta
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          [ "${{ github.event.inputs.retomar }}" = "true" ] && python src/fila.py retomar || true
+          python src/monitor.py || true
+          python src/fila.py encher
+          push_estado
+          E=$(python src/fila.py estoque); echo "estoque: $E partes"
+          if [ "$E" -lt 6 ]; then
+            python -c "import telegram as t; t.configured() and t.send_message('Estoque baixo ($E partes). Gerando mais historias agora.')" || true
+            gh workflow run gerar-semana.yml
+          fi

@@ -1,0 +1,84 @@
+name: gerar-semana
+on:
+  schedule: [{cron: "0 9 * * 0"}]   # domingo 06h de Brasília: enche o estoque da semana
+  workflow_dispatch:
+    inputs:
+      alvo: {description: "Partes em estoque a alcançar (21 = uma semana, 3 vídeos por dia)", default: "21"}
+      pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes)", default: "false"}
+permissions: {contents: write, issues: write, actions: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core fonts-montserrat
+      - run: pip install -r requirements.txt
+      - name: Preparar estoque
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado; prep media /tmp/media
+          mkdir -p output && cp /tmp/estado/used_*.json output/ 2>/dev/null || true
+      - name: Gerar histórias até completar o estoque
+        run: |
+          set -o pipefail
+          ALVO=${{ github.event.inputs.alvo || '21' }}
+          export ESTADO_DIR=/tmp/estado MEDIA_DIR=/tmp/media
+          for i in $(seq 1 12); do
+            E=$(python src/fila.py estoque)
+            echo "== estoque $E / alvo $ALVO"
+            [ "$E" -ge "$ALVO" ] && break
+            if python -u src/run.py 2>&1 | tee -a run.log; then
+              D=$(ls -dt output/hist-*/ | head -1)
+              python src/fila.py add "${D%/}"
+              cp output/used_*.json /tmp/estado/ 2>/dev/null || true
+              [ -f /tmp/previa.done ] || { touch /tmp/previa.done; cp -r "${D%/}" /tmp/primeira; }
+            else
+              echo "::warning::história $i falhou, tentando outra"
+            fi
+          done
+          python src/fila.py limpar
+          [ "${{ github.event.inputs.pausar }}" = "true" ] && python src/fila.py pausar || true
+          E=$(python src/fila.py estoque); echo "estoque final: $E"
+          [ "$E" -lt "$ALVO" ] && python -c "import telegram as t; t.configured() and t.send_message('Estoque ficou em $E partes (alvo $ALVO): algumas historias falharam.')" || true
+      - name: Guardar vídeos e estoque
+        run: |
+          source scripts/branches.sh
+          push_media; push_estado
+      - name: Prévia da primeira história (para revisar)
+        if: always()
+        run: |
+          [ -d /tmp/primeira ] || exit 0
+          source scripts/branches.sh
+          rm -rf /tmp/pv; git clone -q --depth=1 -b previews "$REMOTE" /tmp/pv 2>/dev/null || { mkdir -p /tmp/pv; }
+          V=/tmp/primeira/parte1.mp4
+          ffmpeg -y -loglevel error -i "$V" -vf "fps=1/6,scale=270:-1,tile=6x2" -frames:v 1 -q:v 3 /tmp/pv/contact.jpg || true
+          ffmpeg -y -loglevel error -i "$V" -vf scale=540:-2 -c:v libx264 -crf 30 -preset veryfast -c:a aac -b:a 96k /tmp/pv/latest.mp4 || true
+          cp /tmp/primeira/info.json /tmp/pv/info.json
+          cd /tmp/pv && rm -rf .git && git init -q -b previews && _git
+          git add -A && git commit -q -m "previa $(date +%F-%H%M)" && git push -q -f "$REMOTE" HEAD:previews
+      - name: Agendar no Buffer
+        run: |
+          export ESTADO_DIR=/tmp/estado
+          sleep 20   # deixa o GitHub liberar os links públicos
+          python -u src/fila.py encher
+          source scripts/branches.sh; push_estado
+      - name: Avisar no Telegram se falhar
+        if: failure()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          cd src
+          python -c "import os,telegram as t; t.configured() and t.send_message('Falhou a geracao da semana. Veja: ' + os.environ['RUN_URL'])"

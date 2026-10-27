@@ -140,8 +140,31 @@ def render_scene(query, dur, workdir, i, used):
     return out
 
 
-def build(scenes, mp3, ass, total, workdir, out):
-    """scenes: [(busca, duracao_segundos)]"""
+def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
+    """Passo final: fundo + (cartão de abertura) + legenda + voz."""
+    ass_path = str(Path(ass).resolve()).replace(":", r"\:")
+    cmd = ["ffmpeg", "-y", *bg_inputs, "-i", str(mp3)]
+    if card:
+        cmd += ["-loop", "1", "-i", str(card)]
+        fc = (f"[0:v]{vf_bg}[bg];[bg][2:v]overlay=0:0:enable='between(t,0,{card_s})'[v1];"
+              f"[v1]subtitles='{ass_path}'[v]")
+    else:
+        fc = f"[0:v]{vf_bg},subtitles='{ass_path}'[v]"
+    cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "1:a", "-t", f"{total:.2f}", "-c:v", "libx264",
+            "-preset", "veryfast", "-crf", "26", "-maxrate", "5M", "-bufsize", "10M", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(out)]
+    run(cmd)
+
+
+def build_mc(src, start, total, mp3, ass, out, card=None):
+    """Fundo = gameplay vertical de Minecraft a partir de `start` (continua de onde a parte anterior parou)."""
+    vf = ("scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,"
+          "eq=brightness=-0.05:saturation=0.95")
+    _final(["-ss", f"{start:.2f}", "-stream_loop", "-1", "-i", str(src)], vf, mp3, ass, total, out, card)
+
+
+def build(scenes, mp3, ass, total, workdir, out, card=None):
+    """scenes: [(busca, duracao_segundos)] — fundo com clipes de stock relacionados ao tema."""
     used, parts = set(), []
     for i, (q, d) in enumerate(scenes):
         parts.append(render_scene(q, d, workdir, i, used))
@@ -149,7 +172,4 @@ def build(scenes, mp3, ass, total, workdir, out):
     lst.write_text("".join(f"file '{p.resolve()}'\n" for p in parts))
     bg = workdir / "fundo.mp4"
     run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(bg)])
-    ass_path = str(Path(ass).resolve()).replace(":", r"\:")
-    run(["ffmpeg", "-y", "-i", str(bg), "-i", str(mp3), "-vf", f"eq=brightness=-0.06:saturation=1.1,subtitles='{ass_path}'",
-         "-map", "0:v", "-map", "1:a", "-t", f"{total:.2f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
-         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(out)])
+    _final(["-i", str(bg)], "eq=brightness=-0.06:saturation=1.1", mp3, ass, total, out, card)
