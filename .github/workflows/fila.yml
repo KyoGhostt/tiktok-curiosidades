@@ -1,0 +1,46 @@
+name: fila-buffer
+on:
+  schedule: [{cron: "20 */6 * * *"}]   # de 6 em 6 horas: completa o Buffer com o estoque
+  workflow_dispatch:
+    inputs:
+      acao: {description: "encher | retomar (despausa e enche) | pausar | estado", default: "encher"}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  fila:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONPATH: src
+      ESTADO_DIR: /tmp/estado
+      MEDIA_DIR: /tmp/media
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - name: Executar
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado; prep media /tmp/media
+          A="${{ github.event.inputs.acao || 'encher' }}"
+          if [ "$A" = "estado" ]; then
+            python - <<'PY'
+          import json
+          f=json.load(open('/tmp/estado/fila.json'))
+          print('::notice::pausado=%s' % f.get('pausado'))
+          for s in f['stories']:
+              print('::notice::%s | %s' % (s['titulo'], ' '.join('%s:%s' % (p['parte'],p['status']) for p in s['partes'])))
+          PY
+            exit 0
+          fi
+          [ "$A" = "retomar" ] && python src/fila.py retomar
+          [ "$A" = "pausar" ] && python src/fila.py pausar
+          if [ "$A" = "encher" ] || [ "$A" = "retomar" ]; then
+            python -u src/fila.py encher
+            E=$(python src/fila.py estoque)
+            [ "$E" -lt 6 ] && python -c "import telegram as t; t.configured() and t.send_message('Estoque baixo: so $E partes. Rode a geracao da semana (gerar-semana).')" || true
+          fi
+          push_estado
