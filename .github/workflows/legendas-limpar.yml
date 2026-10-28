@@ -1,0 +1,24 @@
+name: legendas-limpar
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  limpar:
+    runs-on: ubuntu-latest
+    env: {GH_TOKEN: "${{ github.token }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tirar "Baseado em relato do Reddit" das legendas do estoque
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          python - <<'PY'
+          import json, re
+          p='/tmp/estado/fila.json'; f=json.load(open(p)); n=0
+          for s in f['stories']:
+              for x in s['partes']:
+                  novo=re.sub(r'\s*(Baseado em relato do Reddit \([^)]*\)|História fictícia)\.?', '', x['legenda']).replace('  ',' ').strip()
+                  if novo!=x['legenda']: x['legenda']=novo; n+=1
+          json.dump(f,open(p,'w'),ensure_ascii=False,indent=1); print('::notice::legendas limpas:',n)
+          PY
+          push_estado

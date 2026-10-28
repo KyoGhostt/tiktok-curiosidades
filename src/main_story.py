@@ -55,7 +55,7 @@ def build_package():
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
         cta = f"Continua na parte {i+1}!" if i < n else "Final! O que você teria feito? Comenta!"
         tags = ([f"parte{i}"] + tags_base + esp)[:5]  # TikTok limita a 5 hashtags
-        cap = f"{titulo} {cta} {origem}. " + " ".join("#" + t for t in tags)
+        cap = f"{titulo} {cta} " + " ".join("#" + t for t in tags)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": "minecraft" if clip else "stock"})
         print(f"parte {i}/{n}: {secs:.0f}s fundo={'minecraft' if clip else 'stock'} avisos={probs}", flush=True)
