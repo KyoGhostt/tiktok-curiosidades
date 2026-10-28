@@ -8,17 +8,30 @@ jobs:
     env: {GH_TOKEN: "${{ github.token }}"}
     steps:
       - uses: actions/checkout@v4
-      - name: Tirar "Baseado em relato do Reddit" das legendas do estoque
+      - name: Trocar hashtags inventadas por hashtags reais do tema (partes ainda não agendadas)
         run: |
           source scripts/branches.sh
           prep estado /tmp/estado
           python - <<'PY'
-          import json, re
+          import json, re, unicodedata
+          def norm(t): return unicodedata.normalize('NFD', t.lower()).encode('ascii','ignore').decode()
+          def tema(t):
+              t = norm(t)
+              if re.search(r'chefe|equipe|trabalho|emprego|colega', t): return ['chefe','trabalho']
+              if re.search(r'marido|espos|namor|casament|aniversario|ex-', t): return ['relacionamento','casal']
+              if re.search(r'mae|pai|irma|sogr|familia|filh', t): return ['familia','drama']
+              if re.search(r'vizinh', t): return ['vizinhos','confusao']
+              return ['drama','historiasreais']
           p='/tmp/estado/fila.json'; f=json.load(open(p)); n=0
           for s in f['stories']:
               for x in s['partes']:
-                  novo=re.sub(r'\s*(Baseado em relato do Reddit \([^)]*\)|História fictícia)\.?', '', x['legenda']).replace('  ',' ').strip()
+                  if x['status']!='pendente': continue
+                  tags=re.findall(r'#\S+', x['legenda'])
+                  corpo=x['legenda'][:x['legenda'].index('#')].strip()
+                  base=tags[:3]
+                  novo=corpo+' '+' '.join(base+['#'+t for t in tema(s['titulo'])])
                   if novo!=x['legenda']: x['legenda']=novo; n+=1
-          json.dump(f,open(p,'w'),ensure_ascii=False,indent=1); print('::notice::legendas limpas:',n)
+          json.dump(f,open(p,'w'),ensure_ascii=False,indent=1); print('::notice::legendas retag:',n)
+          for s in f['stories'][:6]: print('::notice::',s['partes'][0]['legenda'][-90:])
           PY
           push_estado

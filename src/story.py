@@ -23,7 +23,7 @@ suicídio, drogas pesadas, política ou partidos, discurso de ódio, ou pessoas 
 Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a palavra parte", "genero_narrador": "m" ou "f",
 "partes": [{"texto": str, "gancho_final": "4 a 8 palavras chamando para a próxima parte (vazio na última)"}, ... N itens],
 "fundos": ["4 buscas em inglês de 1 a 2 palavras, de vídeo de fundo calmo, variado e com movimento, ex: rain window, night city, driving road, coffee shop"],
-"hashtags": ["4 hashtags específicas da história, sem #"]}"""
+"tema": "UM destes, o que melhor descreve a história: trabalho, relacionamento, familia, vinganca, vizinhos, amizade, escola, drama"}"""
 
 
 def _used():

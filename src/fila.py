@@ -12,7 +12,7 @@ ESTADO = Path(os.environ.get("ESTADO_DIR", "/tmp/estado"))
 MEDIA = Path(os.environ.get("MEDIA_DIR", "/tmp/media"))
 REPO = os.environ.get("GITHUB_REPOSITORY", "KyoGhostt/tiktok-curiosidades")
 RAW = f"https://raw.githubusercontent.com/{REPO}/media"
-LIMITE = int(os.environ.get("LIMITE_BUFFER", "9"))   # o plano grátis aceita 10; 1 fica de folga
+LIMITE = int(os.environ.get("LIMITE_BUFFER", "10"))   # o plano grátis aceita 10 agendados; o dia incompleto é completado nas próximas rodadas
 FILA = ESTADO / "fila.json"
 
 Q_POSTS = """query($o:OrganizationId!,$s:DateTime!){posts(first:100,input:{organizationId:$o,

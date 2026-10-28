@@ -4,6 +4,10 @@ from datetime import datetime
 from config import OUT
 import story, schedule, tts, video, reviewer, writer, capa, mc
 
+# Hashtags reais e muito usadas em PT-BR por tema (tags compostas inventadas não têm busca nenhuma)
+TEMAS = {"trabalho": ["chefe", "trabalho"], "relacionamento": ["relacionamento", "casal"], "familia": ["familia", "drama"],
+         "vinganca": ["vinganca", "justica"], "vizinhos": ["vizinhos", "confusao"], "amizade": ["amizade", "drama"],
+         "escola": ["escola", "adolescencia"], "drama": ["drama", "historiasreais"]}
 VOZES = {"m": "pt-BR-AntonioNeural", "f": "pt-BR-FranciscaNeural"}
 
 
@@ -26,7 +30,7 @@ def build_package():
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
     n = len(data["partes"])
     tags_base = ["historiasdoreddit", "storytime"]
-    esp = [t.lstrip("#").replace(" ", "") for t in data.get("hashtags", [])][:2]
+    esp = TEMAS.get(data.get("tema", ""), TEMAS["drama"])
     clip = mc.pick_clip()  # um gameplay por história; cada parte continua de onde a anterior parou
     pos = 0.0
     if clip:
