@@ -8,11 +8,12 @@ Reddit (RSS) → LLM (Gemini/Groq) adapta p/ PT-BR em 3 partes → voz (edge-tts
                                                        └→ monitor avisa no Telegram: postado, erro, fila vazia, chave vencendo
 ```
 
-## Workflows
+## Workflows (detalhes em STATUS.md)
 | Arquivo | Quando | O que faz |
 |---|---|---|
-| `daily.yml` | todo dia 06h (Brasília) | gera a história, publica os vídeos na branch `media` e agenda no Buffer; avisa no Telegram se falhar |
-| `monitor.yml` | 12h30, 18h30, 21h30 | confere o Buffer e avisa no Telegram (✅ postado, ❌ erro, 📭 fila vazia, 🔑 chave perto de vencer) |
+| `gerar-semana.yml` | domingo 06h (Brasília) | gera a semana (histórias de 3-6 partes, fundo Minecraft, capa) e guarda no estoque |
+| `fila.yml` | a cada 6 h | completa o Buffer com o estoque (limite de 10 agendados) |
+| `monitor.yml` | 12h30, 18h30, 21h30 | avisa no Telegram: postado, erro, fila vazia, chave vencendo |
 | `telegram-conectar.yml` | manual | descobre o chat id do Telegram |
 
 ## Secrets (Settings → Secrets → Actions)
