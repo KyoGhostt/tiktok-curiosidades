@@ -14,8 +14,10 @@ Atualizado: 28/10/2026
 - Telegram conectado (avisos). Fundos de Minecraft vertical (Automate Socials, licença livre) baixados e usados.
 - 28/10: fila estava PAUSADA por engano (2 dias sem posts); retomada e Buffer reabastecido com 9 partes (até 31/10).
 
+- 28/10: legendas sem "Baseado em relato do Reddit" (código, estoque e 9 posts do Buffer). gerar-semana agora roda domingo e quarta.
+
 ## Pendente / ideias
-- Fundos de YouTube (GTA V, Roblox, Subway Surfers): só com vídeo cuja licença seja explícita; yt-dlp pode ser bloqueado no Actions.
+- Fundos de YouTube (GTA V, Roblox, Subway Surfers): TESTADO em 28/10: o YouTube bloqueia o GitHub Actions ("Sign in to confirm you're not a bot"), yt-dlp não funciona sem cookies. Caminho alternativo: usuário baixa os clipes e sobe num dataset do Hugging Face (upload pelo navegador aceita arquivos grandes); o código baixa de lá.
 - Conferir no TikTok se a capa (quadro em 1,5 s) foi respeitada.
 - Fundo "slime/ASMR" não existe no Pixabay; opção futura: o usuário sobe clipes.
 - Workflow "pages build" falha (docs removidos); pode desativar o GitHub Pages.
