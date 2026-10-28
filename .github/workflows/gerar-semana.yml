@@ -3,7 +3,7 @@ on:
   schedule: [{cron: "0 9 * * 0,3"}]   # domingo e quarta, 06h de Brasília: repõe o estoque (21 partes = 1 semana)
   workflow_dispatch:
     inputs:
-      alvo: {description: "Partes em estoque a alcançar (21 = uma semana, 3 vídeos por dia)", default: "21"}
+      alvo: {description: "Partes em estoque a alcançar (18 = uma semana, 3 vídeos por dia, sem domingo)", default: "18"}
       pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes)", default: "false"}
 permissions: {contents: write, issues: write, actions: write}
 concurrency: {group: fila, cancel-in-progress: false}
@@ -34,7 +34,7 @@ jobs:
       - name: Gerar histórias até completar o estoque
         run: |
           set -o pipefail
-          ALVO=${{ github.event.inputs.alvo || '21' }}
+          ALVO=${{ github.event.inputs.alvo || '18' }}
           export ESTADO_DIR=/tmp/estado MEDIA_DIR=/tmp/media
           for i in $(seq 1 12); do
             E=$(python src/fila.py estoque)

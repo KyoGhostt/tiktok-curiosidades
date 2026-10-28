@@ -23,9 +23,10 @@ def slots_after(t, n):
     t = t.astimezone(TZ)
     out, day = [], t.date()
     while len(out) < n:
-        for h, m in SLOTS:
-            dt = datetime(day.year, day.month, day.day, h, m, tzinfo=TZ)
-            if dt > t and len(out) < n:
-                out.append(dt)
+        if day.weekday() != 6:   # domingo é folga: nenhum vídeo
+            for h, m in SLOTS:
+                dt = datetime(day.year, day.month, day.day, h, m, tzinfo=TZ)
+                if dt > t and len(out) < n:
+                    out.append(dt)
         day += timedelta(days=1)
     return out
