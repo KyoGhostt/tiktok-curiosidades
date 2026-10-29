@@ -19,6 +19,13 @@ Atualizado: 28/10/2026
 - Estado em branch `estado`: `otimizacao.json` (horários, hashtags, histórico), `otimizar-log.txt` (último relatório). Relatório no Telegram.
 - Código: `src/otimo.py` (config lida por schedule/fila/main_story), `src/otimizar.py`, `src/fontes.py`.
 
+## Fundos de jogos (29/10)
+- Pixabay descartado (não tem gameplay). YouTube bloqueado no Actions; Piped/Invidious/cobalt também (403/auth).
+- Internet Archive funciona no Actions: `src/mc.py` agora sorteia por história entre Minecraft (Automate Socials) e Subway Surfers
+  vertical (itens `subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1` (CC0), `vcompress_452`, `vcompress_144`, `recorder-18052024-072057`);
+  se uma fonte cair, usa a outra. `MC_JOGO=minecraft|subway` força um. Amostra: workflow `fundos-jogos`.
+- Roblox/GTA V no Archive só existem em 16:9 (horizontal) e GTA é violento: não usados (cortar perderia qualidade).
+
 ## Feito
 - Buffer conectado (canal TikTok curiosoemalta); chave no secret BUFFER_API_KEY (vence ~25/10/2027; atualizar BUFFER_KEY_CREATED no monitor.yml).
 - Telegram conectado (avisos). Fundos de Minecraft vertical (Automate Socials, licença livre) baixados e usados.
