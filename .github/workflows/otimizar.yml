@@ -25,6 +25,6 @@ jobs:
           source scripts/branches.sh
           prep estado /tmp/estado
           A="${{ github.event.inputs.acao || 'rodar' }}"
-          if [ "$A" = "schema" ]; then python -u src/schema_dump.py; exit 0; fi
+          if [ "$A" = "schema" ]; then python -u src/schema_dump.py 2>&1 | while IFS= read -r l; do echo "::notice::$l"; done; exit 0; fi
           python -u src/otimizar.py "$A"
           [ "$A" = "rodar" ] && push_estado || true
