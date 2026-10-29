@@ -1,7 +1,7 @@
 # Biblioteca de fundos: uma linha por vídeo do YouTube no formato  jogo|link   (jogo = subway, gta, roblox, minecraft)
 # Rode o workflow "biblioteca" depois de salvar o cookie no secret YT_COOKIES. Só vídeos VERTICAIS; os quadros de conferência
 # (sem placar/menus/webcam) decidem o que entra em fundos/aprovados.txt.
-# Achados via vidIQ em 29/10/2026. Os canais pedem crédito na descrição (OrbitalNCG, Dope Gameplays, Bloxu); "No copyright" é declaração do canal.
+# Achados via vidIQ em 29/10/2026. Decisão do dono (29/10): NÃO colocar crédito dos canais nas legendas.
 # --- Subway Surfers (vertical) ---
 subway|https://www.youtube.com/watch?v=AwQSObT2VCo
 subway|https://www.youtube.com/watch?v=XYC1Qtu1kZo

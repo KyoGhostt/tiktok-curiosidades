@@ -33,7 +33,7 @@ Atualizado: 28/10/2026
 - Fluxo: lista em `fundos/links.txt` (`jogo|link`, só verticais) -> workflow `biblioteca` (usa secret `YT_COOKIES`, formato cookies.txt)
   -> padroniza 1080x1920 sem áudio (máx. 20 min) -> guarda no release + quadros de conferência no branch `previews`
   -> depois de conferir (sem placar/menus/webcam) o arquivo entra em `fundos/aprovados.txt` -> `mc.pick_biblioteca()` passa a sorteá-lo.
-- `fundos/links.txt` já tem 12 links verticais achados pelo vidIQ (GTA mega ramp e Roblox/Minecraft do canal OrbitalNCG/Orbital, Roblox Glide Tower da Bloxu, Subway). Os canais pedem crédito na descrição.
+- `fundos/links.txt` já tem 12 links verticais achados pelo vidIQ (GTA mega ramp e Roblox/Minecraft do canal OrbitalNCG/Orbital, Roblox Glide Tower da Bloxu, Subway). Decisão do dono: sem crédito dos canais nas legendas (o pedido deles não é exigência).
 - Pendente: usuário criar o secret YT_COOKIES (conta secundária) e rodar o workflow `biblioteca`; depois conferir quadros e preencher `fundos/aprovados.txt`.
 
 ## vidIQ (conectado em 29/10, plano grátis: 150 créditos/mês; busca de outliers TikTok/IG = 5 créditos)
