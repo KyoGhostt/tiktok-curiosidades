@@ -15,6 +15,6 @@ jobs:
       - run: |
           source scripts/branches.sh
           mkdir -p /tmp/previews
-          python -u src/fundos_jogos.py /tmp/previews 2>&1 | tee /tmp/previews/fundos-jogos.txt
+          python -u src/fundos_rotas.py 2>&1 | tee /tmp/previews/rotas.txt
           cd /tmp/previews && git init -q -b previews && git config user.name actions && git config user.email a@b.c
           git add -A && git commit -qm sondagem && git push -q -f "$REMOTE" HEAD:previews
