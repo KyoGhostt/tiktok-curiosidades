@@ -15,7 +15,7 @@ POOL = {
     "vizinhos": ["storytime", "vizinhos", "confusao", "tretas", "historiasreais", "vizinho"],
     "amizade": ["storytime", "amizade", "drama", "amigos", "historiasreais", "traicao"],
     "escola": ["storytime", "escola", "adolescencia", "colegio", "historiasreais", "bullying"],
-    "drama": ["storytime", "drama", "historiasreais", "treta", "plottwist", "historiasdereddit"],
+    "drama": ["storytime", "drama", "historiasreais", "treta", "plottwist"],
 }
 
 
@@ -68,3 +68,18 @@ def hashtags(tema, parte, c=None):
 def legenda(titulo, parte, n, tema, c=None):
     cta = f"Continua na parte {parte+1}!" if parte < n else "Final! O que você teria feito? Comenta!"
     return f"{titulo} {cta} " + " ".join("#" + t for t in hashtags(tema, parte, c))
+
+
+PALAVRAS = {"trabalho": ("chefe", "chefa", "equipe", "empresa", "trabalho", "emprego", "colega", "cliente", "funcion", "gerente"),
+            "relacionamento": ("marido", "esposa", "namorad", "casamento", "casal", "aniversário", "noiv", "ex-", "traiç", "casar"),
+            "familia": ("sogra", "mãe", "pai ", "irmã", "irmão", "família", "filho", "filha", "tia", "avó"),
+            "vinganca": ("vingança", "vinganca", "revanche"),
+            "vizinhos": ("vizinh",), "amizade": ("amig", "melhor amiga"), "escola": ("escola", "professor", "aluno", "colégio", "faculdade")}
+
+
+def tema_por_titulo(titulo):
+    t = titulo.lower()
+    for tema, ps in PALAVRAS.items():
+        if any(p in t for p in ps):
+            return tema
+    return None

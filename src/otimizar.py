@@ -106,6 +106,11 @@ def pontuar(tag, ts, gm):
 
 def otimizar_tags(c, ts, ms, log):
     c["tags"] = {t: v for t, v in ts.items()}
+    if not c["escolhidas"]:     # primeira vez: mantém as hashtags padrão; só decide com dados novos depois
+        c["escolhidas"] = {t: otimo.pool(t, c)[:3] for t in otimo.POOL}
+        c["base_n"] = len(ms)
+        log.append("🏷 Hashtags iniciais definidas por tema (as decisões com dados começam com 3 posts novos)")
+        return False
     if len(ms) - c.get("base_n", 0) < 3 and c["escolhidas"]:
         log.append("🏷 Hashtags mantidas (menos de 3 posts novos desde a última decisão)")
         return False
@@ -124,7 +129,9 @@ def otimizar_tags(c, ts, ms, log):
 
 
 # ---------- pesquisa na web ----------
-LIXO = ("filme", "imprimir", "série", "serie", "musica", "música", "para ", "onde assistir", "pdf", "jogo", "god of", "episodio")
+# só entram termos formados por palavras destas listas (evita nomes próprios, filmes, jogos e lixo do autocompletar)
+PERMITIDAS = {"relacionamento", "abusivo", "toxico", "amoroso", "invejoso", "corporativa", "vizinho", "familia", "amiga",
+              "amigo", "escola", "chefe", "trabalho", "casamento", "traicao", "sogra", "marido", "esposa", "vinganca", "aberto"}
 
 
 def candidatas_da_pesquisa(p, c, log):
@@ -135,7 +142,8 @@ def candidatas_da_pesquisa(p, c, log):
         gg = {re.sub(r"^(a |o )?hist[óo]rias? (d[eoa]s? )?", "", x.lower()).strip() for x in d["google"]}
         for termo in (yt & gg):
             tag = re.sub(r"[^a-z0-9]", "", __import__("unicodedata").normalize("NFKD", termo).encode("ascii", "ignore").decode())
-            if 6 <= len(tag) <= 24 and not any(l in termo for l in LIXO) and termo not in ("reddit",):
+            palavras = __import__("unicodedata").normalize("NFKD", termo).encode("ascii", "ignore").decode().split()
+            if 6 <= len(tag) <= 24 and palavras and all(w in PERMITIDAS for w in palavras):
                 lst = c["candidatas"].setdefault(tema, [])
                 if tag not in lst and tag not in otimo.POOL.get(tema, []):
                     lst.append(tag); achou += 1
@@ -147,6 +155,9 @@ def candidatas_da_pesquisa(p, c, log):
 def tema_story(s):
     if s.get("tema") in otimo.POOL:
         return s["tema"]
+    t = otimo.tema_por_titulo(s["titulo"])
+    if t:
+        return t
     m = re.findall(r"#(\w+)", s["partes"][0]["legenda"].lower())
     return otimo.tema_de(m)
 
