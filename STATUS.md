@@ -4,10 +4,20 @@ Atualizado: 28/10/2026
 ## Como funciona hoje
 - `gerar-semana.yml` (domingo 06h Brasília, ou manual): gera histórias de 3 a 6 partes (≤ ~80 s cada) com fundo de Minecraft parkour
   e capa em cartão, até ter 21 partes em estoque. Vídeos vão para o branch `media`, o manifesto `fila.json` para o branch `estado`.
-- `fila.yml` (a cada 6 h, ou manual com `acao`): completa o Buffer (limite grátis = 10 agendados; usamos 9) na ordem das partes,
+- `fila.yml` (a cada 6 h, ou manual com `acao`): completa o Buffer (limite grátis = 10 agendados) na ordem das partes,
   nos horários 12h/17h/20h (Brasília). `acao=retomar` despausa; `pausar` pausa; `estado` mostra a fila nas anotações.
 - `monitor.yml` (12h30/18h30/21h30): avisa no Telegram (postado, erro, fila vazia, chave do Buffer perto de vencer).
 - Títulos: "Parte X de N" (sem horários). O fundo continua de onde a parte anterior parou.
+
+## Otimizador diário (`otimizar.yml`, todo dia 09h30 Brasília, ou manual: rodar | simular | schema | fontes)
+- Lê o desempenho real dos posts no Buffer (views, só posts com +36 h) e pesquisa na web (Google Trends BR, autocompletar YouTube/Google).
+  TikTok Creative Center (hashtags em alta) e Reddit RSS bloqueiam o Actions: indisponíveis.
+- Horários: testa 1 h antes/depois de um dos 3 horários por vez (precisa de 3 posts maduros por horário; troca se render +15% views).
+  Vale SÓ para os próximos vídeos; posts já agendados no Buffer NUNCA mudam de horário.
+- Hashtags: 5 por post (#parteN + #historiasdoreddit + 3 variáveis por tema). Reordena pelas que mais deram views + explora novas
+  (candidatas da pesquisa só entram se aparecem no YouTube E no Google). Só reescreve legenda/hashtags dos posts agendados.
+- Estado em branch `estado`: `otimizacao.json` (horários, hashtags, histórico), `otimizar-log.txt` (último relatório). Relatório no Telegram.
+- Código: `src/otimo.py` (config lida por schedule/fila/main_story), `src/otimizar.py`, `src/fontes.py`.
 
 ## Feito
 - Buffer conectado (canal TikTok curiosoemalta); chave no secret BUFFER_API_KEY (vence ~25/10/2027; atualizar BUFFER_KEY_CREATED no monitor.yml).
