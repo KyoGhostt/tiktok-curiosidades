@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       url: {description: "(opcional) URL direta de um mp4 já recortado (ex.: vidIQ); se vazio, usa fundos/links.txt + cookie", default: ""}
+      apagar: {description: "(opcional) nome de um arquivo da biblioteca para APAGAR do release", default: ""}
       nome: {description: "(com url) nome do arquivo, ex.: gta_P3b3AidldmA.mp4", default: ""}
 permissions: {contents: write}
 jobs:
@@ -16,8 +17,12 @@ jobs:
       DIRETO_NOME: ${{ github.event.inputs.nome }}
     steps:
       - uses: actions/checkout@v4
+      - name: Apagar arquivo
+        if: ${{ github.event.inputs.apagar != '' }}
+        run: gh release delete-asset fundos "${{ github.event.inputs.apagar }}" --repo "$GITHUB_REPOSITORY" -y
       - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg && pip install -U yt-dlp pillow requests
-      - run: |
+      - if: ${{ github.event.inputs.apagar == '' }}
+        run: |
           source scripts/branches.sh
           mkdir -p /tmp/previews
           python -u src/biblioteca.py 2>&1 | tee /tmp/previews/biblioteca.txt
