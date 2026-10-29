@@ -1,0 +1,30 @@
+name: otimizar
+on:
+  schedule: [{cron: "30 12 * * *"}]   # todo dia 09h30 de Brasília (as métricas do Buffer atualizam 1x/dia)
+  workflow_dispatch:
+    inputs:
+      acao: {description: "rodar | simular (não altera nada) | schema", default: "rodar"}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}   # mesma trava da fila: nunca mexem ao mesmo tempo
+jobs:
+  otimizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONPATH: src
+      ESTADO_DIR: /tmp/estado
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - name: Executar
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          A="${{ github.event.inputs.acao || 'rodar' }}"
+          if [ "$A" = "schema" ]; then python -u src/schema_dump.py; exit 0; fi
+          python -u src/otimizar.py "$A"
+          [ "$A" = "rodar" ] && push_estado || true
