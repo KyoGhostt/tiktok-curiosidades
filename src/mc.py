@@ -1,5 +1,5 @@
 """Gameplay vertical por história: Minecraft parkour (Automate Socials, uso livre) ou Subway Surfers (Internet Archive, gravações
-verticais; o item de 2024 é CC0). Se uma fonte sair do ar, a outra assume. MC_JOGO=minecraft|subway força uma delas."""
+verticais; o item de 2024 é CC0 e sem HUD). Se uma fonte sair do ar, a outra assume. MC_JOGO=minecraft|subway força uma delas."""
 import os, random, re, subprocess, zipfile
 from pathlib import Path
 import requests
@@ -30,7 +30,9 @@ def duration(path):
     return float(r.stdout.strip() or 0)
 
 
-SUBWAY = ["subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1", "vcompress_452", "vcompress_144", "recorder-18052024-072057"]
+# só o item CC0, que tem a tela limpa (sem placar/HUD/menus) nos 193 s inteiros (conferido quadro a quadro);
+# os outros itens do Archive têm placar, menus e anúncios na tela e foram descartados.
+SUBWAY = ["subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1"]
 
 
 def archive_url(ident):

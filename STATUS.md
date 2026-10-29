@@ -22,9 +22,10 @@ Atualizado: 28/10/2026
 ## Fundos de jogos (29/10)
 - Pixabay descartado (não tem gameplay). YouTube bloqueado no Actions; Piped/Invidious/cobalt também (403/auth).
 - Internet Archive funciona no Actions: `src/mc.py` agora sorteia por história entre Minecraft (Automate Socials) e Subway Surfers
-  vertical (itens `subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1` (CC0), `vcompress_452`, `vcompress_144`, `recorder-18052024-072057`);
+  vertical, SÓ o item `subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1` (CC0, 193 s, tela limpa sem HUD; conferido). Os outros itens
+  (vcompress_*, recorder_*) têm placar/menus/anúncios na tela: descartados (risco de strike). Subway usa cores mais calmas (calmo=True);
   se uma fonte cair, usa a outra. `MC_JOGO=minecraft|subway` força um. Amostra: workflow `fundos-jogos`.
-- Roblox/GTA V no Archive só existem em 16:9 (horizontal) e GTA é violento: não usados (cortar perderia qualidade).
+- Roblox/GTA V no Archive só existem em 16:9, com webcam/menus na tela (o usuário quer GTA só de parkour de carro, sem violência): não usados. Precisa de clipe vertical limpo vindo do usuário.
 
 ## Feito
 - Buffer conectado (canal TikTok curiosoemalta); chave no secret BUFFER_API_KEY (vence ~25/10/2027; atualizar BUFFER_KEY_CREATED no monitor.yml).

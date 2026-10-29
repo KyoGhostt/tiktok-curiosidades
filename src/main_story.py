@@ -49,7 +49,7 @@ def build_package():
         titulo = f"{data['titulo']} (Parte {i} de {n})"
         card = capa.card(d / f"capa{i}.png", data["titulo"], sub, p["texto"], i, n)
         if clip:
-            video.build_mc(clip[0], pos % max(1, clip[1] - total), total, mp3, ass, mp4, card)
+            video.build_mc(clip[0], pos % max(1, clip[1] - total), total, mp3, ass, mp4, card, calmo="subway" in clip[0].name)
             pos += total
         else:
             fundos = data["fundos"]

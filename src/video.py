@@ -156,10 +156,10 @@ def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
     run(cmd)
 
 
-def build_mc(src, start, total, mp3, ass, out, card=None):
+def build_mc(src, start, total, mp3, ass, out, card=None, calmo=False):
     """Fundo = gameplay vertical de Minecraft a partir de `start` (continua de onde a parte anterior parou)."""
     vf = ("scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,"
-          "eq=brightness=-0.05:saturation=0.95")
+          + ("eq=brightness=-0.09:saturation=0.78" if calmo else "eq=brightness=-0.05:saturation=0.95"))  # calmo: jogos mais coloridos
     _final(["-ss", f"{start:.2f}", "-stream_loop", "-1", "-i", str(src)], vf, mp3, ass, total, out, card)
 
 
