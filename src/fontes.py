@@ -62,7 +62,20 @@ def reddit_semana():
     return out
 
 
-FONTES = {"google_trends": google_trends_br, "tiktok_hashtags": tiktok_hashtags_br,
+def endless_br():
+    """Hashtags mais vistas no TikTok Brasil na semana (Endless Radar, atualiza a cada 6 h; só o top 10, bem geral)."""
+    r = requests.get("https://endless.app/radar/tiktok/brazil", headers=UA, timeout=30)
+    r.raise_for_status()
+    tags = []
+    for t in re.findall(r"tiktok\.com/tag/([\w%]+)", r.text):
+        if t.lower() not in tags:
+            tags.append(t.lower())
+    if not tags:
+        raise RuntimeError("nenhuma hashtag encontrada na página")
+    return tags
+
+
+FONTES = {"google_trends": google_trends_br, "tiktok_hashtags": tiktok_hashtags_br, "endless_tiktok_br": endless_br,
           "buscas_por_tema": buscas_por_tema, "reddit_semana": reddit_semana}
 
 

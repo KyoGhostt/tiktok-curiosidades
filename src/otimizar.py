@@ -151,6 +151,21 @@ def candidatas_da_pesquisa(p, c, log):
         log.append(f"🔎 {achou} hashtag(s) nova(s) que o público procura entraram no teste: " + ", ".join(f"{t}:{"/".join(v)}" for t, v in c["candidatas"].items() if v))
 
 
+NARRATIVAS = {"novelas", "fofoca", "drama", "storytime", "historia", "historias", "tretas", "reddit", "casal", "famosos"}
+
+
+def tendencias_tiktok(p, c, log):
+    """Top do TikTok Brasil: só vira candidata a hashtag o que combina com histórias; o resto só entra no relatório."""
+    tags = p.get("endless_tiktok_br") or []
+    if not tags:
+        return
+    log.append("📈 TikTok Brasil na semana (Endless): " + ", ".join("#" + t for t in tags))
+    for t in tags:
+        if t in NARRATIVAS and t not in c["candidatas"].setdefault("drama", []) and t not in otimo.POOL["drama"]:
+            c["candidatas"]["drama"].append(t)
+            log.append(f"   #{t} combina com histórias: entrou no teste")
+
+
 # ---------- aplicar nos posts agendados ----------
 def tema_story(s):
     if s.get("tema") in otimo.POOL:
@@ -214,6 +229,7 @@ def main(simular):
     if p.get("google_trends"):
         log.append("🔥 Em alta no Brasil: " + ", ".join(x["termo"] for x in p["google_trends"][:6]))
     candidatas_da_pesquisa(p, c, log)
+    tendencias_tiktok(p, c, log)
     otimizar_horarios(c, hs, log)
     otimizar_tags(c, ts, ms, log)
     c["atualizado"] = datetime.now(timezone.utc).isoformat()
