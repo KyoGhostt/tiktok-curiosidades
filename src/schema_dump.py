@@ -11,13 +11,10 @@ def show(name):
     x = t(name)
     if not x: print(name, "-> não existe"); return
     print("==", name, x["kind"])
-    for f in (x.get("fields") or []):
-        print("  ", f["name"], [a["name"] for a in f["args"]])
-    for f in (x.get("inputFields") or []):
-        ty = f["type"]; print("  in:", f["name"], ty.get("name") or (ty.get("ofType") or {}).get("name"))
+    print("  campos:", ", ".join(f["name"] for f in (x.get("fields") or [])))
+    print("  entrada:", ", ".join(f["name"] for f in (x.get("inputFields") or [])))
 
 m = t("Mutation")
-print("Mutations:", [f["name"] for f in m["fields"]])
 for f in m["fields"]:
     if "ost" in f["name"] and ("dit" in f["name"] or "pdate" in f["name"] or "esched" in f["name"]):
         print(f["name"], [(a["name"], a["type"].get("name") or a["type"]["ofType"]["name"]) for a in f["args"]])
