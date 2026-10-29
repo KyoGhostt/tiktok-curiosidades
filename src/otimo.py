@@ -70,8 +70,8 @@ def hashtags(tema, parte, c=None):
 
 
 def legenda(titulo, parte, n, tema, c=None):
-    cta = f"Continua na parte {parte+1}!" if parte < n else "Final! O que você teria feito? Comenta!"
-    return f"{titulo} {cta} " + " ".join("#" + t for t in hashtags(tema, parte, c))
+    cta = "" if parte < n else "Final! O que você teria feito? Comenta! "  # sem "Continua na parte N" (pedido do dono, 29/10)
+    return f"{titulo} {cta}" + " ".join("#" + t for t in hashtags(tema, parte, c))
 
 
 PALAVRAS = {"trabalho": ("chefe", "chefa", "equipe", "empresa", "trabalho", "emprego", "colega", "cliente", "funcion", "gerente"),
