@@ -1,6 +1,6 @@
 name: fila-buffer
 on:
-  schedule: [{cron: "20 */6 * * *"}]   # de 6 em 6 horas: completa o Buffer com o estoque
+  schedule: [{cron: "20 */3 * * *"}]   # de 3 em 3 horas: completa o Buffer com o estoque
   workflow_dispatch:
     inputs:
       acao: {description: "encher | retomar (despausa e enche) | pausar | estado", default: "encher"}
