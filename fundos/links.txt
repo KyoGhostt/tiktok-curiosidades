@@ -1,6 +1,21 @@
 # Biblioteca de fundos: uma linha por vídeo do YouTube no formato  jogo|link   (jogo = subway, gta, roblox, minecraft)
-# Rode o workflow "biblioteca" depois de salvar o cookie no secret YT_COOKIES. Só vídeos VERTICAIS e sem placar/menus.
+# Rode o workflow "biblioteca" depois de salvar o cookie no secret YT_COOKIES. Só vídeos VERTICAIS; os quadros de conferência
+# (sem placar/menus/webcam) decidem o que entra em fundos/aprovados.txt.
+# Achados via vidIQ em 29/10/2026. Os canais pedem crédito na descrição (OrbitalNCG, Dope Gameplays, Bloxu); "No copyright" é declaração do canal.
+# --- Subway Surfers (vertical) ---
 subway|https://www.youtube.com/watch?v=AwQSObT2VCo
 subway|https://www.youtube.com/watch?v=XYC1Qtu1kZo
-subway|https://www.youtube.com/watch?v=7YNdPOW4U5A
-subway|https://www.youtube.com/watch?v=RqOmh0kONFQ
+# --- GTA V (vertical; Mega Ramp = carros pulando rampas) — canal OrbitalNCG ---
+gta|https://www.youtube.com/watch?v=P3b3AidldmA
+gta|https://www.youtube.com/watch?v=8VmCwcGw6SI
+gta|https://www.youtube.com/watch?v=sxUc3cB-QSI
+gta|https://www.youtube.com/watch?v=bEQTUMAPFZQ
+# --- Roblox (vertical; Glide Tower = ASMR, sem comentário, relaxante) ---
+roblox|https://www.youtube.com/watch?v=CVfvNKp_C8A
+roblox|https://www.youtube.com/watch?v=ne4v0NLcGfs
+roblox|https://www.youtube.com/watch?v=5TrQj9rqg5A
+roblox|https://www.youtube.com/watch?v=vdJp8pskqmw
+# --- Minecraft parkour (vertical, sem som de jogo) — canal Orbital ---
+minecraft|https://www.youtube.com/watch?v=7yl7Wc1dtWc
+minecraft|https://www.youtube.com/watch?v=s600FYgI5-s
+minecraft|https://www.youtube.com/watch?v=tCBOhczn6Ok
