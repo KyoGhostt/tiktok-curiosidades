@@ -35,6 +35,11 @@ Atualizado: 28/10/2026
   -> depois de conferir (sem placar/menus/webcam) o arquivo entra em `fundos/aprovados.txt` -> `mc.pick_biblioteca()` passa a sorteá-lo.
 - Pendente: usuário criar o secret YT_COOKIES e passar os links dos outros jogos.
 
+## vidIQ (conectado em 29/10, plano grátis: 150 créditos/mês; busca de outliers TikTok/IG = 5 créditos)
+- Só funciona nas sessões do Claude (não roda no Actions). Uso manual, ~1x/semana, para achar hashtags/temas que bombam no TikTok BR.
+- Achado 29/10: #historiasdetiktok (2 mi de views), séries "Pt.2" e histórias de chefe/trabalho (#trabalho) vão bem no Brasil; vídeos de 87-233 s também.
+  `#historiasdetiktok` entrou no teste de hashtags (`otimo.GLOBAIS`).
+
 ## Feito
 - Buffer conectado (canal TikTok curiosoemalta); chave no secret BUFFER_API_KEY (vence ~25/10/2027; atualizar BUFFER_KEY_CREATED no monitor.yml).
 - Telegram conectado (avisos). Fundos de Minecraft vertical (Automate Socials, licença livre) baixados e usados.

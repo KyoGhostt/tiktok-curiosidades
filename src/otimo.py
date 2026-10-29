@@ -38,9 +38,13 @@ def save(c):
     ARQ.write_text(json.dumps(c, ensure_ascii=False, indent=1))
 
 
+# hashtags que apareceram em vídeos de história com views muito acima da mediana do criador (vidIQ, 29/10) — entram no teste de todos os temas
+GLOBAIS = ["historiasdetiktok"]
+
+
 def pool(tema, c):
     seen, out = set(), []
-    for t in POOL.get(tema, POOL["drama"]) + c.get("candidatas", {}).get(tema, []):
+    for t in POOL.get(tema, POOL["drama"]) + GLOBAIS + c.get("candidatas", {}).get(tema, []):
         if t not in seen:
             seen.add(t); out.append(t)
     return out
