@@ -2,7 +2,7 @@
 import json, sys, traceback
 from datetime import datetime
 from config import OUT
-import story, schedule, tts, video, reviewer, writer, capa, mc
+import story, schedule, tts, video, reviewer, writer, capa, mc, otimo
 
 # Hashtags reais e muito usadas em PT-BR por tema (tags compostas inventadas não têm busca nenhuma)
 TEMAS = {"trabalho": ["chefe", "trabalho"], "relacionamento": ["relacionamento", "casal"], "familia": ["familia", "drama"],
@@ -29,8 +29,7 @@ def build_package():
     d = OUT / ("hist-" + now.strftime("%Y%m%d-%H%M%S")); d.mkdir(parents=True)
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
     n = len(data["partes"])
-    tags_base = ["historiasdoreddit", "storytime"]
-    esp = TEMAS.get(data.get("tema", ""), TEMAS["drama"])
+    tema = data.get("tema", "") if data.get("tema", "") in otimo.POOL else "drama"
     clip = mc.pick_clip()  # um gameplay por história; cada parte continua de onde a anterior parou
     pos = 0.0
     if clip:
@@ -57,14 +56,12 @@ def build_package():
             scenes = [(fundos[k % len(fundos)], total / 6) for k in range(6)]
             video.build(scenes, mp3, ass, total, d, mp4, card)
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
-        cta = f"Continua na parte {i+1}!" if i < n else "Final! O que você teria feito? Comenta!"
-        tags = ([f"parte{i}"] + tags_base + esp)[:5]  # TikTok limita a 5 hashtags
-        cap = f"{titulo} {cta} " + " ".join("#" + t for t in tags)
+        cap = otimo.legenda(data["titulo"] + f" (Parte {i} de {n})", i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": "minecraft" if clip else "stock"})
         print(f"parte {i}/{n}: {secs:.0f}s fundo={'minecraft' if clip else 'stock'} avisos={probs}", flush=True)
     info = {"id": d.name, "titulo": data["titulo"], "origem": origem, "fonte": post and post["id"], "n": n,
-            "partes": partes, "debug": story.DEBUG}
+            "tema": tema, "partes": partes, "debug": story.DEBUG}
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))
     return d
 

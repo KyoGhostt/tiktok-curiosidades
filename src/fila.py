@@ -54,7 +54,7 @@ def add(d):
     for p in info["partes"]:
         shutil.copy(d / p["arquivo"], dest / p["arquivo"])
     f = load()
-    f["stories"].append({"id": info["id"], "titulo": info["titulo"], "n": info["n"], "origem": info["origem"],
+    f["stories"].append({"id": info["id"], "titulo": info["titulo"], "n": info["n"], "origem": info["origem"], "tema": info.get("tema"),
                          "partes": [{"parte": p["parte"], "arquivo": p["arquivo"], "titulo": p["titulo"],
                                      "legenda": p["legenda"], "duracao_s": p["duracao_s"], "status": "pendente",
                                      "buffer_id": None, "due": None} for p in info["partes"]]})

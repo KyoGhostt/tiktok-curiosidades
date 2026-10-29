@@ -27,5 +27,5 @@ jobs:
           A="${{ github.event.inputs.acao || 'rodar' }}"
           if [ "$A" = "fontes" ]; then python -u src/fontes.py 2>&1 | while IFS= read -r l; do echo "::notice::$l"; done; exit 0; fi
           if [ "$A" = "schema" ]; then python -u src/schema_dump.py 2>&1 | while IFS= read -r l; do echo "::notice::$l"; done; exit 0; fi
-          python -u src/otimizar.py "$A"
+          python -u src/otimizar.py "$A" 2>&1 | while IFS= read -r l; do echo "::notice::$l"; done
           [ "$A" = "rodar" ] && push_estado || true
