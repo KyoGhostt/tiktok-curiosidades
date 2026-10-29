@@ -34,6 +34,8 @@ Atualizado: 28/10/2026
   -> padroniza 1080x1920 sem áudio (máx. 20 min) -> guarda no release + quadros de conferência no branch `previews`
   -> depois de conferir (sem placar/menus/webcam) o arquivo entra em `fundos/aprovados.txt` -> `mc.pick_biblioteca()` passa a sorteá-lo.
 - `fundos/links.txt` já tem 12 links verticais achados pelo vidIQ (GTA mega ramp e Roblox/Minecraft do canal OrbitalNCG/Orbital, Roblox Glide Tower da Bloxu, Subway). Decisão do dono: sem crédito dos canais nas legendas (o pedido deles não é exigência).
+- Alternativa sem cookie: o dono sobe os MP4 direto na página do release `fundos` no github.com (até 2 GB por arquivo, sem limite total prático) com nome `raw_<jogo>_<id>.mp4`; workflow `biblioteca` com `normalizar=sim` converte (1080x1920, sem áudio, máx. 20 min, ~300 MB/10 min), gera quadros de conferência e apaga o raw. Hugging Face não é necessário.
+- vidIQ trim_media baixa só 144p (testado 29/10): inútil. generate_clips falha em vídeo sem fala.
 - Pendente: usuário criar o secret YT_COOKIES (conta secundária) e rodar o workflow `biblioteca`; depois conferir quadros e preencher `fundos/aprovados.txt`.
 
 ## vidIQ (conectado em 29/10, plano grátis: 150 créditos/mês; busca de outliers TikTok/IG = 5 créditos)

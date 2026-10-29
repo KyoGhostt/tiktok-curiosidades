@@ -73,7 +73,21 @@ def direto(url, nome):
     processar(raw, nome)
 
 
+def normalizar():
+    """Arquivos que o dono subiu à mão no release com o prefixo raw_ (ex.: raw_gta_abc.mp4): padroniza, guarda como gta_abc.mp4 e apaga o raw."""
+    r = sh(["gh", "release", "view", "fundos", "--repo", REPO, "--json", "assets", "--jq", ".assets[].name"])
+    for a in [x for x in r.stdout.split() if x.startswith("raw_")]:
+        d = sh(["gh", "release", "download", "fundos", "--repo", REPO, "-p", a, "-D", str(W), "--clobber"])
+        if d.returncode: print("download falhou", a, d.stderr[-150:]); continue
+        raw = W / a
+        processar(raw, a[4:] if a.endswith(".mp4") else a[4:].rsplit(".", 1)[0] + ".mp4")
+        sh(["gh", "release", "delete-asset", "fundos", a, "--repo", REPO, "-y"])
+        raw.unlink(missing_ok=True)
+
+
 def main():
+    if os.environ.get("NORMALIZAR"):
+        normalizar(); return
     if os.environ.get("DIRETO_URL"):
         direto(os.environ["DIRETO_URL"].strip(), os.environ["DIRETO_NOME"].strip()); return
     ck = os.environ.get("YT_COOKIES", "").strip()

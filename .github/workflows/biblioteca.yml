@@ -4,6 +4,7 @@ on:
     inputs:
       url: {description: "(opcional) URL direta de um mp4 já recortado (ex.: vidIQ); se vazio, usa fundos/links.txt + cookie", default: ""}
       apagar: {description: "(opcional) nome de um arquivo da biblioteca para APAGAR do release", default: ""}
+      normalizar: {description: "(opcional) sim = padroniza os arquivos raw_* que você subiu no release", default: ""}
       nome: {description: "(com url) nome do arquivo, ex.: gta_P3b3AidldmA.mp4", default: ""}
 permissions: {contents: write}
 jobs:
@@ -15,6 +16,7 @@ jobs:
       YT_COOKIES: ${{ secrets.YT_COOKIES }}
       DIRETO_URL: ${{ github.event.inputs.url }}
       DIRETO_NOME: ${{ github.event.inputs.nome }}
+      NORMALIZAR: ${{ github.event.inputs.normalizar }}
     steps:
       - uses: actions/checkout@v4
       - name: Apagar arquivo
