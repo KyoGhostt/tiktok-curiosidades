@@ -150,9 +150,12 @@ def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
               f"[v1]subtitles='{ass_path}'[v]")
     else:
         fc = f"[0:v]{vf_bg},subtitles='{ass_path}'[v]"
-    cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "1:a", "-t", f"{total:.2f}", "-c:v", "libx264",
+    # audio padronizado (48 kHz estéreo) + leve ruído de sala: evita falso positivo do TikTok ("som indisponível", 29/10)
+    fc += (f";[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0[vz];anoisesrc=c=pink:a=0.004:r=48000:d={total + 1:.2f}[nz];"
+           "[vz][nz]amix=inputs=2:duration=first:normalize=0[a]")
+    cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "[a]", "-t", f"{total:.2f}", "-c:v", "libx264",
             "-preset", "veryfast", "-crf", "26", "-maxrate", "5M", "-bufsize", "10M", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(out)]
+            "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(out)]
     run(cmd)
 
 

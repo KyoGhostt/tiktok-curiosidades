@@ -55,3 +55,5 @@ Atualizado: 28/10/2026
 - Conferir no TikTok se a capa (quadro em 1,5 s) foi respeitada.
 - Fundo "slime/ASMR" não existe no Pixabay; opção futura: o usuário sobe clipes.
 - Workflow "pages build" falha (docs removidos); pode desativar o GitHub Pages.
+
+- 29/10: parte 3 de 'Meu marido esqueceu...' ficou 'Este som está indisponível' no TikTok (só ela; as outras estão ok). Arquivo tinha áudio normal -> provável falso positivo do TikTok no áudio. Mitigação em video._final: áudio 48 kHz estéreo + ruído rosa bem baixo (único por vídeo). Parte 3 corrigida enviada ao dono para repostar; parte 4 (já no Buffer) mantém áudio antigo.
