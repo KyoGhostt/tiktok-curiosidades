@@ -49,7 +49,7 @@ def build_package():
         titulo = f"{data['titulo']} (Parte {i} de {n})"
         card = capa.card(d / f"capa{i}.png", data["titulo"], sub, p["texto"], i, n)
         if clip:
-            video.build_mc(clip[0], pos % max(1, clip[1] - total), total, mp3, ass, mp4, card, calmo="subway" in clip[0].name)
+            video.build_mc(clip[0], pos % max(1, clip[1] - total), total, mp3, ass, mp4, card, calmo=any(j in clip[0].name for j in ("subway", "roblox")))
             pos += total
         else:
             fundos = data["fundos"]
@@ -58,8 +58,8 @@ def build_package():
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
         cap = otimo.legenda(data["titulo"] + f" (Parte {i} de {n})", i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
-                       "duracao_s": round(secs), "avisos": probs, "fundo": ("subway" if "subway" in clip[0].name else "minecraft") if clip else "stock"})
-        print(f"parte {i}/{n}: {secs:.0f}s fundo={('subway' if 'subway' in clip[0].name else 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)
+                       "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})
+        print(f"parte {i}/{n}: {secs:.0f}s fundo={next((j for j in ('subway', 'gta', 'roblox') if j in clip[0].name), 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)
     info = {"id": d.name, "titulo": data["titulo"], "origem": origem, "fonte": post and post["id"], "n": n,
             "tema": tema, "partes": partes, "debug": story.DEBUG}
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))

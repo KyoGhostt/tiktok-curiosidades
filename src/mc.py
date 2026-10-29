@@ -62,11 +62,40 @@ def pick_subway():
         return None
 
 
+def pick_biblioteca():
+    """Fundo da biblioteca (release 'fundos' do GitHub): só arquivos listados em fundos/aprovados.txt, jogo sorteado entre os disponíveis."""
+    try:
+        ap = Path("fundos/aprovados.txt")
+        ok = {l.strip() for l in ap.read_text().splitlines() if l.strip() and not l.startswith("#")} if ap.exists() else set()
+        repo = os.environ.get("GITHUB_REPOSITORY", "KyoGhostt/tiktok-curiosidades")
+        assets = requests.get(f"https://api.github.com/repos/{repo}/releases/tags/fundos", headers=UA, timeout=30).json().get("assets", [])
+        ass = [a for a in assets if a["name"] in ok]
+        if not ass:
+            return None
+        jogos = sorted({a["name"].split("_")[0] for a in ass})
+        jogo = random.choice(jogos)
+        a = random.choice([x for x in ass if x["name"].startswith(jogo + "_")])
+        DIR.mkdir(parents=True, exist_ok=True)
+        v = DIR / f"bib_{a['name']}"
+        with requests.get(a["browser_download_url"], headers=UA, stream=True, timeout=600) as r:
+            r.raise_for_status()
+            with open(v, "wb") as f:
+                for chunk in r.iter_content(1 << 20):
+                    f.write(chunk)
+        d = duration(v)
+        print(f"biblioteca: {a['name']} ({d/60:.1f} min)", flush=True)
+        return (v, d) if d > 60 else None
+    except Exception as e:
+        print("biblioteca: falhou ->", repr(e)[:200], flush=True)
+        return None
+
+
 def pick_clip():
     """Escolhe o jogo da história (sorteio; se a fonte falhar, tenta a outra)."""
-    ordem = [pick_minecraft, pick_subway]
+    ordem = [pick_minecraft, pick_subway, pick_biblioteca]
     forca = os.environ.get("MC_JOGO", "")
     if forca == "subway": ordem = [pick_subway]
+    elif forca == "biblioteca": ordem = [pick_biblioteca]
     elif forca == "minecraft": ordem = [pick_minecraft]
     else: random.shuffle(ordem)
     for fn in ordem:

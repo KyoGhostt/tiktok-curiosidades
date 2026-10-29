@@ -1,0 +1,19 @@
+name: biblioteca
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_COOKIES: ${{ secrets.YT_COOKIES }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg && pip install -U yt-dlp pillow requests
+      - run: |
+          source scripts/branches.sh
+          mkdir -p /tmp/previews
+          python -u src/biblioteca.py 2>&1 | tee /tmp/previews/biblioteca.txt
+          cd /tmp/previews && git init -q -b previews && git config user.name actions && git config user.email a@b.c
+          git add -A && git commit -qm biblioteca && git push -q -f "$REMOTE" HEAD:previews
