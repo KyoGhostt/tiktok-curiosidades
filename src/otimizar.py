@@ -1,6 +1,6 @@
 """Otimizador diário. Lê (1) o desempenho real dos posts no Buffer (views, tempo assistido) e (2) a pesquisa na web
 (o que o Brasil procura: Google Trends, autocompletar do YouTube/Google), e então:
-  - ajusta os horários de postagem (testa 1h antes/depois do horário atual e fica com o que dá mais views);
+  - ajusta os horários dos PRÓXIMOS vídeos (testa 1h antes/depois e fica com o que dá mais views); posts já no Buffer não mudam de horário;
   - escolhe as hashtags de cada tema (as que mais deram views + exploração de novas) e reescreve os posts agendados.
 Só decide com dados suficientes (MIN_AMOSTRAS) para não reagir a ruído. Uso: otimizar.py rodar | simular"""
 import json, math, os, re, sys
@@ -140,7 +140,7 @@ def candidatas_da_pesquisa(p, c, log):
                 if tag not in lst and tag not in otimo.POOL.get(tema, []):
                     lst.append(tag); achou += 1
     if achou:
-        log.append(f"🔎 {achou} hashtag(s) nova(s) que o público procura entraram no teste")
+        log.append(f"🔎 {achou} hashtag(s) nova(s) que o público procura entraram no teste: " + ", ".join(f"{t}:{"/".join(v)}" for t, v in c["candidatas"].items() if v))
 
 
 # ---------- aplicar nos posts agendados ----------
@@ -152,7 +152,7 @@ def tema_story(s):
 
 
 def aplicar(c, f, nodes, simular, log):
-    """Reescreve legendas (hashtags) e horários dos posts agendados e dos pendentes do estoque."""
+    """Reescreve legendas (hashtags) dos posts agendados e dos pendentes do estoque."""
     ativos = {n["id"]: n for n in nodes if n["status"] == "scheduled"}
     agora = datetime.now(timezone.utc)
     futuros = []
@@ -165,27 +165,23 @@ def aplicar(c, f, nodes, simular, log):
                 p["legenda"] = nova
             elif p["status"] == "agendado" and p.get("buffer_id") in ativos:
                 futuros.append((s, p, nova))
-    futuros.sort(key=lambda x: ativos[x[1]["buffer_id"]]["dueAt"])
-    movel = [x for x in futuros if dt(ativos[x[1]["buffer_id"]]["dueAt"]) > agora + timedelta(hours=1)]
-    novos = schedule.slots_after(agora + timedelta(hours=1), len(movel))
+    # Posts que já estão no Buffer NÃO mudam de horário: só legenda/hashtags podem ser melhoradas.
+    # Os horários otimizados valem apenas para os próximos vídeos (schedule.slots_after lê otimizacao.json).
     ch = ed = 0
-    for (s, p, nova), t in zip(movel, novos):
+    for s, p, nova in futuros:
         b = ativos[p["buffer_id"]]
-        mudar_txt = nova != b["text"]
-        mudar_hr = abs((dt(b["dueAt"]) - t).total_seconds()) > 60
-        if not (mudar_txt or mudar_hr):
+        if dt(b["dueAt"]) < agora + timedelta(hours=1) or nova == b["text"]:
             continue
         ed += 1
         if simular:
-            print(f"[simular] {p['titulo']}: texto={mudar_txt} hora={mudar_hr} -> {schedule.label(t)}"); continue
-        r = bp.gql(M_EDIT, {"i": {"id": p["buffer_id"], "text": nova, "mode": "customScheduled", "dueAt": t.isoformat(),
-                                  "schedulingType": "automatic", "aiAssisted": True,
+            print(f"[simular] {p['titulo']}: nova legenda -> {nova[-60:]}"); continue
+        r = bp.gql(M_EDIT, {"i": {"id": p["buffer_id"], "text": nova, "schedulingType": "automatic", "aiAssisted": True,
                                   "assets": [{"video": {"url": f"{fila.RAW}/{s['id']}/{p['arquivo']}", "metadata": {"thumbnailOffset": 1500}}}],
                                   "metadata": {"tiktok": {"isAiGenerated": True, "title": p["titulo"][:90]}}}})["editPost"]
         if r["__typename"] != "PostActionSuccess":
             log.append(f"⚠️ Buffer recusou editar '{p['titulo']}': {r.get('message')}"); continue
-        p["legenda"], p["due"] = nova, t.isoformat(); ch += 1
-    log.append(f"✏️ Posts agendados atualizados: {ch} de {len(movel)}" + (" (simulação)" if simular else ""))
+        p["legenda"] = nova; ch += 1
+    log.append(f"✏️ Legendas/hashtags dos posts agendados atualizadas: {ch} de {len(futuros)} (horários deles não mudam)" + (" (simulação)" if simular else ""))
 
 
 def main(simular):
