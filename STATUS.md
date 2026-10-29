@@ -27,6 +27,14 @@ Atualizado: 28/10/2026
   se uma fonte cair, usa a outra. `MC_JOGO=minecraft|subway` força um. Amostra: workflow `fundos-jogos`.
 - Roblox/GTA V no Archive só existem em 16:9, com webcam/menus na tela (o usuário quer GTA só de parkour de carro, sem violência): não usados. Precisa de clipe vertical limpo vindo do usuário.
 
+## Biblioteca de fundos (29/10) — PRONTA, falta o cookie
+- Ideia: baixar UMA vez os vídeos do YouTube (Subway, GTA parkour de carro, Roblox, Minecraft) e guardar no release `fundos` do repo;
+  o robô nunca mais depende do YouTube. Se o cookie vencer depois, nada quebra (só não entram vídeos novos).
+- Fluxo: lista em `fundos/links.txt` (`jogo|link`, só verticais) -> workflow `biblioteca` (usa secret `YT_COOKIES`, formato cookies.txt)
+  -> padroniza 1080x1920 sem áudio (máx. 20 min) -> guarda no release + quadros de conferência no branch `previews`
+  -> depois de conferir (sem placar/menus/webcam) o arquivo entra em `fundos/aprovados.txt` -> `mc.pick_biblioteca()` passa a sorteá-lo.
+- Pendente: usuário criar o secret YT_COOKIES e passar os links dos outros jogos.
+
 ## Feito
 - Buffer conectado (canal TikTok curiosoemalta); chave no secret BUFFER_API_KEY (vence ~25/10/2027; atualizar BUFFER_KEY_CREATED no monitor.yml).
 - Telegram conectado (avisos). Fundos de Minecraft vertical (Automate Socials, licença livre) baixados e usados.
