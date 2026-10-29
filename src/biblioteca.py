@@ -44,7 +44,38 @@ def folha(src, dest, dur):
     s.save(dest, quality=80)
 
 
+def processar(raw, nome):
+    """Padroniza (1080x1920, sem áudio, máx. 20 min), gera quadros de conferência e guarda no release."""
+    w, h, dur = sondar(raw)
+    print(f"{nome}: origem {w}x{h} {dur:.0f}s {raw.stat().st_size/1e6:.0f}MB")
+    if h <= w:
+        print(f"  PULADO: horizontal ({w}x{h}); só entram vídeos verticais"); return
+    fim = W / nome
+    c = sh(["ffmpeg", "-y", "-loglevel", "error", "-i", str(raw), "-t", str(MAX_S), "-an",
+            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30",
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "27", "-maxrate", "4M", "-bufsize", "8M", "-movflags", "+faststart", str(fim)])
+    if c.returncode: print("  ffmpeg falhou:", c.stderr[-200:]); return
+    d2 = sondar(fim)[2]
+    folha(fim, OUT / f"conferir-{nome[:-4]}.jpg", d2)
+    u = sh(["gh", "release", "upload", "fundos", str(fim), "--repo", REPO, "--clobber"])
+    print(f"  guardado: {nome} {fim.stat().st_size/1e6:.0f}MB {d2:.0f}s" if u.returncode == 0 else f"  upload falhou: {u.stderr[-200:]}")
+    fim.unlink()
+
+
+def direto(url, nome):
+    sh(["gh", "release", "create", "fundos", "--repo", REPO, "--title", "Biblioteca de fundos", "--notes", "Vídeos de fundo (gameplay vertical) usados pelo robô."])
+    raw = W / "direto.mp4"
+    with requests.get(url, stream=True, timeout=600) as r:
+        r.raise_for_status()
+        with open(raw, "wb") as f:
+            for ch in r.iter_content(1 << 20):
+                f.write(ch)
+    processar(raw, nome)
+
+
 def main():
+    if os.environ.get("DIRETO_URL"):
+        direto(os.environ["DIRETO_URL"].strip(), os.environ["DIRETO_NOME"].strip()); return
     ck = os.environ.get("YT_COOKIES", "").strip()
     cookies = []
     if ck:

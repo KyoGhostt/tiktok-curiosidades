@@ -1,5 +1,9 @@
 name: biblioteca
-on: {workflow_dispatch: {}}
+on:
+  workflow_dispatch:
+    inputs:
+      url: {description: "(opcional) URL direta de um mp4 já recortado (ex.: vidIQ); se vazio, usa fundos/links.txt + cookie", default: ""}
+      nome: {description: "(com url) nome do arquivo, ex.: gta_P3b3AidldmA.mp4", default: ""}
 permissions: {contents: write}
 jobs:
   baixar:
@@ -8,6 +12,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       YT_COOKIES: ${{ secrets.YT_COOKIES }}
+      DIRETO_URL: ${{ github.event.inputs.url }}
+      DIRETO_NOME: ${{ github.event.inputs.nome }}
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg && pip install -U yt-dlp pillow requests
