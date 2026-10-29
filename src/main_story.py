@@ -58,8 +58,8 @@ def build_package():
         probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
         cap = otimo.legenda(data["titulo"] + f" (Parte {i} de {n})", i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
-                       "duracao_s": round(secs), "avisos": probs, "fundo": "minecraft" if clip else "stock"})
-        print(f"parte {i}/{n}: {secs:.0f}s fundo={'minecraft' if clip else 'stock'} avisos={probs}", flush=True)
+                       "duracao_s": round(secs), "avisos": probs, "fundo": ("subway" if "subway" in clip[0].name else "minecraft") if clip else "stock"})
+        print(f"parte {i}/{n}: {secs:.0f}s fundo={('subway' if 'subway' in clip[0].name else 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)
     info = {"id": d.name, "titulo": data["titulo"], "origem": origem, "fonte": post and post["id"], "n": n,
             "tema": tema, "partes": partes, "debug": story.DEBUG}
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))
