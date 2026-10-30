@@ -15,6 +15,15 @@ async def _run(text, mp3, voice):
     return words
 
 
+def limpar_texto(t):
+    """Tira markdown/símbolos que a voz leria em voz alta ("asterisco") e que sujam a legenda."""
+    import re
+    t = re.sub(r"[*_#~`>|\\^]+", " ", t)          # *negrito*, _itálico_, # título, etc.
+    t = re.sub(r"\s*&\s*", " e ", t)
+    t = re.sub(r"\s+", " ", t)
+    return t.strip()
+
+
 def synth(text, mp3, voice=VOICE):
     return asyncio.run(_run(text, mp3, voice))
 

@@ -38,6 +38,7 @@ def build_package():
     partes = []
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
+        p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
         words = tts.synth(p["texto"], mp3, voz)
         ov = [(0, None, f"PARTE {i} DE {n}", "Badge")]
         if i < n:
