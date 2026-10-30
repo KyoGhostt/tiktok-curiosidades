@@ -53,12 +53,12 @@ def _clean(c):
 
 def fetch_posts(sub, kind="top"):
     """kind: top (mais votados da semana) ou controversial (mais polêmicos da semana)."""
-    for tentativa in range(2):
+    for tentativa in range(3):
         r = requests.get(f"https://www.reddit.com/r/{sub}/{kind}/.rss?t=week&limit=25", headers=UA, timeout=25)
         DEBUG.append(f"reddit r/{sub}/{kind}: http {r.status_code}")
         if r.status_code != 429:
             break
-        time.sleep(10)
+        time.sleep(12)
     r.raise_for_status()
     ns = {"a": "http://www.w3.org/2005/Atom"}
     out = []
