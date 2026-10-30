@@ -18,9 +18,17 @@ cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e
 Divida em N PARTES, com N entre 3 e 6 (história curta = 3; média = 4; longa e cheia de reviravoltas = 5 ou 6; nunca mais de 6).
 Cada parte tem de 190 a 260 palavras (cerca de 1 min a 1 min40 narrado), cortando em pontos de suspense: toda parte, menos a última,
 termina num gancho forte; a parte 1 começa com um gancho forte, jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
+ROTEIRO QUE PRENDE ATÉ O FIM (obrigatório): antes de escrever, defina uma PERGUNTA CENTRAL impactante, específica e intrigante (ex.: "o que ele
+guardava no porão?", "quem mandou a mensagem?") que fica martelando na cabeça do ouvinte. Ela aparece nos primeiros segundos da parte 1,
+ganha pistas e reviravoltas nas partes do meio SEM ser respondida, e só é respondida de verdade na última parte, com um desfecho que
+surpreende e é coerente com tudo que veio antes (resposta genérica ou fraca é proibida). Cada parte: (1) abre já no fato mais forte, sem
+preâmbulo; (2) tem um mini-arco próprio com uma virada no meio, para quem chegou agora entender; (3) planta no meio uma segunda dúvida
+("mas o pior ainda estava por vir"); (4) termina com um gancho concreto sobre o que vem na próxima parte, nunca vago. A história precisa ter
+um plot muito bom, com conflito forte, detalhes específicos e pelo menos uma reviravolta inesperada. Na última parte, inclua um detalhe
+final que dê vontade de rever.
 Rejeite com {"rejeitar": true} se envolver: menores de idade em situação sexual ou de abuso, violência gráfica, automutilação ou
 suicídio, drogas pesadas, política ou partidos, discurso de ódio, ou pessoas públicas reais.
-Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a palavra parte", "genero_narrador": "m" ou "f",
+Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a palavra parte", "pergunta_central": "a pergunta intrigante da história", "genero_narrador": "m" ou "f",
 "partes": [{"texto": str, "gancho_final": "4 a 8 palavras chamando para a próxima parte (vazio na última)"}, ... N itens],
 "fundos": ["4 buscas em inglês de 1 a 2 palavras, de vídeo de fundo calmo, variado e com movimento, ex: rain window, night city, driving road, coffee shop"],
 "tema": "UM destes, o que melhor descreve a história: trabalho, relacionamento, familia, vinganca, vizinhos, amizade, escola, drama"}"""

@@ -128,6 +128,22 @@ def otimizar_tags(c, ts, ms, log):
     return mudou
 
 
+def retencao_por_parte(ms, log):
+    """Views e tempo médio assistido por número da parte: mostra em que parte o público sai (usa as métricas do Buffer)."""
+    por = {}
+    for n in ms:
+        m = re.search(r"Parte (\d+) de (\d+)", n.get("text") or "")
+        if not m: continue
+        mm = n["m"]
+        por.setdefault(int(m.group(1)), []).append((mm.get("views", 0), mm.get("averageTimeWatched", 0), mm.get("engagementRate", 0)))
+    if not por: return
+    lin = []
+    for k in sorted(por):
+        v = por[k]
+        lin.append(f"P{k}: {sum(x[0] for x in v)/len(v):.0f} views, {sum(x[1] for x in v)/len(v):.1f}s assistidos ({len(v)})")
+    log.append("📉 Retenção por parte: " + " | ".join(lin))
+
+
 # ---------- pesquisa na web ----------
 # só entram termos formados por palavras destas listas (evita nomes próprios, filmes, jogos e lixo do autocompletar)
 PERMITIDAS = {"relacionamento", "abusivo", "toxico", "amoroso", "invejoso", "corporativa", "vizinho", "familia", "amiga",
@@ -230,6 +246,7 @@ def main(simular):
         log.append("🔥 Em alta no Brasil: " + ", ".join(x["termo"] for x in p["google_trends"][:6]))
     candidatas_da_pesquisa(p, c, log)
     tendencias_tiktok(p, c, log)
+    retencao_por_parte(ms, log)
     otimizar_horarios(c, hs, log)
     otimizar_tags(c, ts, ms, log)
     c["atualizado"] = datetime.now(timezone.utc).isoformat()
