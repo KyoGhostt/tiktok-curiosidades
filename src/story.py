@@ -17,7 +17,7 @@ pode condensar, mas NÃO invente acontecimentos importantes. Se não houver text
 cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e reviravolta.
 Divida em N PARTES, com N entre 3 e 6 (história curta = 3; média = 4; longa e cheia de reviravoltas = 5 ou 6; nunca mais de 6).
 Cada parte tem de 190 a 260 palavras (cerca de 1 min a 1 min40 narrado), cortando em pontos de suspense: toda parte, menos a última,
-termina num gancho forte; a parte 1 começa com um gancho forte; a última parte traz o desfecho e termina com uma pergunta que gere comentários.
+termina num gancho forte; a parte 1 começa com um gancho forte, jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
 Rejeite com {"rejeitar": true} se envolver: menores de idade em situação sexual ou de abuso, violência gráfica, automutilação ou
 suicídio, drogas pesadas, política ou partidos, discurso de ódio, ou pessoas públicas reais.
 Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a palavra parte", "genero_narrador": "m" ou "f",

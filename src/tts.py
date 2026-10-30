@@ -20,8 +20,9 @@ def limpar_texto(t):
     import re
     t = re.sub(r"[*_#~`>|\\^]+", " ", t)          # *negrito*, _itálico_, # título, etc.
     t = re.sub(r"\s*&\s*", " e ", t)
-    t = re.sub(r"\s+", " ", t)
-    return t.strip()
+    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"^(gente|galera|pessoal|oi|ol[aá])\b[\s,!.:;-]*", "", t, flags=re.I)  # nada de abrir com cumprimento
+    return t[:1].upper() + t[1:]
 
 
 def synth(text, mp3, voice=VOICE):
