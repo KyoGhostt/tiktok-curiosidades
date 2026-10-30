@@ -78,7 +78,7 @@ def drive(url, jogo):
     import zipfile, hashlib
     sh(["gh", "release", "create", "fundos", "--repo", REPO, "--title", "Biblioteca de fundos", "--notes", "Vídeos de fundo (gameplay vertical) usados pelo robô."])
     dest = W / "drive"; dest.mkdir(exist_ok=True)
-    r = sh(["gdown", "--fuzzy", url, "-O", str(dest / "baixado.bin")], t=3000)
+    r = sh(["gdown", url, "-O", str(dest / "baixado.bin")], t=3000)
     print("gdown:", (r.stdout + r.stderr).strip()[-300:])
     bin_ = dest / "baixado.bin"
     if not bin_.exists() or bin_.stat().st_size < 1e6:
