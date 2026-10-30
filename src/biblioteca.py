@@ -118,7 +118,20 @@ def normalizar():
         raw.unlink(missing_ok=True)
 
 
+def conferir():
+    """Gera quadros de conferência (branch previews) para os vídeos já guardados no release."""
+    r = sh(["gh", "release", "view", "fundos", "--repo", REPO, "--json", "assets", "--jq", ".assets[].name"])
+    for a in [x for x in r.stdout.split() if x.endswith(".mp4") and not x.startswith("raw_")]:
+        d = sh(["gh", "release", "download", "fundos", "--repo", REPO, "-p", a, "-D", str(W), "--clobber"], t=1800)
+        if d.returncode: print("download falhou", a); continue
+        f = W / a
+        folha(f, OUT / f"conferir-{a[:-4]}.jpg", sondar(f)[2]); print("quadros:", a)
+        f.unlink(missing_ok=True)
+
+
 def main():
+    if os.environ.get("NORMALIZAR") == "conferir":
+        conferir(); return
     if os.environ.get("DRIVE_URL"):
         drive(os.environ["DRIVE_URL"].strip(), (os.environ.get("DIRETO_NOME") or "gta").strip()); return
     if os.environ.get("NORMALIZAR"):
