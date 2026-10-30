@@ -57,3 +57,5 @@ Atualizado: 28/10/2026
 - Workflow "pages build" falha (docs removidos); pode desativar o GitHub Pages.
 
 - 29/10: parte 3 de 'Meu marido esqueceu...' ficou 'Este som está indisponível' no TikTok (só ela; as outras estão ok). Arquivo tinha áudio normal -> provável falso positivo do TikTok no áudio. Mitigação em video._final: áudio 48 kHz estéreo + ruído rosa bem baixo (único por vídeo). Parte 3 corrigida enviada ao dono para repostar; parte 4 (já no Buffer) mantém áudio antigo.
+
+- 30/10: zip do Drive (gta_gameplays.zip, 1,5 GB) baixado pelo workflow biblioteca (input drive=link, nome=gta): original guardado no release fundos como original_gta.zip; 3 verticais GTA mega ramp convertidos e APROVADOS (fundos/aprovados.txt); 5 horizontais 1280x720 ignorados. GTA usa cores calmas (calmo). Dono vai subir mais zips no Drive (jogos: roblox, subway, minecraft) -> rodar biblioteca com drive=<link> nome=<jogo>, conferir quadros (normalizar=conferir), aprovar.
