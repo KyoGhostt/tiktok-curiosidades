@@ -73,6 +73,35 @@ def direto(url, nome):
     processar(raw, nome)
 
 
+def drive(url, jogo):
+    """Baixa um ZIP (ou vídeo) compartilhado do Google Drive, padroniza cada vídeo vertical e guarda no release."""
+    import zipfile, hashlib
+    sh(["gh", "release", "create", "fundos", "--repo", REPO, "--title", "Biblioteca de fundos", "--notes", "Vídeos de fundo (gameplay vertical) usados pelo robô."])
+    dest = W / "drive"; dest.mkdir(exist_ok=True)
+    r = sh(["gdown", "--fuzzy", url, "-O", str(dest / "baixado.bin")], t=3000)
+    print("gdown:", (r.stdout + r.stderr).strip()[-300:])
+    bin_ = dest / "baixado.bin"
+    if not bin_.exists() or bin_.stat().st_size < 1e6:
+        print("FALHOU: download do Drive (link não público?)"); return
+    print(f"baixado {bin_.stat().st_size/1e6:.0f} MB")
+    arqs = []
+    if zipfile.is_zipfile(bin_):
+        with zipfile.ZipFile(bin_) as z:
+            z.extractall(dest / "x")
+        bin_.unlink()
+        arqs = sorted(p for p in (dest / "x").rglob("*") if p.suffix.lower() in (".mp4", ".mov", ".mkv", ".webm", ".m4v"))
+    else:
+        arqs = [bin_]
+    print(f"{len(arqs)} vídeo(s) no arquivo:", [a.name for a in arqs])
+    have = existentes() or set()
+    for a in arqs:
+        base = re.sub(r"[^a-z0-9]+", "-", a.stem.lower()).strip("-")[:40] or "video"
+        nome = f"{jogo}_{base}_{hashlib.md5(a.name.encode()).hexdigest()[:4]}.mp4"
+        if nome in have: print("já existe:", nome); continue
+        processar(a, nome)
+        a.unlink(missing_ok=True)
+
+
 def normalizar():
     """Arquivos que o dono subiu à mão no release com o prefixo raw_ (ex.: raw_gta_abc.mp4): padroniza, guarda como gta_abc.mp4 e apaga o raw."""
     r = sh(["gh", "release", "view", "fundos", "--repo", REPO, "--json", "assets", "--jq", ".assets[].name"])
@@ -86,6 +115,8 @@ def normalizar():
 
 
 def main():
+    if os.environ.get("DRIVE_URL"):
+        drive(os.environ["DRIVE_URL"].strip(), (os.environ.get("DIRETO_NOME") or "gta").strip()); return
     if os.environ.get("NORMALIZAR"):
         normalizar(); return
     if os.environ.get("DIRETO_URL"):
