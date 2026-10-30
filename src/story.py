@@ -1,12 +1,14 @@
 """Histórias estilo Reddit: busca relatos (RSS público) ou cria história original; adapta para PT-BR em 3 a 6 partes."""
-import html, json, random, re, requests
+import html, json, random, re, requests, time
 import xml.etree.ElementTree as ET
 from config import OUT
 import writer
 
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
       "Accept": "application/atom+xml,application/xml,text/xml,*/*"}
-SUBS = ["AmItheAsshole", "pettyrevenge", "MaliciousCompliance", "TIFU", "entitledparents", "ProRevenge", "relationship_advice"]
+SUBS = ["AmItheAsshole", "pettyrevenge", "MaliciousCompliance", "TIFU", "entitledparents", "ProRevenge", "relationship_advice",
+        "AITAH", "TrueOffMyChest", "JustNoMIL", "offmychest", "desabafos"]   # desabafos = relatos em português (30/10)
+PAUSA_S = 4   # o Reddit devolve 429 se os pedidos vierem rápido demais
 HIST = OUT / "used_stories.json"
 DEBUG = []
 
@@ -49,33 +51,45 @@ def _clean(c):
     return re.sub(r"\s+", " ", t).strip()
 
 
-def fetch_posts(sub):
-    r = requests.get(f"https://www.reddit.com/r/{sub}/top/.rss?t=week&limit=25", headers=UA, timeout=25)
-    DEBUG.append(f"reddit r/{sub}: http {r.status_code}")
+def fetch_posts(sub, kind="top"):
+    """kind: top (mais votados da semana) ou controversial (mais polêmicos da semana)."""
+    for tentativa in range(2):
+        r = requests.get(f"https://www.reddit.com/r/{sub}/{kind}/.rss?t=week&limit=25", headers=UA, timeout=25)
+        DEBUG.append(f"reddit r/{sub}/{kind}: http {r.status_code}")
+        if r.status_code != 429:
+            break
+        time.sleep(10)
     r.raise_for_status()
     ns = {"a": "http://www.w3.org/2005/Atom"}
     out = []
-    for e in ET.fromstring(r.content).findall("a:entry", ns):
+    for pos, e in enumerate(ET.fromstring(r.content).findall("a:entry", ns)):
         link = e.find("a:link", ns).get("href")
         text = _clean(e.findtext("a:content", namespaces=ns) or "")
-        out.append({"id": link, "sub": sub, "title": e.findtext("a:title", namespaces=ns) or "", "text": text})
+        out.append({"id": link, "sub": sub, "kind": kind, "pos": pos, "title": e.findtext("a:title", namespaces=ns) or "", "text": text})
     return out
 
 
+def _nota(p):
+    """Quanto mais polêmica e mais longa (= mais reviravoltas), melhor; topo do ranking também conta."""
+    return (2.0 if p["kind"] == "controversial" else 0) + min(len(p["text"]), 7000) / 3500 - p["pos"] * 0.05 + random.random() * 0.8
+
+
 def pick_story(n=3):
-    """Até n relatos novos entre os MAIS POPULARES da semana (o RSS 'top' já vem ordenado por votos).
-    Lista vazia => usar história original."""
+    """Até n relatos REAIS e novos, escolhidos entre os mais polêmicos/votados da semana de várias comunidades.
+    Lista vazia => história original (só como último recurso). Para voltar ao modo antigo: git revert do commit 'Historias: ...'."""
     used, cands = _used(), []
-    for sub in random.sample(SUBS, len(SUBS)):
-        try:
-            ok = [p for p in fetch_posts(sub) if 1500 <= len(p["text"]) <= 9000 and p["id"] not in used]
-            cands += ok[:6]  # só o topo do ranking de cada subreddit
-        except Exception as e:
-            DEBUG.append(f"reddit r/{sub}: erro {type(e).__name__} {str(e)[:80]}")
-        if len(cands) >= n * 2:
-            break
-    random.shuffle(cands)
-    return cands[:n]
+    for sub in random.sample(SUBS, 5):
+        for kind in ("top", "controversial"):
+            try:
+                cands += [p for p in fetch_posts(sub, kind) if 1800 <= len(p["text"]) <= 9000 and p["id"] not in used]
+            except Exception as e:
+                DEBUG.append(f"reddit r/{sub}/{kind}: erro {type(e).__name__} {str(e)[:80]}")
+            time.sleep(PAUSA_S)
+    vistos, uniq = set(), []
+    for p in sorted(cands, key=_nota, reverse=True):
+        if p["id"] not in vistos:
+            vistos.add(p["id"]); uniq.append(p)
+    return uniq[:n]
 
 
 def _validate(d):
