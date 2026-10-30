@@ -86,6 +86,10 @@ def drive(url, jogo):
     print(f"baixado {bin_.stat().st_size/1e6:.0f} MB")
     arqs = []
     if zipfile.is_zipfile(bin_):
+        orig = W / f"original_{jogo}.zip"   # cópia fiel do que o dono mandou (≤2 GB), para ele poder apagar do Drive
+        bin_.rename(orig); bin_ = orig
+        u = sh(["gh", "release", "upload", "fundos", str(orig), "--repo", REPO, "--clobber"], t=3000)
+        print("original guardado:" if u.returncode == 0 else "upload do original falhou:", orig.name, (u.stderr or "")[-150:])
         with zipfile.ZipFile(bin_) as z:
             z.extractall(dest / "x")
         bin_.unlink()
