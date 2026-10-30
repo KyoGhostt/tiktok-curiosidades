@@ -45,15 +45,18 @@ def _wrap(d, text, font, width):
 
 
 def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
+    """Cartão de abertura: avatar + nome com selo azul + TÍTULO da história (não o texto que a voz lê)."""
     W, H = 1080, 1920
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    cw, pad, x0 = 940, 40, 70
-    fb, fn, fs = _font(46), _font(52), _font(30)
-    lines = _wrap(d, gancho(texto), fb, cw - 2 * pad)[:8]
+    cw, pad, x0 = 940, 44, 70
+    fb, fn, fs = _font(64), _font(52), _font(30)
+    tit = titulo.strip().rstrip(".")
+    lines = _wrap(d, tit, fb, cw - 2 * pad)[:5]
     head_h = 130
-    ch = pad + head_h + 24 + len(lines) * 62 + pad
-    y0 = 520
+    lh = 80
+    ch = pad + head_h + 30 + len(lines) * lh + pad
+    y0 = 560
     c = cor(titulo)
     d.rounded_rectangle((x0, y0, x0 + cw, y0 + ch), radius=48, fill=(255, 255, 255, 255), outline=c + (255,), width=14)
     try:
@@ -64,10 +67,13 @@ def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
         d.ellipse((x0 + pad, y0 + pad, x0 + pad + head_h, y0 + pad + head_h), fill=c + (255,))
     tx = x0 + pad + head_h + 24
     d.text((tx, y0 + pad + 4), nome, font=fn, fill=(20, 20, 20, 255))
-    d.text((tx, y0 + pad + 74), f"{sub}  •  PARTE {parte} DE {n}", font=fs, fill=(110, 110, 110, 255))
-    y = y0 + pad + head_h + 24
+    bx = tx + d.textlength(nome, font=fn) + 16          # selo de verificado (círculo azul com check)
+    d.ellipse((bx, y0 + pad + 14, bx + 44, y0 + pad + 58), fill=(29, 155, 240, 255))
+    d.line((bx + 11, y0 + pad + 37, bx + 20, y0 + pad + 46, bx + 34, y0 + pad + 26), fill=(255, 255, 255, 255), width=6)
+    d.text((tx, y0 + pad + 74), f"PARTE {parte} DE {n}", font=fs, fill=(110, 110, 110, 255))
+    y = y0 + pad + head_h + 30
     for ln in lines:
         d.text((x0 + pad, y), ln, font=fb, fill=(15, 15, 15, 255))
-        y += 62
+        y += lh
     img.save(path)
     return path
