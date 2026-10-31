@@ -1,0 +1,303 @@
+{
+ "stories": [
+  {
+   "id": "hist-20261028-031343",
+   "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica",
+   "n": 5,
+   "origem": "Baseado em relato do Reddit (r/pettyrevenge)",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 1 de 5)",
+     "legenda": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 1 de 5) #parte1 #historiasdoreddit #chefe #trabalho #vidacorporativa",
+     "duracao_s": 81,
+     "status": "agendado",
+     "buffer_id": "6ae262d260384583ecd4122c",
+     "due": "2026-10-31T17:00:00-03:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 2 de 5)",
+     "legenda": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 2 de 5) #parte2 #historiasdoreddit #chefe #trabalho #vidacorporativa",
+     "duracao_s": 53,
+     "status": "agendado",
+     "buffer_id": "6ae2675a7570388bc1f2218f",
+     "due": "2026-10-31T20:00:00-03:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 3 de 5)",
+     "legenda": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 3 de 5) #parte3 #historiasdoreddit #chefe #trabalho #vidacorporativa",
+     "duracao_s": 59,
+     "status": "agendado",
+     "buffer_id": "6ae29cc742598d490d78e96d",
+     "due": "2026-11-02T12:00:00-03:00"
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 4 de 5)",
+     "legenda": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 4 de 5) #parte4 #historiasdoreddit #chefe #trabalho #vidacorporativa",
+     "duracao_s": 64,
+     "status": "agendado",
+     "buffer_id": "6ae372a288bef8e9b74c0f4d",
+     "due": "2026-11-02T17:00:00-03:00"
+    },
+    {
+     "parte": 5,
+     "arquivo": "parte5.mp4",
+     "titulo": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 5 de 5)",
+     "legenda": "Roubei a Equipe da Minha Ex-Chefe Tóxica (Parte 5 de 5) Final! O que você teria feito? Comenta! #parte5 #historiasdoreddit #chefe #trabalho #vidacorporativa",
+     "duracao_s": 45,
+     "status": "agendado",
+     "buffer_id": "6ae3c69d60532fc2b0d47db5",
+     "due": "2026-11-02T20:00:00-03:00"
+    }
+   ],
+   "tema": "trabalho"
+  },
+  {
+   "id": "hist-20261028-031901",
+   "titulo": "A Música Proibida que me Assombra",
+   "n": 4,
+   "origem": "Baseado em relato do Reddit (r/TIFU)",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "A Música Proibida que me Assombra (Parte 1 de 4)",
+     "legenda": "A Música Proibida que me Assombra (Parte 1 de 4) #parte1 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 69,
+     "status": "agendado",
+     "buffer_id": "6ae3effb4b8768bfb2d20bd5",
+     "due": "2026-11-03T12:00:00-03:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "A Música Proibida que me Assombra (Parte 2 de 4)",
+     "legenda": "A Música Proibida que me Assombra (Parte 2 de 4) #parte2 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 54,
+     "status": "agendado",
+     "buffer_id": "6ae4c1412a4d923bf409803b",
+     "due": "2026-11-03T17:00:00-03:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "A Música Proibida que me Assombra (Parte 3 de 4)",
+     "legenda": "A Música Proibida que me Assombra (Parte 3 de 4) #parte3 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 54,
+     "status": "agendado",
+     "buffer_id": "6ae53be2406ab8a0188fcaca",
+     "due": "2026-11-03T20:00:00-03:00"
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "A Música Proibida que me Assombra (Parte 4 de 4)",
+     "legenda": "A Música Proibida que me Assombra (Parte 4 de 4) Final! O que você teria feito? Comenta! #parte4 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 61,
+     "status": "agendado",
+     "buffer_id": "6ae53be2b84259308badd700",
+     "due": "2026-11-04T12:00:00-03:00"
+    }
+   ],
+   "tema": "familia"
+  },
+  {
+   "id": "hist-20261028-032315",
+   "titulo": "Minha esposa no sofá?",
+   "n": 3,
+   "origem": "Baseado em relato do Reddit (r/AmItheAsshole)",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Minha esposa no sofá? (Parte 1 de 3)",
+     "legenda": "Minha esposa no sofá? (Parte 1 de 3) #parte1 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 84,
+     "status": "agendado",
+     "buffer_id": "6ae608fa1ee172cd6dab8a72",
+     "due": "2026-11-04T17:00:00-03:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Minha esposa no sofá? (Parte 2 de 3)",
+     "legenda": "Minha esposa no sofá? (Parte 2 de 3) #parte2 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 69,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "Minha esposa no sofá? (Parte 3 de 3)",
+     "legenda": "Minha esposa no sofá? (Parte 3 de 3) Final! O que você teria feito? Comenta! #parte3 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 58,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ],
+   "tema": "relacionamento"
+  },
+  {
+   "id": "hist-20261028-032705",
+   "titulo": "A folgada que foi ignorada até explodir",
+   "n": 4,
+   "origem": "Baseado em relato do Reddit (r/pettyrevenge)",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "A folgada que foi ignorada até explodir (Parte 1 de 4)",
+     "legenda": "A folgada que foi ignorada até explodir (Parte 1 de 4) #parte1 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 78,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "A folgada que foi ignorada até explodir (Parte 2 de 4)",
+     "legenda": "A folgada que foi ignorada até explodir (Parte 2 de 4) #parte2 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 70,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "A folgada que foi ignorada até explodir (Parte 3 de 4)",
+     "legenda": "A folgada que foi ignorada até explodir (Parte 3 de 4) #parte3 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 65,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "A folgada que foi ignorada até explodir (Parte 4 de 4)",
+     "legenda": "A folgada que foi ignorada até explodir (Parte 4 de 4) Final! O que você teria feito? Comenta! #parte4 #historiasdoreddit #familia #drama #sogra",
+     "duracao_s": 80,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ],
+   "tema": "familia"
+  },
+  {
+   "id": "hist-20261031-132021",
+   "titulo": "Minha Namorada Quer Abandonar Nossa Filha",
+   "n": 3,
+   "origem": "Baseado em relato do Reddit (r/relationship_advice)",
+   "tema": "relacionamento",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3) #parte1 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 115,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3) #parte2 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 104,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3) Final! O que você teria feito? Comenta! #parte3 #historiasdoreddit #casamento #historiasreais #marido",
+     "duracao_s": 113,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261031-133158",
+   "titulo": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA",
+   "n": 4,
+   "origem": "Baseado em relato do Reddit (r/MaliciousCompliance)",
+   "tema": "vizinhos",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 1 de 4)",
+     "legenda": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 1 de 4) #parte1 #historiasdoreddit #vizinhos #confusao #tretas",
+     "duracao_s": 92,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 2 de 4)",
+     "legenda": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 2 de 4) #parte2 #historiasdoreddit #vizinhos #confusao #tretas",
+     "duracao_s": 109,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 3 de 4)",
+     "legenda": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 3 de 4) #parte3 #historiasdoreddit #vizinhos #confusao #tretas",
+     "duracao_s": 102,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 4 de 4)",
+     "legenda": "Meus Vizinhos TENTARAM ME EXTORQUIR COMIDA (Parte 4 de 4) Final! O que você teria feito? Comenta! #parte4 #historiasdoreddit #vizinhos #confusao #tretas",
+     "duracao_s": 96,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  }
+ ],
+ "pausado": false,
+ "avisados": [
+  "6adebb41e4be8a4d86dc53f4",
+  "6adebb42bd33ce99c3a37eb9",
+  "6ae262cb61a8363a49495731",
+  "6ae262cc7570388bc1f0c542",
+  "6ae262cd61a8363a494957c7",
+  "6ae262ce60384583ecd410c2",
+  "6ae262ce8ecebd502e733fc5",
+  "6ae262cfa840ef151b66c1b4",
+  "6ae262d060384583ecd411b5",
+  "6ae262d17570388bc1f0c683",
+  "6ae3756edbc78aec2b7ccffc",
+  "6ae3ddca5cbac82a66ff6592"
+ ]
+}

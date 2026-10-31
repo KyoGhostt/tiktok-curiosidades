@@ -1,0 +1,187 @@
+{
+ "slots": [
+  [
+   12,
+   0
+  ],
+  [
+   17,
+   0
+  ],
+  [
+   20,
+   0
+  ]
+ ],
+ "tags": {
+  "fy": {
+   "n": 2,
+   "media": 614.0
+  },
+  "redditbrasil": {
+   "n": 2,
+   "media": 614.0
+  },
+  "parte2": {
+   "n": 2,
+   "media": 292.5
+  },
+  "historiasdoreddit": {
+   "n": 7,
+   "media": 362.85714285714283
+  },
+  "maliciouscompliancebrasil": {
+   "n": 2,
+   "media": 614.0
+  },
+  "chefedura": {
+   "n": 2,
+   "media": 614.0
+  },
+  "regrasdobranco": {
+   "n": 2,
+   "media": 614.0
+  },
+  "storytime": {
+   "n": 7,
+   "media": 362.85714285714283
+  },
+  "salãodebeleza": {
+   "n": 2,
+   "media": 614.0
+  },
+  "parte3": {
+   "n": 3,
+   "media": 403.3333333333333
+  },
+  "parte1": {
+   "n": 1,
+   "media": 196.0
+  },
+  "relacionamento": {
+   "n": 5,
+   "media": 262.4
+  },
+  "casal": {
+   "n": 5,
+   "media": 262.4
+  },
+  "parte4": {
+   "n": 1,
+   "media": 549.0
+  }
+ },
+ "escolhidas": {
+  "trabalho": [
+   "chefe",
+   "trabalho",
+   "vidacorporativa"
+  ],
+  "relacionamento": [
+   "casamento",
+   "historiasreais",
+   "marido"
+  ],
+  "familia": [
+   "familia",
+   "drama",
+   "sogra"
+  ],
+  "vinganca": [
+   "vinganca",
+   "justica",
+   "karma"
+  ],
+  "vizinhos": [
+   "vizinhos",
+   "confusao",
+   "tretas"
+  ],
+  "amizade": [
+   "amizade",
+   "drama",
+   "amigos"
+  ],
+  "escola": [
+   "escola",
+   "adolescencia",
+   "colegio"
+  ],
+  "drama": [
+   "drama",
+   "historiasreais",
+   "treta"
+  ]
+ },
+ "candidatas": {
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "relacionamentoabusivo",
+   "relacionamentotoxico"
+  ],
+  "familia": [],
+  "vinganca": [],
+  "vizinhos": [
+   "vizinhoinvejoso"
+  ],
+  "escola": [],
+  "drama": [
+   "novelas",
+   "historia"
+  ]
+ },
+ "teste": null,
+ "base_n": 7,
+ "atualizado": "2026-10-31T17:17:30.178855+00:00",
+ "pesquisa": {
+  "status": {
+   "google_trends": "ok",
+   "tiktok_hashtags": "falhou: resposta sem lista: {'code': 40101, 'msg': 'no permission', 'request_id': '20261101011728439D8A02872BE7D38E66'}",
+   "endless_tiktok_br": "ok",
+   "buscas_por_tema": "ok",
+   "reddit_semana": "falhou: 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/pettyrevenge/top/.rss?t=week&limit=10"
+  },
+  "trends": [
+   {
+    "termo": "empresário",
+    "buscas": "2000+"
+   },
+   {
+    "termo": "marcos rojo",
+    "buscas": "10000+"
+   },
+   {
+    "termo": "bayern",
+    "buscas": "2000+"
+   },
+   {
+    "termo": "frente fria",
+    "buscas": "1000+"
+   },
+   {
+    "termo": "nana silva",
+    "buscas": "500+"
+   },
+   {
+    "termo": "jennifer lawrence",
+    "buscas": "200+"
+   },
+   {
+    "termo": "fenerbahçe",
+    "buscas": "1000+"
+   },
+   {
+    "termo": "assaí",
+    "buscas": "200+"
+   },
+   {
+    "termo": "bayern x borussia dortmund",
+    "buscas": "100+"
+   },
+   {
+    "termo": "classificações de leverkusen x vfb stuttgart",
+    "buscas": "500+"
+   }
+  ]
+ }
+}
