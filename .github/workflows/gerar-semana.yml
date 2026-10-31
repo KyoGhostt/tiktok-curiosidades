@@ -36,12 +36,13 @@ jobs:
           set -o pipefail
           ALVO=${{ github.event.inputs.alvo || '18' }}
           export ESTADO_DIR=/tmp/estado MEDIA_DIR=/tmp/media
+          : > /tmp/estado/gerar-log.txt
           for i in $(seq 1 12); do
             E=$(python src/fila.py estoque)
             echo "== estoque $E / alvo $ALVO"
             echo "::notice::iteracao $i estoque=$E alvo=$ALVO"
             [ "$E" -ge "$ALVO" ] && break
-            python -u src/run.py > /tmp/hist.log 2>&1; RC=$?; tail -n 3 /tmp/hist.log
+            python -u src/run.py > /tmp/hist.log 2>&1 && RC=0 || RC=$?; tail -n 3 /tmp/hist.log; { echo "=== iteracao $i rc=$RC"; tail -n 60 /tmp/hist.log; } >> /tmp/estado/gerar-log.txt
             echo "::notice::run.py rc=$RC: $(tail -n 2 /tmp/hist.log | tr '\n' '|' | cut -c1-300)"
             if [ $RC -eq 0 ]; then
               D=$(ls -dt output/hist-*/ | head -1)
