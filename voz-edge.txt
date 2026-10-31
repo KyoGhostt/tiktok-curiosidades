@@ -1,0 +1,8 @@
+minecraft: 14-Minecraft-Gameplay-Vertical.zip -> 14 Minecraft Gameplay Vertical.mp4 (7.2 min)
+ok pt-BR-ThalitaMultilingualNeural 44s
+ok en-US-AndrewMultilingualNeural 48s
+ok en-US-BrianMultilingualNeural 50s
+ok fr-FR-RemyMultilingualNeural 44s
+ok de-DE-FlorianMultilingualNeural 43s
+ok en-US-AvaMultilingualNeural 43s
+ok en-US-EmmaMultilingualNeural 46s

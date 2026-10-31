@@ -1,0 +1,69 @@
+{
+  "id": "hist-20261031-132021",
+  "titulo": "Minha Namorada Quer Abandonar Nossa Filha",
+  "origem": "Baseado em relato do Reddit (r/relationship_advice)",
+  "fonte": "https://www.reddit.com/r/relationship_advice/comments/1xj4bxp/my_21m_girlfriend_20f_says_she_loves_our/",
+  "n": 3,
+  "tema": "relacionamento",
+  "partes": [
+    {
+      "parte": 1,
+      "arquivo": "parte1.mp4",
+      "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3)",
+      "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3) #parte1 #historiasdoreddit #storytime #relacionamento #casal",
+      "duracao_s": 115,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 2,
+      "arquivo": "parte2.mp4",
+      "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3)",
+      "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3) #parte2 #historiasdoreddit #storytime #relacionamento #casal",
+      "duracao_s": 104,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 3,
+      "arquivo": "parte3.mp4",
+      "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3)",
+      "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3) Final! O que você teria feito? Comenta! #parte3 #historiasdoreddit #storytime #relacionamento #casal",
+      "duracao_s": 113,
+      "avisos": [],
+      "fundo": "subway"
+    }
+  ],
+  "debug": [
+    "reddit r/ProRevenge/top: http 200",
+    "reddit r/ProRevenge/controversial: http 429",
+    "reddit r/ProRevenge/controversial: http 429",
+    "reddit r/ProRevenge/controversial: http 429",
+    "reddit r/ProRevenge/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/ProRevenge",
+    "reddit r/JustNoMIL/top: http 429",
+    "reddit r/JustNoMIL/top: http 200",
+    "reddit r/JustNoMIL/controversial: http 429",
+    "reddit r/JustNoMIL/controversial: http 429",
+    "reddit r/JustNoMIL/controversial: http 429",
+    "reddit r/JustNoMIL/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/JustNoMIL/",
+    "reddit r/relationship_advice/top: http 429",
+    "reddit r/relationship_advice/top: http 200",
+    "reddit r/relationship_advice/controversial: http 429",
+    "reddit r/relationship_advice/controversial: http 429",
+    "reddit r/relationship_advice/controversial: http 429",
+    "reddit r/relationship_advice/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/relationsh",
+    "reddit r/AITAH/top: http 429",
+    "reddit r/AITAH/top: http 200",
+    "reddit r/AITAH/controversial: http 429",
+    "reddit r/AITAH/controversial: http 429",
+    "reddit r/AITAH/controversial: http 429",
+    "reddit r/AITAH/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/AITAH/cont",
+    "reddit r/AmItheAsshole/top: http 429",
+    "reddit r/AmItheAsshole/top: http 429",
+    "reddit r/AmItheAsshole/top: http 200",
+    "reddit r/AmItheAsshole/controversial: http 429",
+    "reddit r/AmItheAsshole/controversial: http 429",
+    "reddit r/AmItheAsshole/controversial: http 429",
+    "reddit r/AmItheAsshole/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/AmItheAssh"
+  ]
+}
