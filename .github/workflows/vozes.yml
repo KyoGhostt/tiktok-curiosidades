@@ -7,13 +7,13 @@ permissions: {contents: write}
 jobs:
   ver:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       GH_TOKEN: ${{ github.token }}
       DRIVE_URL: ${{ github.event.inputs.drive }}
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg && pip install gdown
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg && pip install gdown pillow numpy librosa faster-whisper
       - run: |
           source scripts/branches.sh
           mkdir -p /tmp/previews && rm -rf /tmp/previews/*
