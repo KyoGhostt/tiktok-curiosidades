@@ -17,8 +17,7 @@ Narre em primeira pessoa, com linguagem falada brasileira natural e frases curta
 remova qualquer dado identificável (sobrenomes, cidades específicas, @, links, empresas reais). Mantenha os fatos do texto-base,
 pode condensar, mas NÃO invente acontecimentos importantes. Se não houver texto-base, crie uma história ORIGINAL de drama
 cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e reviravolta.
-Divida em N PARTES, com N entre 3 e 6 (história curta = 3; média = 4; longa e cheia de reviravoltas = 5 ou 6; nunca mais de 6).
-Cada parte tem de 190 a 260 palavras (cerca de 1 min a 1 min40 narrado), cortando em pontos de suspense: toda parte, menos a última,
+@@DIVISAO@@ Corte em pontos de suspense: toda parte, menos a última,
 termina num gancho forte; a parte 1 começa com um gancho forte, jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
 ROTEIRO QUE PRENDE ATÉ O FIM (obrigatório): antes de escrever, defina uma PERGUNTA CENTRAL impactante, específica e intrigante (ex.: "o que ele
 guardava no porão?", "quem mandou a mensagem?") que fica martelando na cabeça do ouvinte. Ela aparece nos primeiros segundos da parte 1,
@@ -81,7 +80,7 @@ def pick_story(n=3):
     for sub in random.sample(SUBS, 5):
         for kind in ("top", "controversial"):
             try:
-                cands += [p for p in fetch_posts(sub, kind) if 1800 <= len(p["text"]) <= 9000 and p["id"] not in used]
+                cands += [p for p in fetch_posts(sub, kind) if 1800 <= len(p["text"]) <= 16000 and p["id"] not in used]
             except Exception as e:
                 DEBUG.append(f"reddit r/{sub}/{kind}: erro {type(e).__name__} {str(e)[:80]}")
             time.sleep(PAUSA_S)
@@ -92,27 +91,57 @@ def pick_story(n=3):
     return uniq[:n]
 
 
-def _validate(d):
+PPM = 240   # palavras narradas por minuto (voz do robô a +8%)
+
+
+def plano(post=None):
+    """Sorteia a duração de cada vídeo (1 a 5 min, por história) e calcula quantas partes o texto-base aguenta."""
+    alvo = random.choice([1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5])
+    if post:
+        w = len(post["text"].split())
+        n = max(1, min(6, round(w / (alvo * PPM))))
+        pal = int(max(190, min(alvo * PPM, w * 0.95 / n)))   # nunca pede mais texto do que o relato real tem
+    else:
+        n = random.randint(2, 5)
+        pal = int(alvo * PPM)
+    return {"alvo_min": alvo, "n": n, "pal": pal}
+
+
+def _divisao(pl):
+    n, pal, alvo = pl["n"], pl["pal"], pl["alvo_min"]
+    if n == 1:
+        return (f"A história vira UM ÚNICO vídeo (1 parte), com cerca de {pal} palavras (≈ {pal/PPM:.1f} min narrado), sem ganchos de continuação: "
+                f"ela abre com o gancho forte e fecha com o desfecho e uma pergunta que gere comentários.")
+    return (f"Divida em EXATAMENTE {n} PARTES. Cada parte tem cerca de {pal} palavras (≈ {pal/PPM:.1f} min narrado; nunca fora de "
+            f"{int(pal*0.8)} a {int(pal*1.2)}).")
+
+
+def _validate(d, pl):
     ps = d.get("partes", [])
-    if not 3 <= len(ps) <= 6: raise ValueError(f"{len(ps)} partes (precisa de 3 a 6)")
+    if len(ps) != pl["n"]: raise ValueError(f"{len(ps)} partes (precisa de {pl['n']})")
     for i, p in enumerate(ps, 1):
         n = len(p["texto"].split())
-        if not 150 <= n <= 290: raise ValueError(f"parte {i} com {n} palavras")
+        if not pl["pal"] * 0.7 <= n <= pl["pal"] * 1.35: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
     if len(d.get("fundos", [])) < 2: raise ValueError("poucos fundos")
+    d["_plano"] = pl
     return d
 
 
 def write(post=None):
     """post=None => história original. Levanta writer.TopicRejected se o filtro recusar."""
-    user = (f"Texto-base (r/{post['sub']}): {post['title']}\n\n{post['text'][:9000]}" if post
+    pl = plano(post)
+    print(f"plano: {pl['n']} parte(s) de ~{pl['pal']} palavras (alvo {pl['alvo_min']} min)", flush=True)
+    user = (f"Texto-base (r/{post['sub']}): {post['title']}\n\n{post['text'][:15000]}" if post
             else "Sem texto-base: crie uma história ORIGINAL no estilo AITA/histórias do Reddit.")
+    system = SYSTEM.replace("@@DIVISAO@@", _divisao(pl))
+    tokens = int(min(30000, max(8192, pl["n"] * pl["pal"] * 3.5)))
     errs = []
     for name, url, key, model in writer.providers():
         for attempt in range(3):
             try:
-                d = writer._chat(url, key, model, SYSTEM, user, tokens=8192)
+                d = writer._chat(url, key, model, system, user, tokens=tokens)
                 if d.get("rejeitar"): raise writer.TopicRejected("rejeitada")
-                return _validate(d)
+                return _validate(d, pl)
             except writer.TopicRejected:
                 raise
             except Exception as e:

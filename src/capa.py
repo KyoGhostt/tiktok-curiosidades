@@ -70,7 +70,7 @@ def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
     bx = tx + d.textlength(nome, font=fn) + 16          # selo de verificado (círculo azul com check)
     d.ellipse((bx, y0 + pad + 14, bx + 44, y0 + pad + 58), fill=(29, 155, 240, 255))
     d.line((bx + 11, y0 + pad + 37, bx + 20, y0 + pad + 46, bx + 34, y0 + pad + 26), fill=(255, 255, 255, 255), width=6)
-    d.text((tx, y0 + pad + 74), f"PARTE {parte} DE {n}", font=fs, fill=(110, 110, 110, 255))
+    d.text((tx, y0 + pad + 74), f"PARTE {parte} DE {n}" if n > 1 else "HISTÓRIA COMPLETA", font=fs, fill=(110, 110, 110, 255))
     y = y0 + pad + head_h + 30
     for ln in lines:
         d.text((x0 + pad, y), ln, font=fb, fill=(15, 15, 15, 255))

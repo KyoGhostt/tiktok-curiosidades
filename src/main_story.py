@@ -40,14 +40,15 @@ def build_package():
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
         words = tts.synth(p["texto"], mp3, voz)
-        ov = [(0, None, f"PARTE {i} DE {n}", "Badge")]
+        ov = [(0, None, f"PARTE {i} DE {n}", "Badge")] if n > 1 else []
         if i < n:
             fim = (words[-1][1] if words else 0)
             ov.append((fim - 2.2, None, (p.get("gancho_final") or "A história continua").upper() +
                        f"\\NCONTINUA NA PARTE {i+1}", "End"))
         dur = tts.make_ass(words, ass, script=p["texto"], overlays=ov)
         total = dur + 0.6
-        titulo = f"{data['titulo']} (Parte {i} de {n})"
+        sufixo = f" (Parte {i} de {n})" if n > 1 else ""
+        titulo = f"{data['titulo']}{sufixo}"
         card = capa.card(d / f"capa{i}.png", data["titulo"], sub, p["texto"], i, n)
         if clip:
             video.build_mc(clip[0], pos % max(1, clip[1] - total), total, mp3, ass, mp4, card, calmo=any(j in clip[0].name for j in ("subway", "roblox", "gta")))
@@ -56,8 +57,8 @@ def build_package():
             fundos = data["fundos"]
             scenes = [(fundos[k % len(fundos)], total / 6) for k in range(6)]
             video.build(scenes, mp3, ass, total, d, mp4, card)
-        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=40, hi=125)
-        cap = otimo.legenda(data["titulo"] + f" (Parte {i} de {n})", i, n, tema)   # hashtags otimizadas (5 no total)
+        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=30, hi=data["_plano"]["pal"] * 1.4 / story.PPM * 60 + 40)
+        cap = otimo.legenda(titulo, i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})
         print(f"parte {i}/{n}: {secs:.0f}s fundo={next((j for j in ('subway', 'gta', 'roblox') if j in clip[0].name), 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)

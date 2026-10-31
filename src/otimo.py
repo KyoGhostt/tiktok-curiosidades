@@ -64,14 +64,17 @@ def variaveis(tema, c):
     return ch if ch else pool(tema, c)[:3]
 
 
-def hashtags(tema, parte, c=None):
+def hashtags(tema, parte, c=None, n=None):
     c = c or load()
+    if n == 1:   # vídeo único: sem #parteN
+        return FIXAS + variaveis(tema, c) + [t for t in pool(tema, c) if t not in FIXAS and t not in variaveis(tema, c)][:1]
     return [f"parte{parte}"] + FIXAS + variaveis(tema, c)       # 5 no total (limite útil do TikTok)
 
 
 def legenda(titulo, parte, n, tema, c=None):
     cta = "" if parte < n else "Final! O que você teria feito? Comenta! "  # sem "Continua na parte N" (pedido do dono, 29/10)
-    return f"{titulo} {cta}" + " ".join("#" + t for t in hashtags(tema, parte, c))
+    if n == 1: cta = "O que você teria feito? Comenta! "
+    return f"{titulo} {cta}" + " ".join("#" + t for t in hashtags(tema, parte, c, n))
 
 
 PALAVRAS = {"trabalho": ("chefe", "chefa", "equipe", "empresa", "trabalho", "emprego", "colega", "cliente", "funcion", "gerente"),
