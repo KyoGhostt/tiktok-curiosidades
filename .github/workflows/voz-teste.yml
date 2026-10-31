@@ -1,0 +1,23 @@
+name: voz-teste
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core fonts-montserrat
+      - run: pip install -r requirements.txt faster-whisper librosa numpy
+      - run: |
+          source scripts/branches.sh
+          mkdir -p /tmp/previews && rm -rf /tmp/previews/*
+          python -u src/voz_teste.py 2>&1 | tee /tmp/previews/voz-teste.txt
+          cd /tmp/previews && git init -q -b previews && git config user.name actions && git config user.email a@b.c
+          git add -A && git commit -qm voz-teste && git push -q -f "$REMOTE" HEAD:previews
