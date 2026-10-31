@@ -70,7 +70,8 @@ def fetch_posts(sub, kind="top"):
 
 def _nota(p):
     """Quanto mais polêmica e mais longa (= mais reviravoltas), melhor; topo do ranking também conta."""
-    return (2.0 if p["kind"] == "controversial" else 0) + min(len(p["text"]), 7000) / 3500 - p["pos"] * 0.05 + random.random() * 0.8
+    return ((2.0 if p["kind"] == "controversial" else 0) + min(len(p["text"]), 7000) / 3500 - p["pos"] * 0.05 + random.random() * 0.8
+            + (3.0 if len(p["text"]) >= 5400 else 0))   # relato com ~1000+ palavras rende um vídeo de 5 min sem encher linguiça
 
 
 def pick_story(n=3):
@@ -80,7 +81,7 @@ def pick_story(n=3):
     for sub in random.sample(SUBS, 5):
         for kind in ("top", "controversial"):
             try:
-                cands += [p for p in fetch_posts(sub, kind) if 1800 <= len(p["text"]) <= 16000 and p["id"] not in used]
+                cands += [p for p in fetch_posts(sub, kind) if 2500 <= len(p["text"]) <= 20000 and p["id"] not in used]
             except Exception as e:
                 DEBUG.append(f"reddit r/{sub}/{kind}: erro {type(e).__name__} {str(e)[:80]}")
             time.sleep(PAUSA_S)
@@ -94,26 +95,29 @@ def pick_story(n=3):
 PPM = 240   # palavras narradas por minuto (voz do robô a +8%)
 
 
+ALVO_MIN = 5   # todo vídeo tem 5 minutos (pedido do dono, 31/10)
+
+
 def plano(post=None):
-    """Sorteia a duração de cada vídeo (1 a 5 min, por história) e calcula quantas partes o texto-base aguenta."""
-    alvo = random.choice([1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5])
+    """Cada vídeo tem ~5 min (~1200 palavras). O nº de partes depende do tamanho do relato real."""
+    pal = ALVO_MIN * PPM
     if post:
         w = len(post["text"].split())
-        n = max(1, min(6, round(w / (alvo * PPM))))
-        pal = int(max(190, min(alvo * PPM, w * 0.95 / n)))   # nunca pede mais texto do que o relato real tem
+        n = max(1, min(5, (w + 300) // pal))
     else:
-        n = random.randint(2, 5)
-        pal = int(alvo * PPM)
-    return {"alvo_min": alvo, "n": n, "pal": pal}
+        n = random.randint(1, 3)
+    return {"alvo_min": ALVO_MIN, "n": n, "pal": pal}
 
 
 def _divisao(pl):
-    n, pal, alvo = pl["n"], pl["pal"], pl["alvo_min"]
+    n, pal = pl["n"], pl["pal"]
+    corpo = (f"Cada parte é um vídeo de 5 minutos narrados: escreva cerca de {pal} palavras por parte (entre {int(pal*0.92)} e {int(pal*1.08)}), "
+             "pura história, sem enrolação nem repetição: aproveite todos os detalhes, falas, pensamentos e contexto do texto-base "
+             "(sem inventar acontecimentos importantes) para o texto ter o tamanho pedido.")
     if n == 1:
-        return (f"A história vira UM ÚNICO vídeo (1 parte), com cerca de {pal} palavras (≈ {pal/PPM:.1f} min narrado), sem ganchos de continuação: "
-                f"ela abre com o gancho forte e fecha com o desfecho e uma pergunta que gere comentários.")
-    return (f"Divida em EXATAMENTE {n} PARTES. Cada parte tem cerca de {pal} palavras (≈ {pal/PPM:.1f} min narrado; nunca fora de "
-            f"{int(pal*0.8)} a {int(pal*1.2)}).")
+        return ("A história vira UM ÚNICO vídeo (1 parte), sem ganchos de continuação: abre com o gancho forte e fecha com o desfecho "
+                "e uma pergunta que gere comentários. " + corpo)
+    return f"Divida em EXATAMENTE {n} PARTES. " + corpo
 
 
 def _validate(d, pl):
@@ -121,7 +125,7 @@ def _validate(d, pl):
     if len(ps) != pl["n"]: raise ValueError(f"{len(ps)} partes (precisa de {pl['n']})")
     for i, p in enumerate(ps, 1):
         n = len(p["texto"].split())
-        if not pl["pal"] * 0.7 <= n <= pl["pal"] * 1.35: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
+        if not pl["pal"] * 0.8 <= n <= pl["pal"] * 1.25: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
     if len(d.get("fundos", [])) < 2: raise ValueError("poucos fundos")
     d["_plano"] = pl
     return d
@@ -131,7 +135,7 @@ def write(post=None):
     """post=None => história original. Levanta writer.TopicRejected se o filtro recusar."""
     pl = plano(post)
     print(f"plano: {pl['n']} parte(s) de ~{pl['pal']} palavras (alvo {pl['alvo_min']} min)", flush=True)
-    user = (f"Texto-base (r/{post['sub']}): {post['title']}\n\n{post['text'][:15000]}" if post
+    user = (f"Texto-base (r/{post['sub']}): {post['title']}\n\n{post['text'][:20000]}" if post
             else "Sem texto-base: crie uma história ORIGINAL no estilo AITA/histórias do Reddit.")
     system = SYSTEM.replace("@@DIVISAO@@", _divisao(pl))
     tokens = int(min(30000, max(8192, pl["n"] * pl["pal"] * 3.5)))

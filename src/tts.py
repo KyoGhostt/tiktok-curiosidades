@@ -3,8 +3,8 @@ import asyncio, edge_tts
 from config import VOICE
 
 
-async def _run(text, mp3, voice):
-    com = edge_tts.Communicate(text, voice, rate="+8%", boundary="WordBoundary")
+async def _run(text, mp3, voice, rate="+8%"):
+    com = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
     words = []
     with open(mp3, "wb") as f:
         async for ch in com.stream():
@@ -25,8 +25,24 @@ def limpar_texto(t):
     return t[:1].upper() + t[1:]
 
 
-def synth(text, mp3, voice=VOICE):
-    return asyncio.run(_run(text, mp3, voice))
+def synth(text, mp3, voice=VOICE, rate="+8%"):
+    return asyncio.run(_run(text, mp3, voice, rate))
+
+
+def ajustar(mp3, words, alvo_s):
+    """Acelera/desacelera levemente o áudio (sem mudar o tom) para durar exatamente alvo_s; reescala o tempo das palavras."""
+    import subprocess, os
+    d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(mp3)],
+                             capture_output=True, text=True).stdout.strip() or 0)
+    k = alvo_s / d if d else 1
+    if not 0.85 <= k <= 1.15 or abs(k - 1) < 0.003:
+        print(f"  áudio {d:.0f}s (alvo {alvo_s:.0f}s): sem ajuste", flush=True)
+        return words
+    tmp = str(mp3) + ".t.mp3"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(mp3), "-filter:a", f"atempo={1/k:.5f}", tmp], check=True)
+    os.replace(tmp, str(mp3))
+    print(f"  áudio {d:.1f}s -> {alvo_s:.1f}s (atempo {1/k:.3f})", flush=True)
+    return [(a * k, b * k, t) for a, b, t in words]
 
 
 def _ts(t):

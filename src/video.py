@@ -143,13 +143,14 @@ def render_scene(query, dur, workdir, i, used):
 def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
     """Passo final: fundo + (cartão de abertura) + legenda + voz."""
     ass_path = str(Path(ass).resolve()).replace(":", r"\:")
+    esc = ",scale=720:1280" if total > 150 else ""   # vídeos longos em 720p: cabe nos 100 MB/arquivo do GitHub com boa nitidez
     cmd = ["ffmpeg", "-y", *bg_inputs, "-i", str(mp3)]
     if card:
         cmd += ["-loop", "1", "-i", str(card)]
         fc = (f"[0:v]{vf_bg}[bg];[bg][2:v]overlay=0:0:enable='between(t,0,{card_s})'[v1];"
-              f"[v1]subtitles='{ass_path}'[v]")
+              f"[v1]subtitles='{ass_path}'{esc}[v]")
     else:
-        fc = f"[0:v]{vf_bg},subtitles='{ass_path}'[v]"
+        fc = f"[0:v]{vf_bg},subtitles='{ass_path}'{esc}[v]"
     # audio padronizado (48 kHz estéreo) + leve ruído de sala: evita falso positivo do TikTok ("som indisponível", 29/10)
     fc += (f";[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0[vz];anoisesrc=c=pink:a=0.004:r=48000:d={total + 1:.2f}[nz];"
            "[vz][nz]amix=inputs=2:duration=first:normalize=0[a]")

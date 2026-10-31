@@ -39,14 +39,17 @@ def build_package():
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
-        words = tts.synth(p["texto"], mp3, voz)
+        nw = len(p["texto"].split())
+        r = max(-20, min(25, round((nw / story.ALVO_MIN / story.PPM * 1.08 - 1) * 100)))   # ritmo da voz para chegar perto de 5 min
+        words = tts.synth(p["texto"], mp3, voz, rate=f"{r:+d}%")
+        words = tts.ajustar(mp3, words, story.ALVO_MIN * 60 - 0.6)
         ov = [(0, None, f"PARTE {i} DE {n}", "Badge")] if n > 1 else []
         if i < n:
             fim = (words[-1][1] if words else 0)
             ov.append((fim - 2.2, None, (p.get("gancho_final") or "A história continua").upper() +
                        f"\\NCONTINUA NA PARTE {i+1}", "End"))
         dur = tts.make_ass(words, ass, script=p["texto"], overlays=ov)
-        total = dur + 0.6
+        total = story.ALVO_MIN * 60.0 if 0.85 * story.ALVO_MIN * 60 <= dur + 0.6 <= 1.15 * story.ALVO_MIN * 60 else dur + 0.6
         sufixo = f" (Parte {i} de {n})" if n > 1 else ""
         titulo = f"{data['titulo']}{sufixo}"
         card = capa.card(d / f"capa{i}.png", data["titulo"], sub, p["texto"], i, n)
@@ -57,7 +60,7 @@ def build_package():
             fundos = data["fundos"]
             scenes = [(fundos[k % len(fundos)], total / 6) for k in range(6)]
             video.build(scenes, mp3, ass, total, d, mp4, card)
-        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=30, hi=data["_plano"]["pal"] * 1.4 / story.PPM * 60 + 40)
+        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=240, hi=story.ALVO_MIN * 60 * 1.2)
         cap = otimo.legenda(titulo, i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})
