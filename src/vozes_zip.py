@@ -46,8 +46,11 @@ for p in arqs:
     f0 = f0[~np.isnan(f0)]
     print(f"\n=== {nome} ({dur:.0f}s) tom mediano {np.median(f0):.0f} Hz (p10 {np.percentile(f0,10):.0f} / p90 {np.percentile(f0,90):.0f})" if len(f0) else f"\n=== {nome} sem tom")
     if wm:
-        segs, info = wm.transcribe(str(wav), language=None, beam_size=1)
+      try:
+        segs, info = wm.transcribe(y.astype("float32"), language=None, beam_size=1)
         txt = " ".join(sg.text.strip() for sg in segs)
         pal = len(txt.split())
         print(f"idioma {info.language}; {pal} palavras em ~75 s = {pal/75*60:.0f} palavras/min")
         print("trecho:", txt[:500])
+      except Exception as e:
+        print("transcrição falhou:", str(e)[:150])
