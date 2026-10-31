@@ -129,7 +129,26 @@ def conferir():
         f.unlink(missing_ok=True)
 
 
+def amostra(prefixo=""):
+    """Gera amostras curtas (4 trechos de 8 s, 540x960) de cada vídeo guardado, para o dono assistir e aprovar."""
+    r = sh(["gh", "release", "view", "fundos", "--repo", REPO, "--json", "assets", "--jq", ".assets[].name"])
+    for a in [x for x in r.stdout.split() if x.endswith(".mp4") and not x.startswith("raw_") and x.startswith(prefixo)]:
+        d = sh(["gh", "release", "download", "fundos", "--repo", REPO, "-p", a, "-D", str(W), "--clobber"], t=1800)
+        if d.returncode: print("download falhou", a); continue
+        f = W / a; dur = sondar(f)[2]; partes = []
+        for i, fr in enumerate((0.1, 0.35, 0.6, 0.85)):
+            o = W / f"am{i}.mp4"
+            sh(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{dur*fr:.1f}", "-i", str(f), "-t", "8", "-vf", "scale=540:960", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "30", str(o)])
+            partes.append(o)
+        lst = W / "am.txt"; lst.write_text("".join(f"file '{o}'\n" for o in partes))
+        sh(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(OUT / f"amostra-{a}")])
+        print("amostra:", a); f.unlink(missing_ok=True)
+
+
 def main():
+    if os.environ.get("NORMALIZAR", "").startswith("amostra"):
+        amostra(os.environ["NORMALIZAR"].split(":", 1)[1] if ":" in os.environ["NORMALIZAR"] else ""); return
     if os.environ.get("NORMALIZAR") == "conferir":
         conferir(); return
     if os.environ.get("DRIVE_URL"):
