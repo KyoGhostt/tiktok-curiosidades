@@ -40,9 +40,17 @@ def build_package():
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
         nw = len(p["texto"].split())
-        r = max(-20, min(25, round((nw / story.ALVO_MIN / story.PPM * 1.08 - 1) * 100)))   # ritmo da voz para chegar perto de 5 min
-        words = tts.synth(p["texto"], mp3, voz, rate=f"{r:+d}%")
-        words = tts.ajustar(mp3, words, story.ALVO_MIN * 60 - 0.6)
+        alvo_s = story.ALVO_MIN * 60 - 0.6
+        mult = nw / story.ALVO_MIN / story.PPM * 1.08          # velocidade relativa da voz (1.0 = normal)
+        for it in range(3):                                     # ajusta o ritmo medindo o áudio real até chegar perto de 5:00
+            r = max(-40, min(60, round((mult - 1) * 100)))
+            words = tts.synth(p["texto"], mp3, voz, rate=f"{r:+d}%")
+            d_real = words[-1][1] if words else alvo_s
+            print(f"  parte {i}: {nw} palavras, voz {r:+d}% -> {d_real:.0f}s (alvo {alvo_s:.0f}s)", flush=True)
+            if abs(d_real - alvo_s) / alvo_s < 0.04 or r in (-40, 60):
+                break
+            mult *= d_real / alvo_s
+        words = tts.ajustar(mp3, words, alvo_s)
         ov = [(0, None, f"PARTE {i} DE {n}", "Badge")] if n > 1 else []
         if i < n:
             fim = (words[-1][1] if words else 0)

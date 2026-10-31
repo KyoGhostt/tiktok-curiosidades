@@ -9,5 +9,6 @@ def check(video, meta, lo=25, hi=75):
     problems = []
     if not lo <= dur <= hi: problems.append(f"duração {dur:.0f}s fora de {lo}-{hi}s")
     if len(meta["hashtags"]) < 3: problems.append("poucas hashtags")
-    if any(w in meta["roteiro"].lower() for w in ("clique no link", "compre", "cupom")): problems.append("tom de spam")
+    import re
+    if re.search(r"\b(clique no link|compre|cupom)\b", meta["roteiro"].lower()): problems.append("tom de spam")
     return problems, dur

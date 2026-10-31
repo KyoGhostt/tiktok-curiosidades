@@ -125,7 +125,7 @@ def _validate(d, pl):
     if len(ps) != pl["n"]: raise ValueError(f"{len(ps)} partes (precisa de {pl['n']})")
     for i, p in enumerate(ps, 1):
         n = len(p["texto"].split())
-        if not pl["pal"] * 0.8 <= n <= pl["pal"] * 1.25: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
+        if not pl["pal"] * 0.85 <= n <= pl["pal"] * 1.2: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
     if len(d.get("fundos", [])) < 2: raise ValueError("poucos fundos")
     d["_plano"] = pl
     return d
