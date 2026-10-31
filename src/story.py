@@ -92,7 +92,7 @@ def pick_story(n=3):
     return uniq[:n]
 
 
-PPM = 240   # palavras narradas por minuto (voz do robô a +8%)
+PPM = 200   # palavras narradas por minuto com a voz em +8% (medido em 31/10: ~198 wpm; antes eu supunha 240)
 
 
 ALVO_MIN = 5   # todo vídeo tem 5 minutos (pedido do dono, 31/10)
