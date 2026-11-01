@@ -1,5 +1,6 @@
 """Histórias estilo Reddit: busca relatos (RSS público) ou cria história original; adapta para PT-BR em 3 a 6 partes."""
 import html, json, random, re, requests, time
+from pathlib import Path
 import xml.etree.ElementTree as ET
 from config import OUT
 import writer, lang
@@ -93,10 +94,28 @@ def _nota(p):
             + (3.0 if len(p["text"]) >= 5400 else 0))   # relato com ~1000+ palavras rende um vídeo de 5 min sem encher linguiça
 
 
+def _banco():
+    import os
+    f = Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "banco.json"
+    try:
+        used = _used()
+        return [p for p in json.loads(f.read_text()) if p["id"] not in used]
+    except Exception:
+        return []
+
+
 def pick_story(n=3):
     """Até n relatos REAIS e novos, escolhidos entre os mais polêmicos/votados da semana de várias comunidades.
     Lista vazia => história original (só como último recurso). Para voltar ao modo antigo: git revert do commit 'Historias: ...'."""
     used, cands = _used(), []
+    cands += _banco()          # candidatos já guardados (banco.py) — sem depender do Reddit na hora
+    if len(cands) >= n:
+        vistos, uniq = set(), []
+        for p in sorted(cands, key=_nota, reverse=True):
+            if p["id"] not in vistos:
+                vistos.add(p["id"]); uniq.append(p)
+        DEBUG.append(f"banco: {len(cands)} candidatos")
+        return uniq[:n]
     for sub in random.sample(SUBS, min(5, len(SUBS))):
         for kind in ("top", "controversial"):
             try:

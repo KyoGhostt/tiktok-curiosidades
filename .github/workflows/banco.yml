@@ -1,0 +1,29 @@
+name: banco-historias
+on:
+  schedule: [{cron: "40 */2 * * *"}]   # de 2 em 2 horas: poucos pedidos ao Reddit, com espera, acumulando histórias reais por idioma
+  workflow_dispatch:
+    inputs:
+      acao: {description: "encher | sonda (testa espelhos do Reddit)", default: "encher"}
+      langs: {description: "idiomas", default: "pt en es"}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  banco:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env: {GH_TOKEN: "${{ github.token }}", PYTHONPATH: src}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          if [ "${{ github.event.inputs.acao }}" = "sonda" ]; then
+            python -u src/banco.py sonda 2>&1 | tee /tmp/estado/sonda-reddit.txt | while IFS= read -r l; do echo "::notice::$l"; done
+          else
+            for L in ${{ github.event.inputs.langs || 'pt en es' }}; do
+              SUB=""; [ "$L" != "pt" ] && SUB="/$L"; mkdir -p /tmp/estado$SUB
+              LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB python -u src/banco.py 2>&1 | tee -a /tmp/estado/banco-log.txt || true
+            done
+          fi
+          push_estado
