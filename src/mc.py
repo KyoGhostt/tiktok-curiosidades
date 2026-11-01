@@ -62,7 +62,14 @@ def pick_subway():
         return None
 
 
-def pick_biblioteca():
+def jogos_aprovados():
+    """Jogos com pelo menos um arquivo aprovado em fundos/aprovados.txt (prefixo do nome: gta, subway, slime...)."""
+    ap = Path("fundos/aprovados.txt")
+    ok = [l.strip() for l in ap.read_text().splitlines() if l.strip() and not l.startswith("#")] if ap.exists() else []
+    return sorted({n.split("_")[0] for n in ok})
+
+
+def pick_biblioteca(jogo=None):
     """Fundo da biblioteca (release 'fundos' do GitHub): só arquivos listados em fundos/aprovados.txt, jogo sorteado entre os disponíveis."""
     try:
         ap = Path("fundos/aprovados.txt")
@@ -73,7 +80,7 @@ def pick_biblioteca():
         if not ass:
             return None
         jogos = sorted({a["name"].split("_")[0] for a in ass})
-        jogo = random.choice(jogos)
+        jogo = jogo if jogo in jogos else random.choice(jogos)
         a = random.choice([x for x in ass if x["name"].startswith(jogo + "_")])
         DIR.mkdir(parents=True, exist_ok=True)
         v = DIR / f"bib_{a['name']}"
@@ -90,17 +97,27 @@ def pick_biblioteca():
         return None
 
 
+PESO_MINECRAFT = 0.5   # Minecraft já tem muitos vídeos no ar: cada jogo da biblioteca pesa 1, Minecraft pesa 0,5 (31/10)
+
+
 def pick_clip():
-    """Escolhe o jogo da história (sorteio; se a fonte falhar, tenta a outra)."""
-    ordem = [pick_minecraft, pick_subway, pick_biblioteca]
+    """Escolhe o jogo da história: sorteio ponderado entre Minecraft (peso menor) e os jogos da biblioteca (GTA, Subway...).
+    Se a fonte do jogo sorteado falhar, tenta os outros."""
     forca = os.environ.get("MC_JOGO", "")
-    if forca == "subway": ordem = [pick_subway]
-    elif forca == "biblioteca": ordem = [pick_biblioteca]
-    elif forca == "minecraft": ordem = [pick_minecraft]
-    else: random.shuffle(ordem)
-    for fn in ordem:
-        c = fn()
+    if forca == "subway": return pick_subway()
+    if forca == "biblioteca": return pick_biblioteca()
+    if forca == "minecraft": return pick_minecraft()
+    jogos = ["minecraft"] + [j for j in jogos_aprovados() if j != "minecraft"]
+    if "subway" not in jogos: jogos.append("subway")          # o clipe CC0 do Internet Archive conta como Subway
+    peso = [PESO_MINECRAFT if j == "minecraft" else 1.0 for j in jogos]
+    escolhido = random.choices(jogos, weights=peso, k=1)[0]
+    ordem = [escolhido] + [j for j in jogos if j != escolhido]
+    for j in ordem:
+        if j == "minecraft": c = pick_minecraft()
+        elif j == "subway": c = (pick_subway() if random.random() < 0.3 or "subway" not in jogos_aprovados() else None) or pick_biblioteca("subway") or pick_subway()
+        else: c = pick_biblioteca(j)
         if c:
+            print(f"jogo sorteado: {j}", flush=True)
             return c
     return None
 
