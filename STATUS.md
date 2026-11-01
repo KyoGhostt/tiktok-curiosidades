@@ -65,3 +65,14 @@ Atualizado: 28/10/2026
 - 30/10: ESCOLHA DE HISTÓRIAS (story.py) = commits c9237cf + e633d17: 12 comunidades (inclui r/desabafos em PT-BR, AITAH, TrueOffMyChest, JustNoMIL, offmychest), feeds top + controversial, nota por polêmica/tamanho, pausa e 3 tentativas contra 429 do Reddit. Para voltar ao modo antigo: git revert desses commits. Testado: pick_story trouxe 6 candidatos reais. Outras fontes testadas: Arctic Shift/PullPush/old.reddit/reddit json bloqueados no Actions; X/Quora/Tumblr inúteis; Lemmy (lemmy.world, lemmy.ml) acessível mas pequeno (~4 mil inscritos em relationship_advice) = reserva futura; chave oficial do Reddit (reddit.com/prefs/apps, tipo script) = plano B se o RSS piorar.
 
 - 31/10: 3 vídeos Subway Surfers do Drive (original_subway.zip guardado no release fundos) APROVADOS pelo dono em fundos/aprovados.txt (302d e aaa4 são 360p esticados = mais borrados; ae36 é 720p). Biblioteca agora tem GTA (3) + Subway (3); modos do workflow biblioteca: drive=<link> nome=<jogo>, normalizar=conferir (quadros) | amostra:<prefixo> (clipes curtos). Para tirar um fundo do sorteio: apagar a linha em fundos/aprovados.txt.
+
+## 01/11 — Canais EN e ES (multi-idioma) — código pronto, SEM agendar ainda
+- `src/lang.py` (LANG_CODE=pt|en|es, padrão pt): voz, nome/avatar da capa, textos da tela (PART X OF N...), hashtags, fuso/horários, comunidades do Reddit, PPM.
+  EN: canal Buffer `curioustrending`, voz Andrew (M)/Ava (F) multilingual, ET 12h/18h/21h, PPM 175. ES: `curiosoenalza`, voz Jorge/Dalia (es-MX), Cidade do México 12h/18h/21h, PPM 200.
+- Estado separado por idioma: branch estado em `en/` e `es/` (fila.json, used_stories, otimizacao); vídeos no branch media em `en/` e `es/`. PT continua na raiz (inalterado).
+- Fila: o limite de 10 agendados é POR CANAL; `fila.py` agora só conta posts do canal do idioma (filtra channelId; janela 4 dias). `otimizar.py` também filtra por canal (roda só no PT; EN/ES ainda sem otimizador).
+- Workflows: `gerar-semana` e `fila` têm input `lang` (pt/en/es); `gerar-semana` tem `agendar=false` (só gera). Cron NÃO inclui en/es ainda (ligar só após aprovação do dono).
+- ES: poucos relatos longos no Reddit (r/relatos, desahogo, askspain, es; top do ANO); se faltar, o robô cria história original.
+- LLM: se o tamanho vier errado o erro é devolvido ao modelo para refazer; tolerância 0,8–1,25.
+- Testes 01/11: 1 vídeo EN (Halloween Candy, 5:00) e 1 ES (La hora muerta de mi novia, 5:00) no estoque, status pendente. Aguardando aprovação do dono.
+- Reverter: `git revert` dos commits "Multi-idioma ..."; PT não depende de LANG_CODE.
