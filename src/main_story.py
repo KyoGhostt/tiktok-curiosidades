@@ -2,13 +2,13 @@
 import json, sys, traceback
 from datetime import datetime
 from config import OUT
-import story, schedule, tts, video, reviewer, writer, capa, mc, otimo
+import story, schedule, tts, video, reviewer, writer, capa, mc, otimo, lang
 
 # Hashtags reais e muito usadas em PT-BR por tema (tags compostas inventadas não têm busca nenhuma)
 TEMAS = {"trabalho": ["chefe", "trabalho"], "relacionamento": ["relacionamento", "casal"], "familia": ["familia", "drama"],
          "vinganca": ["vinganca", "justica"], "vizinhos": ["vizinhos", "confusao"], "amizade": ["amizade", "drama"],
          "escola": ["escola", "adolescencia"], "drama": ["drama", "historiasreais"]}
-VOZES = {"m": "pt-BR-AntonioNeural", "f": "pt-BR-FranciscaNeural"}
+VOZES = lang.L["voz"]
 
 
 def build_package():
@@ -24,7 +24,7 @@ def build_package():
         raise RuntimeError("nenhuma história aprovada")
     if post: story._mark(post["id"])
     sub = f"r/{post['sub']}" if post else "história original"
-    origem = f"Baseado em relato do Reddit ({sub})" if post else "História fictícia"
+    origem = f"Reddit ({sub})" if post else "original"
     now = datetime.now(schedule.TZ)
     d = OUT / ("hist-" + now.strftime("%Y%m%d-%H%M%S")); d.mkdir(parents=True)
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
@@ -51,14 +51,14 @@ def build_package():
                 break
             mult *= d_real / alvo_s
         words = tts.ajustar(mp3, words, alvo_s)
-        ov = [(0, None, f"PARTE {i} DE {n}", "Badge")] if n > 1 else []
+        ov = [(0, None, lang.UI["parte"].format(i=i, n=n), "Badge")] if n > 1 else []
         if i < n:
             fim = (words[-1][1] if words else 0)
-            ov.append((fim - 2.2, None, (p.get("gancho_final") or "A história continua").upper() +
-                       f"\\NCONTINUA NA PARTE {i+1}", "End"))
+            ov.append((fim - 2.2, None, (p.get("gancho_final") or lang.UI["gancho"]).upper() +
+                       "\\N" + lang.UI["continua"].format(j=i+1), "End"))
         dur = tts.make_ass(words, ass, script=p["texto"], overlays=ov)
         total = story.ALVO_MIN * 60.0 if 0.85 * story.ALVO_MIN * 60 <= dur + 0.6 <= 1.15 * story.ALVO_MIN * 60 else dur + 0.6
-        sufixo = f" (Parte {i} de {n})" if n > 1 else ""
+        sufixo = lang.UI["sufixo"].format(i=i, n=n) if n > 1 else ""
         titulo = f"{data['titulo']}{sufixo}"
         card = capa.card(d / f"capa{i}.png", data["titulo"], sub, p["texto"], i, n)
         if clip:

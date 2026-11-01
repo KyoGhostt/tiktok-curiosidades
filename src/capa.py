@@ -44,8 +44,10 @@ def _wrap(d, text, font, width):
     return lines + ([cur] if cur else [])
 
 
-def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
+def card(path, titulo, sub, texto, parte, n, nome=None):
     """Cartão de abertura: avatar + nome com selo azul + TÍTULO da história (não o texto que a voz lê)."""
+    import lang
+    nome = nome or lang.L["nome"]
     W, H = 1080, 1920
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -60,7 +62,7 @@ def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
     c = cor(titulo)
     d.rounded_rectangle((x0, y0, x0 + cw, y0 + ch), radius=48, fill=(255, 255, 255, 255), outline=c + (255,), width=14)
     try:
-        av = Image.open(ROOT / "assets" / "avatar.png").convert("RGBA").resize((head_h, head_h))
+        av = Image.open(ROOT / "assets" / lang.L["avatar"]).convert("RGBA").resize((head_h, head_h))
         m = Image.new("L", (head_h, head_h), 0); ImageDraw.Draw(m).ellipse((0, 0, head_h, head_h), fill=255)
         img.paste(av, (x0 + pad, y0 + pad), m)
     except Exception:
@@ -70,7 +72,7 @@ def card(path, titulo, sub, texto, parte, n, nome="Curioso em Alta"):
     bx = tx + d.textlength(nome, font=fn) + 16          # selo de verificado (círculo azul com check)
     d.ellipse((bx, y0 + pad + 14, bx + 44, y0 + pad + 58), fill=(29, 155, 240, 255))
     d.line((bx + 11, y0 + pad + 37, bx + 20, y0 + pad + 46, bx + 34, y0 + pad + 26), fill=(255, 255, 255, 255), width=6)
-    d.text((tx, y0 + pad + 74), f"PARTE {parte} DE {n}" if n > 1 else "HISTÓRIA COMPLETA", font=fs, fill=(110, 110, 110, 255))
+    d.text((tx, y0 + pad + 74), lang.UI["parte"].format(i=parte, n=n) if n > 1 else lang.UI["completa"], font=fs, fill=(110, 110, 110, 255))
     y = y0 + pad + head_h + 30
     for ln in lines:
         d.text((x0 + pad, y), ln, font=fb, fill=(15, 15, 15, 255))

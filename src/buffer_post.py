@@ -5,7 +5,7 @@ import requests
 
 API = "https://api.buffer.com"
 Q_ORG = "query{account{organizations{id}}}"
-Q_CHANNELS = "query($o:OrganizationId!){channels(input:{organizationId:$o}){id service isDisconnected isLocked}}"
+Q_CHANNELS = "query($o:OrganizationId!){channels(input:{organizationId:$o}){id name service isDisconnected isLocked}}"
 M_POST = """mutation($i:CreatePostInput!){createPost(input:$i){
   __typename
   ... on PostActionSuccess{post{id status dueAt}}
@@ -26,9 +26,12 @@ def gql(query, variables=None):
     return j["data"]
 
 
-def tiktok_channel():
+def tiktok_channel(nome=None):
+    """Canal TikTok do idioma atual (lang.py: curiosoemalta | curioustrending | curiosoenalza)."""
+    import lang
+    nome = (nome or lang.L["canal"]).lower()
     for o in gql(Q_ORG)["account"]["organizations"]:
         for c in gql(Q_CHANNELS, {"o": o["id"]})["channels"]:
-            if c["service"] == "tiktok" and not c["isDisconnected"] and not c["isLocked"]:
+            if c["service"] == "tiktok" and not c["isDisconnected"] and not c["isLocked"] and (c.get("name") or "").lower() == nome:
                 return c["id"]
     raise RuntimeError("Nenhum canal TikTok conectado no Buffer")

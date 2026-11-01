@@ -29,7 +29,7 @@ def main():
     avisados = set(f.get("avisados", []))
     posts = [e["node"] for e in bp.gql(Q, {"o": org, "s": iso(agora - timedelta(hours=40)), "e": iso(agora)})["posts"]["edges"]]
     for p in posts:
-        m = re.match(r"^(.*?\(Parte \d+ de \d+\))", p["text"] or "")
+        m = re.match(r"^(.*?\((?:Parte|Part) \d+ (?:de|of) \d+\))", p["text"] or "")
         titulo = m.group(1) if m else (p["text"] or p["id"])[:80]
         if p["id"] in avisados:
             continue

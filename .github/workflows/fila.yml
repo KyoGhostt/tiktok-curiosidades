@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       acao: {description: "encher | retomar (despausa e enche) | pausar | estado", default: "encher"}
+      lang: {description: "pt | en | es", default: "pt"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
@@ -16,8 +17,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       PYTHONPATH: src
-      ESTADO_DIR: /tmp/estado
-      MEDIA_DIR: /tmp/media
+      LANG_CODE: ${{ github.event.inputs.lang || 'pt' }}
     steps:
       - uses: actions/checkout@v4
       - run: pip install requests
@@ -25,11 +25,13 @@ jobs:
         run: |
           source scripts/branches.sh
           prep estado /tmp/estado; prep media /tmp/media
+          SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
+          mkdir -p /tmp/estado$SUB /tmp/media$SUB; export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB
           A="${{ github.event.inputs.acao || 'encher' }}"
           if [ "$A" = "estado" ]; then
             python - <<'PY'
           import json
-          f=json.load(open('/tmp/estado/fila.json'))
+          f=json.load(open(__import__('os').environ['ESTADO_DIR']+'/fila.json'))
           print('::notice::pausado=%s' % f.get('pausado'))
           for s in f['stories']:
               print('::notice::%s | %s' % (s['titulo'], ' '.join('%s:%s' % (p['parte'],p['status']) for p in s['partes'])))

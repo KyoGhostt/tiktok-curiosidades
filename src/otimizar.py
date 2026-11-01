@@ -14,7 +14,7 @@ GANHO = 1.15            # o horário novo precisa render 15% mais views para tro
 HORAS_OK = range(8, 23)  # nunca de madrugada
 Q = """query($o:OrganizationId!,$s:DateTime!){posts(first:100,input:{organizationId:$o,
   filter:{dueAt:{start:$s}},sort:[{field:dueAt,direction:asc}]}){edges{node{id status dueAt sentAt shareMode text
-  metrics{type value}}}}}"""
+  channelId metrics{type value}}}}}"""
 M_EDIT = """mutation($i:EditPostInput!){editPost(input:$i){__typename
   ... on PostActionSuccess{post{id dueAt text}} ... on MutationError{message}}}"""
 
@@ -26,7 +26,8 @@ def dt(s):
 def coletar_posts():
     org = bp.gql(bp.Q_ORG)["account"]["organizations"][0]["id"]
     ini = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    nodes = [e["node"] for e in bp.gql(Q, {"o": org, "s": ini})["posts"]["edges"]]
+    ch = bp.tiktok_channel()
+    nodes = [e["node"] for e in bp.gql(Q, {"o": org, "s": ini})["posts"]["edges"] if e["node"].get("channelId") == ch]
     for n in nodes:
         n["m"] = {m["type"]: m["value"] for m in (n.get("metrics") or [])}
     return nodes
@@ -132,7 +133,7 @@ def retencao_por_parte(ms, log):
     """Views e tempo médio assistido por número da parte: mostra em que parte o público sai (usa as métricas do Buffer)."""
     por = {}
     for n in ms:
-        m = re.search(r"Parte (\d+) de (\d+)", n.get("text") or "")
+        m = re.search(r"(?:Parte|Part) (\d+) (?:de|of) (\d+)", n.get("text") or "")
         if not m: continue
         mm = n["m"]
         por.setdefault(int(m.group(1)), []).append((mm.get("views", 0), mm.get("averageTimeWatched", 0), mm.get("engagementRate", 0)))

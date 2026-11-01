@@ -19,9 +19,10 @@ def limpar_texto(t):
     """Tira markdown/símbolos que a voz leria em voz alta ("asterisco") e que sujam a legenda."""
     import re
     t = re.sub(r"[*_#~`>|\\^]+", " ", t)          # *negrito*, _itálico_, # título, etc.
-    t = re.sub(r"\s*&\s*", " e ", t)
+    import lang
+    t = re.sub(r"\s*&\s*", lang.L["e"], t)
     t = re.sub(r"\s+", " ", t).strip()
-    t = re.sub(r"^(gente|galera|pessoal|oi|ol[aá])\b[\s,!.:;-]*", "", t, flags=re.I)  # nada de abrir com cumprimento
+    t = re.sub(lang.L["saudacao"], "", t, flags=re.I)  # nada de abrir com cumprimento
     return t[:1].upper() + t[1:]
 
 

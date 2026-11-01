@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       alvo: {description: "Partes em estoque a alcançar (18 = uma semana, 3 vídeos por dia, sem domingo)", default: "18"}
-      pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes)", default: "false"}
+      pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes) E pausa a fila PT inteira: evite", default: "false"}
+      lang: {description: "pt (padrão) | en | es", default: "pt"}
+      agendar: {description: "false = só gera e guarda no estoque, não agenda no Buffer", default: "true"}
 permissions: {contents: write, issues: write, actions: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
@@ -20,6 +22,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       PYTHONPATH: src
+      LANG_CODE: ${{ github.event.inputs.lang || 'pt' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,25 +33,28 @@ jobs:
         run: |
           source scripts/branches.sh
           prep estado /tmp/estado; prep media /tmp/media
-          mkdir -p output && cp /tmp/estado/used_*.json output/ 2>/dev/null || true
+          SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
+          mkdir -p /tmp/estado$SUB /tmp/media$SUB
+          mkdir -p output && cp /tmp/estado$SUB/used_*.json output/ 2>/dev/null || true
       - name: Gerar histórias até completar o estoque
         run: |
           set -o pipefail
           ALVO=${{ github.event.inputs.alvo || '18' }}
-          export ESTADO_DIR=/tmp/estado MEDIA_DIR=/tmp/media
-          : > /tmp/estado/gerar-log.txt
+          SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
+          export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB
+          : > $ESTADO_DIR/gerar-log.txt
           for i in $(seq 1 12); do
             E=$(python src/fila.py estoque)
             echo "== estoque $E / alvo $ALVO"
             echo "::notice::iteracao $i estoque=$E alvo=$ALVO"
             [ "$E" -ge "$ALVO" ] && break
-            python -u src/run.py > /tmp/hist.log 2>&1 && RC=0 || RC=$?; tail -n 3 /tmp/hist.log; { echo "=== iteracao $i rc=$RC"; tail -n 60 /tmp/hist.log; } >> /tmp/estado/gerar-log.txt
+            python -u src/run.py > /tmp/hist.log 2>&1 && RC=0 || RC=$?; tail -n 3 /tmp/hist.log; { echo "=== iteracao $i rc=$RC"; tail -n 60 /tmp/hist.log; } >> $ESTADO_DIR/gerar-log.txt
             echo "::notice::run.py rc=$RC: $(tail -n 2 /tmp/hist.log | tr '\n' '|' | cut -c1-300)"
             if [ $RC -eq 0 ]; then
               D=$(ls -dt output/hist-*/ | head -1)
               echo "::notice::historia $i pronta em $D: $(ls $D | tr '\n' ' ' | cut -c1-200)"
               python src/fila.py add "${D%/}"
-              cp output/used_*.json /tmp/estado/ 2>/dev/null || true
+              cp output/used_*.json $ESTADO_DIR/ 2>/dev/null || true
               [ -f /tmp/previa.done ] || { touch /tmp/previa.done; cp -r "${D%/}" /tmp/primeira; }
             else
               echo "::warning::história $i falhou: $(tail -n 4 /tmp/hist.log | tr '\n' '|' | cut -c1-400)"
@@ -77,8 +83,10 @@ jobs:
           cd /tmp/pv && rm -rf .git && git init -q -b previews && _git
           git add -A && git commit -q -m "previa $(date +%F-%H%M)" && git push -q -f "$REMOTE" HEAD:previews
       - name: Agendar no Buffer
+        if: ${{ github.event.inputs.agendar != 'false' }}
         run: |
-          export ESTADO_DIR=/tmp/estado
+          SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
+          export ESTADO_DIR=/tmp/estado$SUB
           sleep 20   # deixa o GitHub liberar os links públicos
           python -u src/fila.py encher
           source scripts/branches.sh; push_estado

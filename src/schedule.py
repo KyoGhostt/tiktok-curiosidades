@@ -3,9 +3,9 @@ import json
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from config import OUT
-import otimo
+import otimo, lang
 
-TZ = ZoneInfo("America/Sao_Paulo")
+TZ = ZoneInfo(lang.L["tz"])
 SLOTS = [(12, 0), (17, 0), (20, 0)]  # picos no Brasil: almoço (12-15h), tarde (16-19h) e noite (20h); evita 23h-3h
 DIAS = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
 

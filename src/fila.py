@@ -6,17 +6,17 @@ import json, os, shutil, sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import buffer_post as bp
-import schedule
+import schedule, lang
 
 ESTADO = Path(os.environ.get("ESTADO_DIR", "/tmp/estado"))
 MEDIA = Path(os.environ.get("MEDIA_DIR", "/tmp/media"))
 REPO = os.environ.get("GITHUB_REPOSITORY", "KyoGhostt/tiktok-curiosidades")
-RAW = f"https://raw.githubusercontent.com/{REPO}/media"
+RAW = f"https://raw.githubusercontent.com/{REPO}/media" + ("" if lang.CODE == "pt" else f"/{lang.CODE}")
 LIMITE = int(os.environ.get("LIMITE_BUFFER", "10"))   # o plano grátis aceita 10 agendados; o dia incompleto é completado nas próximas rodadas
 FILA = ESTADO / "fila.json"
 
 Q_POSTS = """query($o:OrganizationId!,$s:DateTime!){posts(first:100,input:{organizationId:$o,
-  filter:{dueAt:{start:$s}},sort:[{field:dueAt,direction:asc}]}){edges{node{id status dueAt}}}}"""
+  filter:{dueAt:{start:$s}},sort:[{field:dueAt,direction:asc}]}){edges{node{id status dueAt channelId}}}}"""
 
 
 def load():
@@ -65,9 +65,10 @@ def add(d):
 
 def buffer_posts():
     org = bp.gql(bp.Q_ORG)["account"]["organizations"][0]["id"]
-    ini = (datetime.now(timezone.utc) - timedelta(days=10)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    ini = (datetime.now(timezone.utc) - timedelta(days=4)).strftime("%Y-%m-%dT%H:%M:%SZ")
     edges = bp.gql(Q_POSTS, {"o": org, "s": ini})["posts"]["edges"]
-    return org, {e["node"]["id"]: e["node"] for e in edges}
+    ch = bp.tiktok_channel()    # o limite de 10 agendados é POR CANAL: só conta/olha os posts do canal deste idioma
+    return org, {e["node"]["id"]: e["node"] for e in edges if e["node"].get("channelId") == ch}
 
 
 def sync(f, posts):
@@ -134,7 +135,7 @@ def limpar():
     ids = {s["id"] for s in manter}
     if MEDIA.exists():
         for d in MEDIA.iterdir():
-            if d.is_dir() and d.name != ".git" and d.name not in ids:
+            if d.is_dir() and d.name not in (".git", "en", "es") and d.name not in ids:
                 shutil.rmtree(d, ignore_errors=True)
 
 

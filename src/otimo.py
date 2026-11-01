@@ -2,10 +2,32 @@
 Quem agenda (fila.py), gera (main_story.py) ou calcula horários (schedule.py) só LÊ daqui."""
 import json, os
 from pathlib import Path
+import lang
 
 ARQ = Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "otimizacao.json"
-PADRAO_SLOTS = [[12, 0], [17, 0], [20, 0]]
-FIXAS = ["historiasdoreddit"]          # sempre presentes (além de #parteN)
+PADRAO_SLOTS = lang.L["slots"]
+FIXAS = lang.L["fixas"]          # sempre presentes (além de #parteN)
+
+_POOL_EN = {
+    "trabalho": ["storytime", "worklife", "toxicboss", "workdrama", "redditstories", "corporatelife"],
+    "relacionamento": ["storytime", "relationshipdrama", "marriage", "husband", "redditstories", "datingstories"],
+    "familia": ["storytime", "familydrama", "motherinlaw", "family", "redditstories", "entitledparents"],
+    "vinganca": ["storytime", "pettyrevenge", "revenge", "karma", "redditstories", "maliciouscompliance"],
+    "vizinhos": ["storytime", "neighbors", "neighborfromhell", "drama", "redditstories", "hoa"],
+    "amizade": ["storytime", "friendship", "friendsdrama", "betrayal", "redditstories", "bestfriend"],
+    "escola": ["storytime", "school", "highschool", "teacher", "redditstories", "college"],
+    "drama": ["storytime", "drama", "redditstories", "aita", "plottwist"],
+}
+_POOL_ES = {
+    "trabalho": ["storytime", "jefe", "trabajo", "historiasreales", "dramalaboral", "oficina"],
+    "relacionamento": ["storytime", "pareja", "matrimonio", "esposo", "historiasreales", "infidelidad"],
+    "familia": ["storytime", "familia", "suegra", "drama", "historiasreales", "dramafamiliar"],
+    "vinganca": ["storytime", "venganza", "justicia", "karma", "historiasreales", "venganzaperfecta"],
+    "vizinhos": ["storytime", "vecinos", "vecina", "chisme", "historiasreales", "problemas"],
+    "amizade": ["storytime", "amistad", "amigos", "traicion", "historiasreales", "mejoramiga"],
+    "escola": ["storytime", "escuela", "colegio", "maestro", "historiasreales", "universidad"],
+    "drama": ["storytime", "drama", "historiasreales", "chisme", "plottwist"],
+}
 # hashtags reais em PT-BR por tema (a ordem é a prioridade inicial; os dados e a pesquisa reordenam)
 POOL = {
     "trabalho": ["storytime", "chefe", "trabalho", "vidacorporativa", "historiasreais", "tretanotrabalho"],
@@ -17,6 +39,9 @@ POOL = {
     "escola": ["storytime", "escola", "adolescencia", "colegio", "historiasreais", "bullying"],
     "drama": ["storytime", "drama", "historiasreais", "treta", "plottwist"],
 }
+
+if lang.CODE == "en": POOL = _POOL_EN
+elif lang.CODE == "es": POOL = _POOL_ES
 
 
 def load():
@@ -39,7 +64,7 @@ def save(c):
 
 
 # hashtags que apareceram em vídeos de história com views muito acima da mediana do criador (vidIQ, 29/10) — entram no teste de todos os temas
-GLOBAIS = ["historiasdetiktok"]
+GLOBAIS = {"pt": ["historiasdetiktok"], "en": ["storytimes"], "es": ["historiasdetiktok"]}[lang.CODE]
 
 
 def pool(tema, c):
@@ -68,12 +93,12 @@ def hashtags(tema, parte, c=None, n=None):
     c = c or load()
     if n == 1:   # vídeo único: sem #parteN
         return FIXAS + variaveis(tema, c) + [t for t in pool(tema, c) if t not in FIXAS and t not in variaveis(tema, c)][:1]
-    return [f"parte{parte}"] + FIXAS + variaveis(tema, c)       # 5 no total (limite útil do TikTok)
+    return [f"{lang.L.get('tagparte', 'parte')}{parte}"] + FIXAS + variaveis(tema, c)       # 5 no total (limite útil do TikTok)
 
 
 def legenda(titulo, parte, n, tema, c=None):
-    cta = "" if parte < n else "Final! O que você teria feito? Comenta! "  # sem "Continua na parte N" (pedido do dono, 29/10)
-    if n == 1: cta = "O que você teria feito? Comenta! "
+    cta = "" if parte < n else lang.UI["final"]  # sem "Continua na parte N" (pedido do dono, 29/10)
+    if n == 1: cta = lang.UI["unico"]
     return f"{titulo} {cta}" + " ".join("#" + t for t in hashtags(tema, parte, c, n))
 
 
