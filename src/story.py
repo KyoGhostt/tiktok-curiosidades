@@ -97,7 +97,7 @@ def pick_story(n=3):
     """Até n relatos REAIS e novos, escolhidos entre os mais polêmicos/votados da semana de várias comunidades.
     Lista vazia => história original (só como último recurso). Para voltar ao modo antigo: git revert do commit 'Historias: ...'."""
     used, cands = _used(), []
-    for sub in random.sample(SUBS, 5):
+    for sub in random.sample(SUBS, min(5, len(SUBS))):
         for kind in ("top", "controversial"):
             try:
                 cands += [p for p in fetch_posts(sub, kind) if 2500 <= len(p["text"]) <= 20000 and p["id"] not in used]
