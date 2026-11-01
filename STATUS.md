@@ -76,3 +76,5 @@ Atualizado: 28/10/2026
 - LLM: se o tamanho vier errado o erro é devolvido ao modelo para refazer; tolerância 0,8–1,25.
 - Testes 01/11: 1 vídeo EN (Halloween Candy, 5:00) e 1 ES (La hora muerta de mi novia, 5:00) no estoque, status pendente. Aguardando aprovação do dono.
 - Reverter: `git revert` dos commits "Multi-idioma ..."; PT não depende de LANG_CODE.
+
+- 01/11 BANCO DE HISTÓRIAS (Reddit sem depender da sessão): `banco.yml` roda de 2 em 2 h no Actions, pede 3 feeds/idioma com espera de 25 s e acumula relatos reais em estado/<idioma>/banco.json (máx. 120). `story.pick_story` lê o banco primeiro e só vai ao Reddit ao vivo se faltar. Espelhos do Reddit (redlib/safereddit/opnxng) testados: todos bloqueados (418/429/503/410). Zapier Reddit autorizável mas só roda na sessão (não usado). Reverter: apagar banco.yml e as linhas `_banco()` de story.py.
