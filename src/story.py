@@ -72,7 +72,7 @@ def _clean(c):
 def fetch_posts(sub, kind="top"):
     """kind: top (mais votados da semana) ou controversial (mais polêmicos da semana)."""
     for tentativa in range(3):
-        r = requests.get(f"https://www.reddit.com/r/{sub}/{kind}/.rss?t=week&limit=25", headers=UA, timeout=25)
+        r = requests.get(f"https://www.reddit.com/r/{sub}/{kind}/.rss?t={lang.L.get('periodo', 'week')}&limit=25", headers=UA, timeout=25)
         DEBUG.append(f"reddit r/{sub}/{kind}: http {r.status_code}")
         if r.status_code != 429:
             break
@@ -150,7 +150,7 @@ def _validate(d, pl):
     if len(ps) != pl["n"]: raise ValueError(f"{len(ps)} partes (precisa de {pl['n']})")
     for i, p in enumerate(ps, 1):
         n = len(p["texto"].split())
-        if not pl["pal"] * 0.85 <= n <= pl["pal"] * 1.2: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
+        if not pl["pal"] * 0.8 <= n <= pl["pal"] * 1.25: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
     if len(d.get("fundos", [])) < 2: raise ValueError("poucos fundos")
     d["_plano"] = pl
     return d
@@ -166,16 +166,19 @@ def write(post=None):
     system = (SYSTEM if lang.CODE == "pt" else SYSTEM_I18N.replace("@@IDIOMA@@", lang.L["idioma"]).replace("@@NOMES@@", lang.L["nomes"])).replace("@@DIVISAO@@", _divisao(pl))
     tokens = int(min(30000, max(8192, pl["n"] * pl["pal"] * 3.5)))
     errs = []
+    user0, fb = user, ""
     for name, url, key, model in writer.providers():
-        for attempt in range(3):
+        for attempt in range(4):
             try:
-                d = writer._chat(url, key, model, system, user, tokens=tokens)
+                d = writer._chat(url, key, model, system, user0 + fb, tokens=tokens)
                 if d.get("rejeitar"): raise writer.TopicRejected("rejeitada")
                 return _validate(d, pl)
             except writer.TopicRejected:
                 raise
             except Exception as e:
                 errs.append(f"{name}: {type(e).__name__} {str(e)[:100]}")
+                if isinstance(e, ValueError) and ("palavras" in str(e) or "partes" in str(e)):   # devolve o erro ao modelo para ele corrigir o tamanho
+                    fb = f"\n\nPREVIOUS ATTEMPT REJECTED: {e}. Fix exactly this: respect the number of parts and write FULL-length parts (every part about {pl['pal']} words; count them); do not shorten."
                 writer.time.sleep(6 * (attempt + 1))
                 if any(c in str(e) for c in ("401", "402", "403")): break
     raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))

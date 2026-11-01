@@ -31,7 +31,7 @@ CFG = {
     "es": dict(
         nome="Curioso en Alza", canal="curiosoenalza", tz="America/Mexico_City", slots=[[12, 0], [18, 0], [21, 0]],
         voz={"m": "es-MX-JorgeNeural", "f": "es-MX-DaliaNeural"}, ppm=200, avatar="avatar_ES_verde.png",
-        subs=["desahogo", "confesiones", "relatos"],   # ajustado pela sondagem (workflow sondar-subs)
+        subs=["relatos", "desahogo", "askspain", "es"], periodo="year",   # sondagem 01/11: poucos relatos longos em espanhol; r/confesiones não existe
         idioma="español latinoamericano neutro", nomes="nombres latinoamericanos comunes",
         ui=dict(parte="PARTE {i} DE {n}", completa="HISTORIA COMPLETA", continua="CONTINÚA EN LA PARTE {j}", gancho="La historia continúa",
                 sufixo=" (Parte {i} de {n})", final="¡Final! ¿Qué habrías hecho? ¡Comenta! ", unico="¿Qué habrías hecho? ¡Comenta! "),
