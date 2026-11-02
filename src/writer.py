@@ -35,6 +35,9 @@ class TopicRejected(Exception):
 def providers():
     """Ordem de tentativa: todos com camada gratuita (OpenAI-compatível)."""
     out = []
+    if os.environ.get("FREELLM_URL") and os.environ.get("FREELLM_KEY"):   # proxy FreeLLMAPI do dono (OpenAI-compatível); URL termina em /v1
+        out.append(("freellm", os.environ["FREELLM_URL"].rstrip("/") + "/chat/completions", os.environ["FREELLM_KEY"],
+                    os.environ.get("FREELLM_MODEL", "auto")))
     if os.environ.get("GROQ_API_KEY"):
         out.append(("groq", "https://api.groq.com/openai/v1/chat/completions", os.environ["GROQ_API_KEY"],
                     os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")))
