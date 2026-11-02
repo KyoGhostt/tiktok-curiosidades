@@ -95,6 +95,15 @@ def _nota(p):
             + (4.0 if len(p["text"]) >= 9000 else 0))   # relato bem longo = 2+ partes de 5 min (Parte 1..N, como no canal BR)   # relato com ~1000+ palavras rende um vídeo de 5 min sem encher linguiça
 
 
+MULTI_CHARS = 8500   # ~1600+ palavras: rende 2 ou mais partes de 5 min ("Parte 1 de N")
+
+
+def _longos_primeiro(lst):
+    """Relatos longos (2+ partes) vêm antes; relato curto (1 parte só) só entra se não houver longo."""
+    longos = [p for p in lst if len(p["text"]) >= MULTI_CHARS]
+    return longos + [p for p in lst if len(p["text"]) < MULTI_CHARS]
+
+
 def _banco():
     import os
     f = Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "banco.json"
@@ -116,7 +125,7 @@ def pick_story(n=3):
             if p["id"] not in vistos:
                 vistos.add(p["id"]); uniq.append(p)
         DEBUG.append(f"banco: {len(cands)} candidatos")
-        return uniq[:n]
+        return _longos_primeiro(uniq)[:n]
     for sub in random.sample(SUBS, min(5, len(SUBS))):
         for kind in ("top", "controversial"):
             try:
@@ -128,7 +137,7 @@ def pick_story(n=3):
     for p in sorted(cands, key=_nota, reverse=True):
         if p["id"] not in vistos:
             vistos.add(p["id"]); uniq.append(p)
-    return uniq[:n]
+    return _longos_primeiro(uniq)[:n]
 
 
 PPM = lang.L["ppm"]   # palavras narradas por minuto com a voz em +8% (medido em 31/10: ~198 wpm; antes eu supunha 240)
@@ -142,7 +151,7 @@ def plano(post=None):
     pal = ALVO_MIN * PPM
     if post:
         w = len(post["text"].split())
-        n = max(1, min(5, (w + 300) // pal))
+        n = max(1, min(5, (w + 500) // pal))
     else:
         n = random.randint(1, 3)
     return {"alvo_min": ALVO_MIN, "n": n, "pal": pal}

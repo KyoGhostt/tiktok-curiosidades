@@ -22,7 +22,7 @@ CFG = {
         voz={"m": "en-US-AndrewMultilingualNeural", "f": "en-US-AvaMultilingualNeural"}, ppm=175, avatar="avatar_US_vermelho.png",
         subs=["AmItheAsshole", "AITAH", "pettyrevenge", "MaliciousCompliance", "ProRevenge", "entitledparents", "TrueOffMyChest",
               "JustNoMIL", "offmychest", "BestofRedditorUpdates", "TalesFromRetail", "relationship_advice", "TIFU"],
-        idioma="American English", nomes="common American first names",
+        periodo="month", idioma="American English", nomes="common American first names",
         ui=dict(parte="PART {i} OF {n}", completa="FULL STORY", continua="CONTINUES IN PART {j}", gancho="The story continues",
                 sufixo=" (Part {i} of {n})", final="Final part! What would you have done? Comment below! ", unico="What would you have done? Comment below! "),
         saudacao=r"^(hey|hi|hello|hey guys|hi guys|guys|everyone|what's up|so)\b[\s,!.:;-]*", e=" and ",
