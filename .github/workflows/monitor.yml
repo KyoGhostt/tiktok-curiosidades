@@ -29,10 +29,17 @@ jobs:
           prep estado /tmp/estado
           [ "${{ github.event.inputs.retomar }}" = "true" ] && python src/fila.py retomar || true
           python src/monitor.py || true
-          python src/fila.py encher
+          LOW=""
+          for L in pt en es; do
+            SUB=""; [ "$L" != "pt" ] && SUB="/$L"; mkdir -p /tmp/estado$SUB
+            export LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB
+            python src/fila.py encher || true
+            E=$(python src/fila.py estoque); echo "estoque $L: $E partes"
+            [ "$E" -lt 6 ] && LOW="$LOW $L"
+          done
+          export ESTADO_DIR=/tmp/estado
           push_estado
-          E=$(python src/fila.py estoque); echo "estoque: $E partes"
-          if [ "$E" -lt 6 ]; then
-            python -c "import telegram as t; t.configured() and t.send_message('Estoque baixo ($E partes). Gerando mais historias agora.')" || true
-            gh workflow run gerar-semana.yml
+          if [ -n "$LOW" ]; then
+            python -c "import telegram as t; t.configured() and t.send_message('Estoque baixo em:$LOW. Gerando mais historias agora.')" || true
+            for L in $LOW; do gh workflow run gerar-semana.yml -f lang=$L; done
           fi

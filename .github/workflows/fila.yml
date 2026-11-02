@@ -4,20 +4,25 @@ on:
   workflow_dispatch:
     inputs:
       acao: {description: "encher | retomar (despausa e enche) | pausar | estado", default: "encher"}
-      lang: {description: "pt | en | es", default: "pt"}
+      lang: {description: "todos (padrão) | pt | en | es", default: "todos"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
   fila:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","en","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
     env:
       GH_TOKEN: ${{ github.token }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       PYTHONPATH: src
-      LANG_CODE: ${{ github.event.inputs.lang || 'pt' }}
+      LANG_CODE: ${{ matrix.lang }}
     steps:
       - uses: actions/checkout@v4
       - run: pip install requests
