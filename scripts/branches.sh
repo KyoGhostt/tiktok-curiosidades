@@ -13,6 +13,6 @@ push_estado() {
 }
 push_media() {
   cd /tmp/media && rm -rf .git && git init -q -b media && _git
-  git add -A && git commit -q -m "media $(date +%F-%H%M)" && git push -q -f "$REMOTE" HEAD:media
+  git add -A && git commit -q -m "media $(date +%F-%H%M)" && { git push -f "$REMOTE" HEAD:media 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] || { cd "$GITHUB_WORKSPACE"; return 1; }; }
   cd "$GITHUB_WORKSPACE"
 }

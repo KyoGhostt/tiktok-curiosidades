@@ -44,7 +44,8 @@ jobs:
       - name: Gerar histórias até completar o estoque
         run: |
           set -o pipefail
-          ALVO=${{ github.event.inputs.alvo || '18' }}
+          ALVO=${{ github.event.inputs.alvo || '' }}
+          [ -z "$ALVO" ] && { [ "$LANG_CODE" = pt ] && ALVO=18 || ALVO=12; }
           SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
           export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB
           : > $ESTADO_DIR/gerar-log.txt
