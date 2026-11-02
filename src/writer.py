@@ -46,15 +46,26 @@ def providers():
                     os.environ["GEMINI_API_KEY"], os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")))
         out.append(("gemini-lite", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
                     os.environ["GEMINI_API_KEY"], "gemini-2.5-flash-lite"))
+    if os.environ.get("GEMINI_API_KEY_2"):    # 2ª chave Google AI Studio (outro projeto = outra cota)
+        out.append(("gemini2", "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+                    os.environ["GEMINI_API_KEY_2"], os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")))
+    if os.environ.get("NVIDIA_API_KEY"):
+        out.append(("nvidia", "https://integrate.api.nvidia.com/v1/chat/completions", os.environ["NVIDIA_API_KEY"],
+                    os.environ.get("NVIDIA_MODEL", "meta/llama-3.3-70b-instruct")))
+    if os.environ.get("OPENROUTER_API_KEY"):
+        out.append(("openrouter", "https://openrouter.ai/api/v1/chat/completions", os.environ["OPENROUTER_API_KEY"],
+                    os.environ.get("OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct:free")))
     if HF_TOKEN:
         out.append(("hf", "https://router.huggingface.co/v1/chat/completions", HF_TOKEN, LLM_MODEL))
     return out
 
 
 def _chat(url, key, model, system, user, tokens=4096):
-    r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=120,
-        json={"model": model, "temperature": 0.8, "max_tokens": tokens, "response_format": {"type": "json_object"},
-              "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]})
+    body = {"model": model, "temperature": 0.8, "max_tokens": tokens, "response_format": {"type": "json_object"},
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+    r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
+    if r.status_code == 400:      # alguns provedores não aceitam response_format: tenta sem (o JSON é extraído do texto)
+        body.pop("response_format"); r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
     r.raise_for_status()
     txt = r.json()["choices"][0]["message"]["content"]
     m = re.search(r"\{.*\}", txt or "", re.S)
