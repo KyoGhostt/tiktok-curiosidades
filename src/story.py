@@ -91,7 +91,8 @@ def fetch_posts(sub, kind="top"):
 def _nota(p):
     """Quanto mais polêmica e mais longa (= mais reviravoltas), melhor; topo do ranking também conta."""
     return ((2.0 if p["kind"] == "controversial" else 0) + min(len(p["text"]), 7000) / 3500 - p["pos"] * 0.05 + random.random() * 0.8
-            + (3.0 if len(p["text"]) >= 5400 else 0))   # relato com ~1000+ palavras rende um vídeo de 5 min sem encher linguiça
+            + (3.0 if len(p["text"]) >= 5400 else 0)
+            + (4.0 if len(p["text"]) >= 9000 else 0))   # relato bem longo = 2+ partes de 5 min (Parte 1..N, como no canal BR)   # relato com ~1000+ palavras rende um vídeo de 5 min sem encher linguiça
 
 
 def _banco():
