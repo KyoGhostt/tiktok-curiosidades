@@ -14,7 +14,7 @@ DEBUG = []
 
 SYSTEM = """Você adapta histórias para vídeos narrados de TikTok no estilo "histórias do Reddit", em português do Brasil.
 Narre em primeira pessoa, com linguagem falada brasileira natural e frases curtas. Mantenha os primeiros nomes comuns que já vêm no texto-base (ex.: João, Pedro, Letícia); só troque o nome se for estranho ao público ou raro. Remova
-qualquer dado identificável (sobrenomes, cidades específicas, @, links, empresas reais). Mantenha os fatos do texto-base,
+dados que identifiquem a pessoa (sobrenomes completos, @, links, telefones, endereços). Nomes de cidades e lugares podem ficar. Empresas reais só podem ficar se a história não as acuse de algo (evite difamação). Mantenha os fatos do texto-base,
 pode condensar, mas NÃO invente acontecimentos importantes. Se não houver texto-base, crie uma história ORIGINAL de drama
 cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e reviravolta.
 @@DIVISAO@@ Corte em pontos de suspense: toda parte, menos a última,
@@ -37,7 +37,7 @@ Responda APENAS em JSON válido: {"titulo": "título curto e chamativo, sem a pa
 
 SYSTEM_I18N = """You adapt stories into narrated TikTok videos in the "Reddit stories" style, written in @@IDIOMA@@.
 The source text is a real story told by a community member. Narrate in first person, in natural spoken @@IDIOMA@@ with short sentences.
-Keep the common first names already in the source text (e.g. John, Emily, Maria); only swap a name if it is unusual or hard to pronounce, using @@NOMES@@. Remove any identifying data (surnames, specific cities, @handles, links, real companies). Keep the facts of the
+Keep the common first names already in the source text (e.g. John, Emily, Maria); only swap a name if it is unusual or hard to pronounce, using @@NOMES@@. Remove only data that identifies the person (full surnames, @handles, links, phone numbers, street addresses). City and place names may stay. Keep real company names only if the story does not accuse them of wrongdoing (avoid defamation). Keep the facts of the
 source text; you may condense but do NOT invent important events. If there is no source text, create an ORIGINAL everyday-drama story
 (family, work, neighbors, friendship, relationships) with conflict and a twist.
 @@DIVISAO@@ Cut at suspense points: every part except the last ends on a strong hook; part 1 starts with a strong hook, throwing the listener straight into the most
