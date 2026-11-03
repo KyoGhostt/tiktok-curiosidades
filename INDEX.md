@@ -13,6 +13,6 @@
 
 ## Regras para economizar sessões (conta grátis)
 1. Leia só INDEX.md e STATUS.md. Abra código só do arquivo que vai mudar.
-2. Um assunto por conversa; ao terminar, atualize o STATUS.md (até ~10 linhas) e encerre.
+2. Um assunto por conversa. O Claude atualiza o STATUS.md sozinho ao fim de cada bloco de trabalho (até 10 linhas), sem precisar pedir.
 3. Junte vários pedidos numa mensagem só.
 4. Nunca guarde chaves, tokens ou senhas aqui.

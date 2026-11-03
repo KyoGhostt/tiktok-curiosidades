@@ -3,4 +3,4 @@
 - Pergunte antes de alterar algo que já funciona, e sempre diga como reverter (commit a reverter ou arquivo a apagar).
 - Não dar crédito a canais de gameplay nas legendas. Histórias reais da comunidade primeiro; IA só se faltar relato.
 - Nunca escreva chaves, tokens ou senhas em arquivos.
-- Ao terminar um bloco de trabalho, atualize o STATUS.md só com o que mudou (até ~10 linhas) e registre decisões novas em DECISOES.md.
+- AUTOMÁTICO, sem o dono pedir e sem perguntar: ao terminar cada bloco de trabalho (não só no fim da conversa), atualize o STATUS.md com o que mudou, em NO MÁXIMO 10 linhas (troque linhas desatualizadas em vez de só acrescentar), registre decisões novas em DECISOES.md e faça commit + push. Isso vale só para a documentação; mudanças no código continuam exigindo perguntar antes.
