@@ -81,6 +81,7 @@ def sync(f, posts):
             p["status"] = "removido"      # apagado no Buffer: não reagenda sozinho
         elif b["status"] == "sent":
             p["status"] = "postado"
+            p["postado_em"] = datetime.now(timezone.utc).isoformat()
         elif b["status"] == "error":
             p["status"] = "erro"
 
@@ -123,11 +124,15 @@ def encher():
 def limpar():
     """Apaga do branch media as histórias totalmente postadas (ou removidas) há mais de 1 dia."""
     f = load()
-    manter = []
+    manter, apagadas = [], 0
+    agora = datetime.now(timezone.utc)
+    def velho(p):   # só apaga o vídeo 1 hora depois de postado (o Buffer pode ainda estar baixando o arquivo)
+        t = p.get("postado_em")
+        return p["status"] != "postado" or not t or agora - datetime.fromisoformat(t) > timedelta(hours=1)
     for s in f["stories"]:
-        fim = all(p["status"] in ("postado", "erro", "removido") for p in s["partes"])
+        fim = all(p["status"] in ("postado", "erro", "removido") for p in s["partes"]) and all(velho(p) for p in s["partes"])
         if fim:
-            shutil.rmtree(MEDIA / s["id"], ignore_errors=True)
+            shutil.rmtree(MEDIA / s["id"], ignore_errors=True); apagadas += 1
         else:
             manter.append(s)
     f["stories"] = manter
@@ -136,7 +141,8 @@ def limpar():
     if MEDIA.exists():
         for d in MEDIA.iterdir():
             if d.is_dir() and d.name not in (".git", "en", "es") and d.name not in ids:
-                shutil.rmtree(d, ignore_errors=True)
+                shutil.rmtree(d, ignore_errors=True); apagadas += 1
+    print(f"limpar: removidas {apagadas} pasta(s) de video ja postado")
 
 
 def pausa(valor):

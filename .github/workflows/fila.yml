@@ -47,6 +47,8 @@ jobs:
           [ "$A" = "pausar" ] && python src/fila.py pausar
           if [ "$A" = "encher" ] || [ "$A" = "retomar" ]; then
             python -u src/fila.py encher
+            python src/fila.py limpar | tee /tmp/limpar.txt   # apaga do branch media os vídeos postados há mais de 1 h
+            grep -q "removidas [1-9]" /tmp/limpar.txt && push_media || true
             E=$(python src/fila.py estoque)
             [ "$E" -lt 6 ] && python -c "import telegram as t; t.configured() and t.send_message('Estoque baixo: so $E partes. Rode a geracao da semana (gerar-semana).')" || true
           fi
