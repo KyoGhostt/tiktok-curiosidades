@@ -89,11 +89,20 @@ def variaveis(tema, c):
     return ch if ch else pool(tema, c)[:3]
 
 
+def _unicas(lst, alvo, extra=()):
+    out = []
+    for t in list(lst) + list(extra):
+        if t not in out:
+            out.append(t)
+    return out[:alvo]
+
+
 def hashtags(tema, parte, c=None, n=None):
     c = c or load()
+    resto = [t for t in pool(tema, c) if t not in FIXAS]
     if n == 1:   # vídeo único: sem #parteN
-        return FIXAS + variaveis(tema, c) + [t for t in pool(tema, c) if t not in FIXAS and t not in variaveis(tema, c)][:1]
-    return [f"{lang.L.get('tagparte', 'parte')}{parte}"] + FIXAS + variaveis(tema, c)       # 5 no total (limite útil do TikTok)
+        return _unicas(FIXAS + variaveis(tema, c), 5, resto)
+    return _unicas([f"{lang.L.get('tagparte', 'parte')}{parte}"] + FIXAS + variaveis(tema, c), 5, resto)   # 5 SEM repetir (limite útil do TikTok)
 
 
 def legenda(titulo, parte, n, tema, c=None):
@@ -115,3 +124,32 @@ def tema_por_titulo(titulo):
         if any(p in t for p in ps):
             return tema
     return None
+
+
+# Classificação do tema pelo TEXTO da história (o modelo de IA errava: "Road Rage" saía como relacionamento). Sem match claro => "drama" (hashtags genéricas, nunca erradas).
+KW = {
+    "en": {"trabalho": ("boss", "coworker", "manager", "my job", "workplace", "hr ", "fired", "employee", "customer", "client", "office"),
+           "relacionamento": ("husband", "wife", "boyfriend", "girlfriend", "fiancé", "fiance", "cheat", "wedding", "my ex", "dating", "partner"),
+           "familia": ("mother-in-law", "mil ", "my mom", "my dad", "sister", "brother", "my parents", "in-laws", "grandma", "my son", "my daughter"),
+           "vinganca": ("revenge", "got back at", "payback", "karma", "petty", "malicious compliance"),
+           "vizinhos": ("neighbor", "neighbour", "hoa", "landlord"),
+           "amizade": ("best friend", "my friend", "friendship", "roommate"),
+           "escola": ("school", "teacher", "classmate", "college", "professor", "student")},
+    "es": {"trabalho": ("jefe", "compañero de trabajo", "trabajo", "oficina", "empresa", "empleado", "cliente"),
+           "relacionamento": ("novio", "novia", "esposo", "esposa", "marido", "matrimonio", "infiel", "boda", "mi ex", "pareja"),
+           "familia": ("suegra", "mi mamá", "mi madre", "mi papá", "mi padre", "hermana", "hermano", "familia", "abuela", "mi hijo", "mi hija"),
+           "vinganca": ("venganza", "me vengué", "karma"),
+           "vizinhos": ("vecino", "vecina", "casero"),
+           "amizade": ("mejor amiga", "mejor amigo", "mi amiga", "mi amigo", "amistad", "compañera de cuarto"),
+           "escola": ("escuela", "maestro", "maestra", "profesor", "universidad", "colegio", "compañeros de clase")},
+}
+
+
+def classificar(texto, titulo=""):
+    """Tema pelo texto: precisa de 3+ ocorrências (título conta em dobro). Sem match claro => 'drama'. PT mantém o método antigo."""
+    if lang.CODE == "pt":
+        return tema_por_titulo(titulo) or "drama"
+    t = (titulo.lower() + " ") * 2 + texto.lower()
+    pont = {tema: sum(t.count(w) for w in ws) for tema, ws in KW[lang.CODE].items()}
+    tema, v = max(pont.items(), key=lambda kv: kv[1])
+    return tema if v >= 3 else "drama"

@@ -29,7 +29,9 @@ def build_package():
     d = OUT / ("hist-" + now.strftime("%Y%m%d-%H%M%S")); d.mkdir(parents=True)
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
     n = len(data["partes"])
-    tema = data.get("tema", "") if data.get("tema", "") in otimo.POOL else "drama"
+    tema = otimo.classificar(" ".join(p["texto"] for p in data["partes"]), data["titulo"])
+    if lang.CODE == "pt" and tema == "drama" and data.get("tema", "") in otimo.POOL:
+        tema = data["tema"]     # PT: mantém o tema do modelo quando o título não decide (comportamento anterior)
     clip = mc.pick_clip()  # um gameplay por história; cada parte continua de onde a anterior parou
     pos = 0.0
     if clip:

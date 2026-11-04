@@ -1,0 +1,23 @@
+name: corrigir-legendas
+on:
+  workflow_dispatch:
+    inputs:
+      langs: {description: "idiomas", default: "en es"}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  corrigir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env: {GH_TOKEN: "${{ github.token }}", BUFFER_API_KEY: "${{ secrets.BUFFER_API_KEY }}", PYTHONPATH: src}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          for L in ${{ github.event.inputs.langs }}; do
+            SUB=""; [ "$L" != "pt" ] && SUB="/$L"
+            LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB python -u src/corrigir.py 2>&1 | while IFS= read -r l; do echo "::notice::$l"; done
+          done
+          push_estado

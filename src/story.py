@@ -18,7 +18,7 @@ dados que identifiquem a pessoa (sobrenomes completos, @, links, telefones, ende
 pode condensar, mas NÃO invente acontecimentos importantes. Se não houver texto-base, crie uma história ORIGINAL de drama
 cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e reviravolta.
 @@DIVISAO@@ Corte em pontos de suspense: toda parte, menos a última,
-termina num gancho forte; a parte 1 começa com um gancho forte, jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
+termina num gancho forte; a parte 1 começa com um gancho forte (a PRIMEIRA FRASE tem no máximo 12 palavras e é o fato mais chocante, sem apresentação nem contexto antes), jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
 ROTEIRO QUE PRENDE ATÉ O FIM (obrigatório): antes de escrever, defina uma PERGUNTA CENTRAL impactante, específica e intrigante (ex.: "o que ele
 guardava no porão?", "quem mandou a mensagem?") que fica martelando na cabeça do ouvinte. Ela aparece nos primeiros segundos da parte 1,
 ganha pistas e reviravoltas nas partes do meio SEM ser respondida, e só é respondida de verdade na última parte, com um desfecho que
@@ -40,7 +40,7 @@ The source text is a real story told by a community member. Narrate in first per
 Keep the common first names already in the source text (e.g. John, Emily, Maria); only swap a name if it is unusual or hard to pronounce, using @@NOMES@@. Remove only data that identifies the person (full surnames, @handles, links, phone numbers, street addresses). City and place names may stay. Keep real company names only if the story does not accuse them of wrongdoing (avoid defamation). Keep the facts of the
 source text; you may condense but do NOT invent important events. If there is no source text, create an ORIGINAL everyday-drama story
 (family, work, neighbors, friendship, relationships) with conflict and a twist.
-@@DIVISAO@@ Cut at suspense points: every part except the last ends on a strong hook; part 1 starts with a strong hook, throwing the listener straight into the most
+@@DIVISAO@@ Cut at suspense points: every part except the last ends on a strong hook; part 1 starts with a strong hook (the FIRST SENTENCE is at most 12 words and is the most shocking fact, no introduction or setup before it), throwing the listener straight into the most
 shocking fact or an impact line (no greetings: NEVER open any part with "Hey", "Hi", "Guys", "Hello" or address the audience; vary the first sentence of each story);
 the last part brings the resolution and ends with a question that invites comments.
 STORY THAT HOLDS UNTIL THE END (mandatory): before writing, define a striking, specific, intriguing CENTRAL QUESTION (e.g. "what was he hiding in the basement?",
@@ -104,12 +104,21 @@ def _longos_primeiro(lst):
     return longos + [p for p in lst if len(p["text"]) < MULTI_CHARS]
 
 
+_FORTE = re.compile(r"suicid|kill myself|end my life|self[- ]harm|overdos|rape|molest|sobredosis|matarme|violaci[oó]n|me matar|estupro|automutila|sobredose", re.I)
+_TITULO = re.compile(r"died|death|funeral|cancer|grief|miscarriage|stillborn|passed away|depress|feels? done|murio|murió|falleci|c[aá]ncer|duelo|aborto|morreu|luto|vel[oó]rio|enterr", re.I)
+
+
+def _sensivel(p):
+    """Fora do ar: suicídio/automutilação/abuso sexual (primeiros 1500 caracteres) e luto/doença/morte no TÍTULO — rendem pouco e o TikTok limita."""
+    return bool(_FORTE.search(p["text"][:1500]) or _FORTE.search(p["title"]) or _TITULO.search(p["title"]))
+
+
 def _banco():
     import os
     f = Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "banco.json"
     try:
         used = _used()
-        return [p for p in json.loads(f.read_text()) if p["id"] not in used]
+        return [p for p in json.loads(f.read_text()) if p["id"] not in used and not _sensivel(p)]
     except Exception:
         return []
 
@@ -129,7 +138,7 @@ def pick_story(n=3):
     for sub in random.sample(SUBS, min(5, len(SUBS))):
         for kind in ("top", "controversial"):
             try:
-                cands += [p for p in fetch_posts(sub, kind) if 2500 <= len(p["text"]) <= 20000 and p["id"] not in used]
+                cands += [p for p in fetch_posts(sub, kind) if 2500 <= len(p["text"]) <= 20000 and p["id"] not in used and not _sensivel(p)]
             except Exception as e:
                 DEBUG.append(f"reddit r/{sub}/{kind}: erro {type(e).__name__} {str(e)[:80]}")
             time.sleep(PAUSA_S)
