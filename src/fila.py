@@ -99,7 +99,8 @@ def encher():
     ultimo = max([datetime.fromisoformat(b["dueAt"].replace("Z", "+00:00")) for b in ativos if b.get("dueAt")] + [agora])
     ch = bp.tiktok_channel()
     novos = []
-    pend = [(s, p) for s, p in partes(f) if p["status"] == "pendente"]
+    bloq = set(l.strip() for l in (Path(__file__).resolve().parent.parent / "bloqueadas.txt").read_text().split() ) if (Path(__file__).resolve().parent.parent / "bloqueadas.txt").exists() else set()
+    pend = [(s, p) for s, p in partes(f) if p["status"] == "pendente" and s["id"] not in bloq]   # bloqueadas.txt: ids de histórias que NUNCA devem ser agendadas
     if pend and len(ativos) < LIMITE:
         slots = schedule.slots_after(max(ultimo, agora + timedelta(hours=1)), min(LIMITE - len(ativos), len(pend)))
         for (s, p), dt in zip(pend, slots):
