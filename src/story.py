@@ -105,7 +105,7 @@ def _longos_primeiro(lst):
 
 
 _FORTE = re.compile(r"suicid|kill myself|end my life|self[- ]harm|overdos|rape|molest|sobredosis|matarme|violaci[oó]n|me matar|estupro|automutila|sobredose", re.I)
-_TITULO = re.compile(r"died|death|funeral|cancer|grief|miscarriage|stillborn|passed away|depress|feels? done|murio|murió|falleci|c[aá]ncer|duelo|aborto|morreu|luto|vel[oó]rio|enterr", re.I)
+_TITULO = re.compile(r"suicid|kill myself|self[- ]harm|funeral|stillborn|miscarriage|depress|feels? done|aborto|automutila", re.I)   # só títulos claramente pesados; "morte/enterrar" sozinhos NÃO bloqueiam (relatos bons caíam)
 
 
 def _sensivel(p):
