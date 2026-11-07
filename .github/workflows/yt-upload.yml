@@ -24,4 +24,8 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install requests
       - run: gh release download "${{ github.event.inputs.tag }}" -p "${{ github.event.inputs.arquivo }}" -D /tmp/v
-      - run: python src/yt_upload.py "/tmp/v/${{ github.event.inputs.arquivo }}" "${{ github.event.inputs.titulo }}" "${{ github.event.inputs.descricao }}" "${{ github.event.inputs.privacidade }}" | tee /tmp/o.txt; echo "::notice::$(tail -n1 /tmp/o.txt)"
+      - name: Enviar
+        run: |
+          set -o pipefail
+          python src/yt_upload.py "/tmp/v/${{ github.event.inputs.arquivo }}" "${{ github.event.inputs.titulo }}" "${{ github.event.inputs.descricao }}" "${{ github.event.inputs.privacidade }}" 2>&1 | tee /tmp/o.txt || { echo "::error::$(tail -n 3 /tmp/o.txt | tr '\n' '|' | cut -c1-400)"; exit 1; }
+          echo "::notice::$(tail -n1 /tmp/o.txt)"
