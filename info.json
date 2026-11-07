@@ -1,0 +1,31 @@
+{
+  "id": "hist-20261106-203004",
+  "titulo": "The Trip That Blew Up a Wedding",
+  "origem": "Reddit (r/BestofRedditorUpdates)",
+  "fonte": "https://www.reddit.com/r/BestofRedditorUpdates/comments/1x1bhdg/is_it_wrong_for_me_32m_to_skip_my_sisterinlaws/",
+  "n": 2,
+  "tema": "relacionamento",
+  "partes": [
+    {
+      "parte": 1,
+      "arquivo": "parte1.mp4",
+      "titulo": "The Trip That Blew Up a Wedding (Part 1 of 2)",
+      "legenda": "The Trip That Blew Up a Wedding (Part 1 of 2) #part1 #redditstories #storytime #relationshipdrama #marriage",
+      "duracao_s": 300,
+      "avisos": [],
+      "fundo": "gta"
+    },
+    {
+      "parte": 2,
+      "arquivo": "parte2.mp4",
+      "titulo": "The Trip That Blew Up a Wedding (Part 2 of 2)",
+      "legenda": "The Trip That Blew Up a Wedding (Part 2 of 2) Final part! What would you have done? Comment below! #part2 #redditstories #storytime #relationshipdrama #marriage",
+      "duracao_s": 300,
+      "avisos": [],
+      "fundo": "gta"
+    }
+  ],
+  "debug": [
+    "banco: 114 candidatos"
+  ]
+}
