@@ -1,5 +1,5 @@
 """Gera uma história completa (3 a 6 partes): roteiro PT-BR, voz, fundo (Minecraft ou stock), cartão de abertura e legenda."""
-import json, sys, traceback
+import json, os, sys, traceback
 from datetime import datetime
 from config import OUT
 import story, schedule, tts, video, reviewer, writer, capa, mc, otimo, lang
@@ -38,6 +38,7 @@ def build_package():
         import random
         pos = random.uniform(0, max(1, clip[1] * 0.5))
     partes = []
+    pos0, allw = pos, []
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
@@ -53,6 +54,7 @@ def build_package():
                 break
             mult *= d_real / alvo_s
         words = tts.ajustar(mp3, words, alvo_s)
+        allw.append((words, p["texto"]))
         ov = [(0, None, lang.UI["parte"].format(i=i, n=n), "Badge")] if n > 1 else []
         if i < n:
             fim = (words[-1][1] if words else 0)
@@ -75,6 +77,9 @@ def build_package():
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})
         print(f"parte {i}/{n}: {secs:.0f}s fundo={next((j for j in ('subway', 'gta', 'roblox') if j in clip[0].name), 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)
+    if n > 1 and clip and os.environ.get("YT_COMPLETO"):
+        import yt_longo
+        yt_longo.completo(d, allw, clip, pos0)
     info = {"id": d.name, "titulo": data["titulo"], "origem": origem, "fonte": post and post["id"], "n": n,
             "tema": tema, "partes": partes, "debug": story.DEBUG}
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))

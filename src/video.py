@@ -140,7 +140,7 @@ def render_scene(query, dur, workdir, i, used):
     return out
 
 
-def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
+def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2, cap_over=None):
     """Passo final: fundo + (cartão de abertura) + legenda + voz."""
     ass_path = str(Path(ass).resolve()).replace(":", r"\:")
     esc = ",scale=720:1280" if total > 150 else ""   # vídeos longos em 720p: cabe nos 100 MB/arquivo do GitHub com boa nitidez
@@ -157,6 +157,7 @@ def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
     # vídeos longos: limita o bitrate para o arquivo ficar abaixo de ~85 MB (limite de 100 MB por arquivo no GitHub)
     import lang
     cap = 85e6 if lang.CODE == "pt" else 55e6   # EN/ES menores: o branch media tem 2 GB por push e o estoque de 3 canais não cabe com 80 MB por vídeo
+    if cap_over: cap = cap_over
     mx = min(5_000_000, int(cap * 8 / max(total, 1) * 0.93) - 160_000)
     cmd += ["-filter_complex", fc, "-map", "[v]", "-map", "[a]", "-t", f"{total:.2f}", "-c:v", "libx264",
             "-preset", "veryfast", "-crf", "26", "-maxrate", str(mx), "-bufsize", str(mx * 2), "-pix_fmt", "yuv420p",
@@ -164,11 +165,11 @@ def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2):
     run(cmd)
 
 
-def build_mc(src, start, total, mp3, ass, out, card=None, calmo=False):
+def build_mc(src, start, total, mp3, ass, out, card=None, calmo=False, cap_over=None):
     """Fundo = gameplay vertical de Minecraft a partir de `start` (continua de onde a parte anterior parou)."""
     vf = ("scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,"
           + ("eq=brightness=-0.09:saturation=0.78" if calmo else "eq=brightness=-0.05:saturation=0.95"))  # calmo: jogos mais coloridos
-    _final(["-ss", f"{start:.2f}", "-stream_loop", "-1", "-i", str(src)], vf, mp3, ass, total, out, card)
+    _final(["-ss", f"{start:.2f}", "-stream_loop", "-1", "-i", str(src)], vf, mp3, ass, total, out, card, cap_over=cap_over)
 
 
 def build(scenes, mp3, ass, total, workdir, out, card=None):
