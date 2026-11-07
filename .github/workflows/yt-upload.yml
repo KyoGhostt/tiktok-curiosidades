@@ -1,0 +1,27 @@
+name: yt-upload
+# Envia um video de uma release do GitHub para o YouTube (privado se o app nao foi auditado).
+on:
+  workflow_dispatch:
+    inputs:
+      tag: {description: "tag da release (ex: yt-hist-20261107-022551)", required: true}
+      arquivo: {description: "arquivo na release", default: "completo.mp4"}
+      titulo: {description: "titulo", required: true}
+      descricao: {description: "descricao", default: "Historia completa. Inscreva-se! #historiasreais #historiasdoreddit #drama"}
+      privacidade: {description: "private | unlisted | public", default: "private"}
+permissions: {contents: read}
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests
+      - run: gh release download "${{ github.event.inputs.tag }}" -p "${{ github.event.inputs.arquivo }}" -D /tmp/v
+      - run: python src/yt_upload.py "/tmp/v/${{ github.event.inputs.arquivo }}" "${{ github.event.inputs.titulo }}" "${{ github.event.inputs.descricao }}" "${{ github.event.inputs.privacidade }}" | tee /tmp/o.txt; echo "::notice::$(tail -n1 /tmp/o.txt)"
