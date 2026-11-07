@@ -1,0 +1,215 @@
+{
+ "slots": [
+  [
+   13,
+   0
+  ],
+  [
+   17,
+   0
+  ],
+  [
+   20,
+   0
+  ]
+ ],
+ "tags": {
+  "redditbrasil": {
+   "n": 2,
+   "media": 622.5
+  },
+  "parte2": {
+   "n": 4,
+   "media": 404.75
+  },
+  "historiasdoreddit": {
+   "n": 16,
+   "media": 529.3125
+  },
+  "salãodebeleza": {
+   "n": 2,
+   "media": 622.5
+  },
+  "maliciouscompliancebrasil": {
+   "n": 2,
+   "media": 622.5
+  },
+  "chefedura": {
+   "n": 2,
+   "media": 622.5
+  },
+  "storytime": {
+   "n": 11,
+   "media": 407.45454545454544
+  },
+  "fy": {
+   "n": 2,
+   "media": 622.5
+  },
+  "regrasdobranco": {
+   "n": 2,
+   "media": 622.5
+  },
+  "parte3": {
+   "n": 5,
+   "media": 730.0
+  },
+  "casal": {
+   "n": 5,
+   "media": 277.8
+  },
+  "relacionamento": {
+   "n": 5,
+   "media": 277.8
+  },
+  "parte1": {
+   "n": 3,
+   "media": 312.6666666666667
+  },
+  "parte4": {
+   "n": 3,
+   "media": 590.6666666666666
+  },
+  "trabalho": {
+   "n": 6,
+   "media": 428.0
+  },
+  "chefe": {
+   "n": 6,
+   "media": 428.0
+  },
+  "vidacorporativa": {
+   "n": 5,
+   "media": 797.4
+  },
+  "tretanotrabalho": {
+   "n": 3,
+   "media": 1089.0
+  },
+  "historiasreais": {
+   "n": 3,
+   "media": 1089.0
+  },
+  "parte5": {
+   "n": 1,
+   "media": 490.0
+  }
+ },
+ "escolhidas": {
+  "trabalho": [
+   "historiasreais",
+   "tretanotrabalho",
+   "vidacorporativa"
+  ],
+  "relacionamento": [
+   "historiasreais",
+   "casamento",
+   "marido"
+  ],
+  "familia": [
+   "historiasreais",
+   "familia",
+   "drama"
+  ],
+  "vinganca": [
+   "historiasreais",
+   "vinganca",
+   "justica"
+  ],
+  "vizinhos": [
+   "historiasreais",
+   "vizinhos",
+   "confusao"
+  ],
+  "amizade": [
+   "historiasreais",
+   "amizade",
+   "drama"
+  ],
+  "escola": [
+   "historiasreais",
+   "escola",
+   "adolescencia"
+  ],
+  "drama": [
+   "historiasreais",
+   "drama",
+   "treta"
+  ]
+ },
+ "candidatas": {
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "relacionamentoabusivo",
+   "relacionamentotoxico"
+  ],
+  "familia": [],
+  "vinganca": [],
+  "vizinhos": [
+   "vizinhoinvejoso"
+  ],
+  "escola": [],
+  "drama": [
+   "novelas",
+   "historia"
+  ]
+ },
+ "teste": {
+  "idx": 0,
+  "base": 12,
+  "novo": 13
+ },
+ "base_n": 16,
+ "atualizado": "2026-11-04T21:03:05.233927+00:00",
+ "pesquisa": {
+  "status": {
+   "google_trends": "ok",
+   "tiktok_hashtags": "falhou: resposta sem lista: {'code': 40101, 'msg': 'no permission', 'request_id': '20261105050302F2D1E35FE5CC6EEBF2E7'}",
+   "endless_tiktok_br": "ok",
+   "buscas_por_tema": "ok",
+   "reddit_semana": "falhou: 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/pettyrevenge/top/.rss?t=week&limit=10"
+  },
+  "trends": [
+   {
+    "termo": "selic",
+    "buscas": "2000+"
+   },
+   {
+    "termo": "como 1907",
+    "buscas": "500+"
+   },
+   {
+    "termo": "anastasios douvikas",
+    "buscas": "200+"
+   },
+   {
+    "termo": "champions league",
+    "buscas": "10000+"
+   },
+   {
+    "termo": "borussia",
+    "buscas": "2000+"
+   },
+   {
+    "termo": "sangue",
+    "buscas": "200+"
+   },
+   {
+    "termo": "kaiki bruno",
+    "buscas": "500+"
+   },
+   {
+    "termo": "união esporte clube",
+    "buscas": "200+"
+   },
+   {
+    "termo": "championship",
+    "buscas": "200+"
+   },
+   {
+    "termo": "luciana gimenez",
+    "buscas": "200+"
+   }
+  ]
+ }
+}

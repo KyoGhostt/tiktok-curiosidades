@@ -1,0 +1,133 @@
+=== iteracao 1 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 2 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 3 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 4 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 5 rc=0
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 1094 palavras, voz +18% -> 380s (alvo 299s)
+  parte 1: 1094 palavras, voz +50% -> 299s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 1/2: 300s fundo=subway avisos=[]
+  parte 2: 1205 palavras, voz +30% -> 350s (alvo 299s)
+  parte 2: 1205 palavras, voz +52% -> 299s (alvo 299s)
+  áudio 300s (alvo 299s): sem ajuste
+parte 2/2: 300s fundo=subway avisos=[]
+=== iteracao 6 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 7 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 8 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 9 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 10 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 11 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 12 rc=1
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions

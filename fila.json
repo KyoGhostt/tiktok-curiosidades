@@ -1,0 +1,184 @@
+{
+ "stories": [
+  {
+   "id": "hist-20261031-132021",
+   "titulo": "Minha Namorada Quer Abandonar Nossa Filha",
+   "n": 3,
+   "origem": "Baseado em relato do Reddit (r/relationship_advice)",
+   "tema": "relacionamento",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 1 de 3) #parte1 #historiasdoreddit #historiasreais #casamento #marido",
+     "duracao_s": 115,
+     "status": "postado",
+     "buffer_id": "6aea8adeb8d162e0d8f846f8",
+     "due": "2026-11-06T17:00:00-03:00",
+     "postado_em": "2026-11-07T01:01:19.501337+00:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 2 de 3) #parte2 #historiasdoreddit #historiasreais #casamento #marido",
+     "duracao_s": 104,
+     "status": "postado",
+     "buffer_id": "6aea8ae04c41ba80aa4e5de2",
+     "due": "2026-11-06T20:00:00-03:00",
+     "postado_em": "2026-11-07T01:01:19.501354+00:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3)",
+     "legenda": "Minha Namorada Quer Abandonar Nossa Filha (Parte 3 de 3) Final! O que você teria feito? Comenta! #parte3 #historiasdoreddit #historiasreais #casamento #marido",
+     "duracao_s": 113,
+     "status": "agendado",
+     "buffer_id": "6aeb660d491f63648cea3db2",
+     "due": "2026-11-07T13:00:00-03:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261031-194143",
+   "titulo": "A amiga que eu enterrei viva",
+   "n": 1,
+   "origem": "Baseado em relato do Reddit (r/TIFU)",
+   "tema": "drama",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "A amiga que eu enterrei viva",
+     "legenda": "A amiga que eu enterrei viva O que você teria feito? Comenta! #historiasdoreddit #historiasreais #drama #treta #storytime",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aebb510da46403dc429f46c",
+     "due": "2026-11-07T17:00:00-03:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261104-134853",
+   "titulo": "Os olhos que me perseguiam",
+   "n": 2,
+   "origem": "Reddit (r/TrueOffMyChest)",
+   "tema": "drama",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Os olhos que me perseguiam (Parte 1 de 2)",
+     "legenda": "Os olhos que me perseguiam (Parte 1 de 2) #parte1 #historiasdoreddit #historiasreais #drama #treta",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aebe6cbbc551efdea3942da",
+     "due": "2026-11-07T20:00:00-03:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Os olhos que me perseguiam (Parte 2 de 2)",
+     "legenda": "Os olhos que me perseguiam (Parte 2 de 2) Final! O que você teria feito? Comenta! #parte2 #historiasdoreddit #historiasreais #drama #treta",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aecbe0fb943974e731500d8",
+     "due": "2026-11-09T13:00:00-03:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261104-184211",
+   "titulo": "Minha noiva me trocou em semanas",
+   "n": 2,
+   "origem": "Reddit (r/TrueOffMyChest)",
+   "tema": "relacionamento",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Minha noiva me trocou em semanas (Parte 1 de 2)",
+     "legenda": "Minha noiva me trocou em semanas (Parte 1 de 2) #parte1 #historiasdoreddit #historiasreais #casamento #marido",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aecbe11b09a1f8d3e280e14",
+     "due": "2026-11-09T17:00:00-03:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "Minha noiva me trocou em semanas (Parte 2 de 2)",
+     "legenda": "Minha noiva me trocou em semanas (Parte 2 de 2) Final! O que você teria feito? Comenta! #parte2 #historiasdoreddit #historiasreais #casamento #marido",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed305c07f945cca933e24e",
+     "due": "2026-11-09T20:00:00-03:00"
+    }
+   ]
+  }
+ ],
+ "pausado": false,
+ "avisados": [
+  "6adebb41e4be8a4d86dc53f4",
+  "6adebb42bd33ce99c3a37eb9",
+  "6ae262cb61a8363a49495731",
+  "6ae262cc7570388bc1f0c542",
+  "6ae262cd61a8363a494957c7",
+  "6ae262ce60384583ecd410c2",
+  "6ae262ce8ecebd502e733fc5",
+  "6ae262cfa840ef151b66c1b4",
+  "6ae262d060384583ecd411b5",
+  "6ae262d17570388bc1f0c683",
+  "6ae262d260384583ecd4122c",
+  "6ae2675a7570388bc1f2218f",
+  "6ae29cc742598d490d78e96d",
+  "6ae372a288bef8e9b74c0f4d",
+  "6ae3756edbc78aec2b7ccffc",
+  "6ae3c69d60532fc2b0d47db5",
+  "6ae3ddca5cbac82a66ff6592",
+  "6ae3effb4b8768bfb2d20bd5",
+  "6ae4c1412a4d923bf409803b",
+  "6ae53be2406ab8a0188fcaca",
+  "6ae53be2b84259308badd700",
+  "6ae608fa1ee172cd6dab8a72",
+  "6ae66165cf3a3112f3c5a3bb",
+  "6ae68586cf3a3112f3cfb7e3",
+  "6ae7f1bdd01679699902e6b1",
+  "6ae7f21301fa08ffbe7d136e",
+  "6ae81106759fc887b6c9ad08",
+  "6ae81107c60bdbcc33d4c6cd",
+  "6ae81109759fc887b6c9ad92",
+  "6ae8110a76279ec7eb9081e6",
+  "6ae8110c76279ec7eb908262",
+  "6ae8110e64604db3143cd640",
+  "6ae8110f76279ec7eb9082c0",
+  "6ae8111164604db3143cd6b8",
+  "6ae84076759fc887b6d6494a",
+  "6ae8e6a2fb05897d9d37f3fc",
+  "6ae90db190c1e19b034b166d",
+  "6ae9274e7996caf141bea398",
+  "6ae9274f967eeee46f592fe8",
+  "6ae92983186a5afbce739f01",
+  "6ae92984e7e2bb1d6ed7e294",
+  "6ae942575d11dd638e9c43ab",
+  "6ae942597996caf141c67cfa",
+  "6ae96222a5f6b0f74388d131",
+  "6ae9819ce5f645e4e330e148",
+  "6ae9819e3f84a453ac0af936",
+  "6ae9819fe5f645e4e330e19c",
+  "6aea16882ea34807059c0b56",
+  "6aea8adeb8d162e0d8f846f8",
+  "6aea8ae04c41ba80aa4e5de2",
+  "6aeb80f409e5f61702c3afd7",
+  "6aeb80f679e2b7f790e5df00",
+  "6aeb80f87631b8ab98c1391b",
+  "6aec0455e22643a9878dafd2",
+  "6aec4e64534ed2a8ec905cb4",
+  "6aec4e656832c696dc3945c6",
+  "6aec4e67534ed2a8ec905d62",
+  "6aec4e686832c696dc3945fe",
+  "6aec4e6927a401d3bfcaf507"
+ ]
+}

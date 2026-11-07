@@ -1,0 +1,107 @@
+=== iteracao 1 rc=0
+plano: 3 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_70d7.mp4 (11.4 min)
+jogo sorteado: gta
+  parte 1: 912 palavras, voz -2% -> 409s (alvo 299s)
+  parte 1: 912 palavras, voz +34% -> 299s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 1/3: 300s fundo=gta avisos=[]
+  parte 2: 822 palavras, voz -11% -> 401s (alvo 299s)
+  parte 2: 822 palavras, voz +19% -> 300s (alvo 299s)
+  áudio 300.5s -> 299.4s (atempo 1.004)
+parte 2/3: 300s fundo=gta avisos=[]
+  parte 3: 925 palavras, voz +0% -> 368s (alvo 299s)
+  parte 3: 925 palavras, voz +23% -> 299s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 3/3: 300s fundo=gta avisos=[]
+=== iteracao 2 rc=0
+plano: 1 parte(s) de ~1000 palavras (alvo 5 min)
+minecraft: 16-Minecraft-Gameplay-Vertical.zip -> 16 Minecraft Gameplay Vertical.mp4 (12.0 min)
+jogo sorteado: minecraft
+  parte 1: 1012 palavras, voz +9% -> 394s (alvo 299s)
+  parte 1: 1012 palavras, voz +44% -> 298s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 1/1: 300s fundo=minecraft avisos=[]
+=== iteracao 3 rc=1
+plano: 1 parte(s) de ~1000 palavras (alvo 5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 86, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 222, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 4 rc=0
+plano: 3 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 823 palavras, voz -11% -> 378s (alvo 299s)
+  parte 1: 823 palavras, voz +12% -> 300s (alvo 299s)
+  áudio 301.0s -> 299.4s (atempo 1.005)
+parte 1/3: 300s fundo=subway avisos=[]
+  parte 2: 867 palavras, voz -6% -> 400s (alvo 299s)
+  parte 2: 867 palavras, voz +25% -> 301s (alvo 299s)
+  áudio 301.3s -> 299.4s (atempo 1.006)
+parte 2/3: 300s fundo=subway avisos=[]
+  parte 3: 832 palavras, voz -10% -> 402s (alvo 299s)
+  parte 3: 832 palavras, voz +21% -> 299s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 3/3: 300s fundo=subway avisos=[]
+=== iteracao 5 rc=0
+plano: 3 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 921 palavras, voz -1% -> 363s (alvo 299s)
+  parte 1: 921 palavras, voz +21% -> 297s (alvo 299s)
+  áudio 297.5s -> 299.4s (atempo 0.994)
+parte 1/3: 300s fundo=subway avisos=[]
+  parte 2: 941 palavras, voz +2% -> 357s (alvo 299s)
+  parte 2: 941 palavras, voz +21% -> 301s (alvo 299s)
+  áudio 301.6s -> 299.4s (atempo 1.007)
+parte 2/3: 300s fundo=subway avisos=[]
+  parte 3: 904 palavras, voz -2% -> 356s (alvo 299s)
+  parte 3: 904 palavras, voz +16% -> 301s (alvo 299s)
+  áudio 301.4s -> 299.4s (atempo 1.007)
+parte 3/3: 300s fundo=subway avisos=[]
+=== iteracao 6 rc=0
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_efa6.mp4 (15.9 min)
+jogo sorteado: gta
+  parte 1: 989 palavras, voz +7% -> 415s (alvo 299s)
+  parte 1: 989 palavras, voz +48% -> 300s (alvo 299s)
+  áudio 300.6s -> 299.4s (atempo 1.004)
+parte 1/2: 300s fundo=gta avisos=[]
+  parte 2: 1021 palavras, voz +10% -> 390s (alvo 299s)
+  parte 2: 1021 palavras, voz +43% -> 300s (alvo 299s)
+  áudio 300s (alvo 299s): sem ajuste
+parte 2/2: 300s fundo=gta avisos=[]
+=== iteracao 7 rc=0
+plano: 3 parte(s) de ~1000 palavras (alvo 5 min)
+biblioteca: subway_vidssave-com-subway-surfers-gameplay-no-_ae36.mp4 (11.6 min)
+jogo sorteado: subway
+  parte 1: 845 palavras, voz -9% -> 403s (alvo 299s)
+  parte 1: 845 palavras, voz +23% -> 298s (alvo 299s)
+  áudio 299s (alvo 299s): sem ajuste
+parte 1/3: 300s fundo=subway avisos=[]
+  parte 2: 903 palavras, voz -2% -> 410s (alvo 299s)
+  parte 2: 903 palavras, voz +33% -> 302s (alvo 299s)
+  áudio 302.4s -> 299.4s (atempo 1.010)
+parte 2/3: 300s fundo=subway avisos=[]
+  parte 3: 845 palavras, voz -9% -> 404s (alvo 299s)
+  parte 3: 845 palavras, voz +23% -> 299s (alvo 299s)
+  áudio 300s (alvo 299s): sem ajuste
+parte 3/3: 300s fundo=subway avisos=[]
+=== iteracao 8 rc=0
+plano: 2 parte(s) de ~1000 palavras (alvo 5 min)
+minecraft: 15-Minecraft-Gameplay-Vertical.zip -> 15 Minecraft Gameplay Vertical.mp4 (11.7 min)
+jogo sorteado: minecraft
+  parte 1: 817 palavras, voz -12% -> 401s (alvo 299s)
+  parte 1: 817 palavras, voz +18% -> 299s (alvo 299s)
+  áudio 300s (alvo 299s): sem ajuste
+parte 1/2: 300s fundo=minecraft avisos=[]
+  parte 2: 862 palavras, voz -7% -> 371s (alvo 299s)
+  parte 2: 862 palavras, voz +15% -> 300s (alvo 299s)
+  áudio 300.5s -> 299.4s (atempo 1.004)
+parte 2/2: 300s fundo=minecraft avisos=[]

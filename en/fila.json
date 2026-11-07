@@ -1,0 +1,114 @@
+{
+ "stories": [
+  {
+   "id": "hist-20261104-121431",
+   "titulo": "My Fiancé's Mom Hates Me Over Engagement Photos",
+   "n": 3,
+   "origem": "Reddit (r/JustNoMIL)",
+   "tema": "drama",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 1 of 3)",
+     "legenda": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 1 of 3) #part1 #redditstories #storytime #drama #aita",
+     "duracao_s": 300,
+     "status": "postado",
+     "buffer_id": "6aeb80f409e5f61702c3afd7",
+     "due": "2026-11-05T21:00:00-05:00",
+     "postado_em": "2026-11-06T05:01:31.897328+00:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 2 of 3)",
+     "legenda": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 2 of 3) #part2 #redditstories #storytime #drama #aita",
+     "duracao_s": 300,
+     "status": "postado",
+     "buffer_id": "6aeb80f679e2b7f790e5df00",
+     "due": "2026-11-06T12:00:00-05:00",
+     "postado_em": "2026-11-06T19:49:36.920209+00:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 3 of 3)",
+     "legenda": "My Fiancé's Mom Hates Me Over Engagement Photos (Part 3 of 3) Final part! What would you have done? Comment below! #part3 #redditstories #storytime #drama #aita",
+     "duracao_s": 300,
+     "status": "postado",
+     "buffer_id": "6aeb80f87631b8ab98c1391b",
+     "due": "2026-11-06T18:00:00-05:00",
+     "postado_em": "2026-11-07T01:03:49.287744+00:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261105-213007",
+   "titulo": "My SIL Stole My Privacy, Now My In-Laws Hate Me",
+   "n": 3,
+   "origem": "Reddit (r/JustNoMIL)",
+   "tema": "familia",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 1 of 3)",
+     "legenda": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 1 of 3) #part1 #redditstories #storytime #familydrama #motherinlaw",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed5f2dc1e74b84e5c9af4a",
+     "due": "2026-11-06T21:00:00-05:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 2 of 3)",
+     "legenda": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 2 of 3) #part2 #redditstories #storytime #familydrama #motherinlaw",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed5f2fdbada656bef3d3fe",
+     "due": "2026-11-07T12:00:00-05:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 3 of 3)",
+     "legenda": "My SIL Stole My Privacy, Now My In-Laws Hate Me (Part 3 of 3) Final part! What would you have done? Comment below! #part3 #redditstories #storytime #familydrama #motherinlaw",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed5f3007f945cca940b6a5",
+     "due": "2026-11-07T18:00:00-05:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261105-222424",
+   "titulo": "My Husband's Secret Best Friend",
+   "n": 2,
+   "origem": "Reddit (r/BestofRedditorUpdates)",
+   "tema": "relacionamento",
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "My Husband's Secret Best Friend (Part 1 of 2)",
+     "legenda": "My Husband's Secret Best Friend (Part 1 of 2) #part1 #redditstories #storytime #relationshipdrama #marriage",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed5f327b7e47e8f40b84ba",
+     "due": "2026-11-07T21:00:00-05:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "My Husband's Secret Best Friend (Part 2 of 2)",
+     "legenda": "My Husband's Secret Best Friend (Part 2 of 2) Final part! What would you have done? Comment below! #part2 #redditstories #storytime #relationshipdrama #marriage",
+     "duracao_s": 300,
+     "status": "agendado",
+     "buffer_id": "6aed5f337b7e47e8f40b854a",
+     "due": "2026-11-09T12:00:00-05:00"
+    }
+   ]
+  }
+ ]
+}

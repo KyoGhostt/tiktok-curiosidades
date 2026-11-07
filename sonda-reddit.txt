@@ -1,0 +1,14 @@
+https://redlib.catsarch.com/r/relatos/top.rss?t=year: http 429 7130 bytes 
+https://redlib.catsarch.com/r/relatos/top/.rss?t=year: http 429 7131 bytes 
+https://redlib.perennialte.ch/r/relatos/top.rss?t=year: http 410 11076 bytes 
+https://redlib.perennialte.ch/r/relatos/top/.rss?t=year: http 410 11089 bytes 
+https://l.opnxng.com/r/relatos/top.rss?t=year: http 429 7131 bytes 
+https://l.opnxng.com/r/relatos/top/.rss?t=year: http 429 7131 bytes 
+https://safereddit.com/r/relatos/top.rss?t=year: http 503 0 bytes 
+https://safereddit.com/r/relatos/top/.rss?t=year: http 503 0 bytes 
+https://redlib.nadeko.net/r/relatos/top.rss?t=year: http 418 2948 bytes 
+https://redlib.nadeko.net/r/relatos/top/.rss?t=year: http 418 2951 bytes 
+https://old.reddit.com/r/relatos/top.rss?t=year: http 403 189908 bytes 
+https://old.reddit.com/r/relatos/top/.rss?t=year: http 403 189908 bytes 
+https://www.reddit.com/r/relatos/top.rss?t=year: http 200 61173 bytes ATOM
+https://www.reddit.com/r/relatos/top/.rss?t=year: http 429 0 bytes 

@@ -1,0 +1,96 @@
+r/MaliciousCompliance/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +10 novos, total 10; debug: reddit r/AITAH/controversial: http 200 | reddit r/ProRevenge/top: http 200 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429
+r/BestofRedditorUpdates/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +4 novos, total 4; debug: reddit r/relationship_advice/controversial: http 200 | reddit r/pettyrevenge/controversial: http 429 | reddit r/pettyrevenge/controversial: http 200 | reddit r/BestofRedditorUpdates/controversial: http 429 | reddit r/BestofRedditorUpdates/controversial: http 429 | reddit r/BestofRedditorUpdates/controversial: http 429
+[es] banco: +5 novos, total 5; debug: reddit r/askspain/controversial: http 200 | reddit r/relatos/controversial: http 429 | reddit r/relatos/controversial: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 200
+r/desabafos/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +17 novos, total 27; debug: reddit r/TrueOffMyChest/top: http 200 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429 | reddit r/offmychest/controversial: http 200
+r/offmychest/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +12 novos, total 16; debug: reddit r/TrueOffMyChest/top: http 200 | reddit r/offmychest/controversial: http 429 | reddit r/offmychest/controversial: http 429 | reddit r/offmychest/controversial: http 429 | reddit r/pettyrevenge/top: http 200
+r/desahogo/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 5; debug: reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 429 | reddit r/es/top: http 200
+[pt] banco: +4 novos, total 31; debug: reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 200 | reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 200
+r/TrueOffMyChest/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +13 novos, total 29; debug: reddit r/TrueOffMyChest/top: http 429 | reddit r/TrueOffMyChest/top: http 429 | reddit r/TrueOffMyChest/top: http 429 | reddit r/AITAH/controversial: http 200 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 200
+r/es/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +1 novos, total 6; debug: reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/askspain/top: http 200 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 200
+[pt] banco: +15 novos, total 46; debug: reddit r/TrueOffMyChest/controversial: http 200 | reddit r/TIFU/top: http 200 | reddit r/entitledparents/controversial: http 429 | reddit r/entitledparents/controversial: http 429 | reddit r/entitledparents/controversial: http 200
+r/AmItheAsshole/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +24 novos, total 53; debug: reddit r/AmItheAsshole/controversial: http 429 | reddit r/AmItheAsshole/controversial: http 429 | reddit r/AmItheAsshole/controversial: http 429 | reddit r/AITAH/top: http 200 | reddit r/MaliciousCompliance/top: http 200
+r/es/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +1 novos, total 7; debug: reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/es/controversial: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 200
+r/ProRevenge/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +0 novos, total 46; debug: reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 200 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429
+r/pettyrevenge/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +8 novos, total 61; debug: reddit r/MaliciousCompliance/top: http 200 | reddit r/JustNoMIL/controversial: http 200 | reddit r/pettyrevenge/controversial: http 429 | reddit r/pettyrevenge/controversial: http 429 | reddit r/pettyrevenge/controversial: http 429
+r/relatos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +1 novos, total 8; debug: reddit r/askspain/controversial: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 200 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429
+r/TIFU/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +13 novos, total 59; debug: reddit r/ProRevenge/top: http 200 | reddit r/relationship_advice/top: http 429 | reddit r/relationship_advice/top: http 200 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 429
+r/offmychest/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +4 novos, total 65; debug: reddit r/TalesFromRetail/controversial: http 200 | reddit r/AITAH/controversial: http 429 | reddit r/AITAH/controversial: http 200 | reddit r/offmychest/controversial: http 429 | reddit r/offmychest/controversial: http 429 | reddit r/offmychest/controversial: http 429
+r/askspain/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 8; debug: reddit r/relatos/top: http 200 | reddit r/relatos/controversial: http 429 | reddit r/relatos/controversial: http 200 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429
+r/desabafos/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +11 novos, total 70; debug: reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 200 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429
+r/TalesFromRetail/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +16 novos, total 81; debug: reddit r/AmItheAsshole/controversial: http 200 | reddit r/TIFU/controversial: http 200 | reddit r/TalesFromRetail/controversial: http 429 | reddit r/TalesFromRetail/controversial: http 429 | reddit r/TalesFromRetail/controversial: http 429
+r/es/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 8; debug: reddit r/askspain/controversial: http 200 | reddit r/askspain/top: http 429 | reddit r/askspain/top: http 200 | reddit r/es/controversial: http 429 | reddit r/es/controversial: http 429 | reddit r/es/controversial: http 429
+r/relationship_advice/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +2 novos, total 72; debug: reddit r/relationship_advice/top: http 429 | reddit r/relationship_advice/top: http 429 | reddit r/relationship_advice/top: http 200 | reddit r/relationship_advice/controversial: http 429 | reddit r/relationship_advice/controversial: http 429 | reddit r/relationship_advice/controversial: http 429
+r/MaliciousCompliance/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +8 novos, total 89; debug: reddit r/AITAH/controversial: http 200 | reddit r/TrueOffMyChest/controversial: http 200 | reddit r/MaliciousCompliance/top: http 429 | reddit r/MaliciousCompliance/top: http 429 | reddit r/MaliciousCompliance/top: http 429
+r/relatos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 8; debug: reddit r/askspain/controversial: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 200 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429
+r/MaliciousCompliance/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +7 novos, total 79; debug: reddit r/offmychest/top: http 200 | reddit r/TrueOffMyChest/controversial: http 429 | reddit r/TrueOffMyChest/controversial: http 200 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429
+r/MaliciousCompliance/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +22 novos, total 111; debug: reddit r/BestofRedditorUpdates/top: http 200 | reddit r/TalesFromRetail/top: http 429 | reddit r/TalesFromRetail/top: http 200 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429
+[es] banco: +0 novos, total 8; debug: reddit r/relatos/top: http 200 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 200 | reddit r/relatos/controversial: http 429 | reddit r/relatos/controversial: http 429 | reddit r/relatos/controversial: http 200
+[pt] banco: +8 novos, total 87; debug: reddit r/offmychest/top: http 200 | reddit r/pettyrevenge/controversial: http 200 | reddit r/relationship_advice/controversial: http 429 | reddit r/relationship_advice/controversial: http 429 | reddit r/relationship_advice/controversial: http 200
+r/AmItheAsshole/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +12 novos, total 120; debug: reddit r/AmItheAsshole/top: http 429 | reddit r/AmItheAsshole/top: http 429 | reddit r/AmItheAsshole/top: http 429 | reddit r/pettyrevenge/top: http 200 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 200
+r/askspain/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +1 novos, total 9; debug: reddit r/relatos/controversial: http 429 | reddit r/relatos/controversial: http 200 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429 | reddit r/desahogo/controversial: http 200
+r/MaliciousCompliance/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +15 novos, total 102; debug: reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 200 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429 | reddit r/MaliciousCompliance/controversial: http 429
+r/TalesFromRetail/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +6 novos, total 120; debug: reddit r/AITAH/top: http 200 | reddit r/JustNoMIL/controversial: http 429 | reddit r/JustNoMIL/controversial: http 200 | reddit r/TalesFromRetail/controversial: http 429 | reddit r/TalesFromRetail/controversial: http 429 | reddit r/TalesFromRetail/controversial: http 429
+r/desahogo/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/es/top: http 200 | reddit r/askspain/controversial: http 200 | reddit r/desahogo/controversial: http 429 | reddit r/desahogo/controversial: http 429 | reddit r/desahogo/controversial: http 429
+r/TrueOffMyChest/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +2 novos, total 104; debug: reddit r/entitledparents/controversial: http 429 | reddit r/entitledparents/controversial: http 429 | reddit r/entitledparents/controversial: http 200 | reddit r/TrueOffMyChest/controversial: http 429 | reddit r/TrueOffMyChest/controversial: http 429 | reddit r/TrueOffMyChest/controversial: http 429
+r/MaliciousCompliance/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +3 novos, total 120; debug: reddit r/AmItheAsshole/controversial: http 200 | reddit r/AITAH/controversial: http 200 | reddit r/MaliciousCompliance/top: http 429 | reddit r/MaliciousCompliance/top: http 429 | reddit r/MaliciousCompliance/top: http 429
+r/askspain/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/relatos/controversial: http 200 | reddit r/es/controversial: http 429 | reddit r/es/controversial: http 200 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429 | reddit r/askspain/controversial: http 429
+[pt] banco: +3 novos, total 107; debug: reddit r/offmychest/controversial: http 200 | reddit r/MaliciousCompliance/top: http 200 | reddit r/TIFU/top: http 429 | reddit r/TIFU/top: http 429 | reddit r/TIFU/top: http 200
+r/AITAH/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +6 novos, total 120; debug: reddit r/AITAH/top: http 429 | reddit r/AITAH/top: http 429 | reddit r/AITAH/top: http 429 | reddit r/MaliciousCompliance/top: http 200 | reddit r/BestofRedditorUpdates/top: http 429 | reddit r/BestofRedditorUpdates/top: http 200
+r/es/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/es/controversial: http 429 | reddit r/es/controversial: http 200 | reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/es/top: http 429 | reddit r/desahogo/top: http 200
+r/ProRevenge/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +8 novos, total 115; debug: reddit r/TIFU/controversial: http 200 | reddit r/AITAH/controversial: http 200 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429
+[en] banco: +9 novos, total 120; debug: reddit r/pettyrevenge/top: http 200 | reddit r/AmItheAsshole/top: http 429 | reddit r/AmItheAsshole/top: http 200 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 429 | reddit r/ProRevenge/controversial: http 200
+r/desahogo/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 429 | reddit r/desahogo/top: http 429 | reddit r/askspain/top: http 200 | reddit r/es/top: http 429 | reddit r/es/top: http 200
+[pt] banco: +15 novos, total 120; debug: reddit r/pettyrevenge/top: http 200 | reddit r/relationship_advice/top: http 200 | reddit r/AITAH/top: http 429 | reddit r/AITAH/top: http 429 | reddit r/AITAH/top: http 200
+r/TIFU/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +13 novos, total 120; debug: reddit r/TIFU/top: http 429 | reddit r/TIFU/top: http 429 | reddit r/TIFU/top: http 429 | reddit r/JustNoMIL/top: http 200 | reddit r/TIFU/controversial: http 429 | reddit r/TIFU/controversial: http 200
+r/relatos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/desahogo/controversial: http 200 | reddit r/askspain/top: http 200
+r/desabafos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +0 novos, total 120; debug: reddit r/pettyrevenge/top: http 200 | reddit r/TIFU/top: http 429 | reddit r/TIFU/top: http 200 | reddit r/desabafos/top: http 429 | reddit r/desabafos/top: http 429 | reddit r/desabafos/top: http 429
+r/pettyrevenge/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[en] banco: +4 novos, total 120; debug: reddit r/pettyrevenge/controversial: http 200 | reddit r/MaliciousCompliance/top: http 429 | reddit r/MaliciousCompliance/top: http 200 | reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 429 | reddit r/pettyrevenge/top: http 429
+r/relatos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/es/controversial: http 200 | reddit r/askspain/controversial: http 200 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429
+r/offmychest/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +2 novos, total 120; debug: reddit r/relationship_advice/top: http 200 | reddit r/offmychest/top: http 429 | reddit r/offmychest/top: http 429 | reddit r/offmychest/top: http 429 | reddit r/offmychest/controversial: http 200
+r/es/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/desahogo/controversial: http 200 | reddit r/es/controversial: http 429 | reddit r/es/controversial: http 429 | reddit r/es/controversial: http 429 | reddit r/relatos/controversial: http 200
+r/desabafos/controversial: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[pt] banco: +2 novos, total 120; debug: reddit r/MaliciousCompliance/controversial: http 200 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429 | reddit r/desabafos/controversial: http 429 | reddit r/TIFU/top: http 200
+r/relatos/top: HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/
+[es] banco: +0 novos, total 9; debug: reddit r/desahogo/top: http 200 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/relatos/top: http 429 | reddit r/es/controversial: http 200
