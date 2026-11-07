@@ -15,7 +15,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","en","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
+        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
     env:
       GH_TOKEN: ${{ github.token }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}

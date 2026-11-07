@@ -44,3 +44,9 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 - Desativar o GitHub Pages (o workflow "pages build" falha). Ação do dono.
 - Chave do Buffer vence ~25/10/2027: ao trocar, atualizar `BUFFER_KEY_CREATED` em `monitor.yml`.
 - vidIQ (plano grátis, 150 créditos/mês) só roda nas sessões do Claude; uso manual, ~1x por semana.
+
+## 07/11 — Canal US (EN) DESATIVADO
+- Motivo: usuario troca o canal US do Buffer pelo YouTube. Codigo EN (src/lang.py etc.) intacto.
+- Removido "en" de: banco.yml, fila.yml, gerar-semana.yml (padrao "todos"), monitor.yml.
+- Reativar: voltar a incluir "en" nesses 4 workflows (ou rodar manualmente com lang=en) + reconectar TikTok US no Buffer.
+- Proximo: conectar YouTube no Buffer (Shorts auto; longos manual), confirmar ID do canal.

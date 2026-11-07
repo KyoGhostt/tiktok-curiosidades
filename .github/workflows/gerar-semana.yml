@@ -5,7 +5,7 @@ on:
     inputs:
       alvo: {description: "Partes em estoque a alcançar (18 = uma semana, 3 vídeos por dia, sem domingo)", default: "18"}
       pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes) E pausa a fila PT inteira: evite", default: "false"}
-      lang: {description: "todos (padrão: pt, en e es, um de cada vez) | pt | en | es", default: "todos"}
+      lang: {description: "todos (padrão: pt e es; en DESATIVADO, ver STATUS.md) | pt | en | es", default: "todos"}
       agendar: {description: "false = só gera e guarda no estoque, não agenda no Buffer", default: "true"}
 permissions: {contents: write, issues: write, actions: write}
 concurrency: {group: fila, cancel-in-progress: false}
@@ -17,7 +17,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","en","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
+        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
     env:
       GH_TOKEN: ${{ github.token }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}

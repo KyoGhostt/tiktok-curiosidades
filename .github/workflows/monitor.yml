@@ -30,7 +30,7 @@ jobs:
           [ "${{ github.event.inputs.retomar }}" = "true" ] && python src/fila.py retomar || true
           python src/monitor.py || true
           LOW=""
-          for L in pt en es; do
+          for L in pt es; do  # en desativado (reativar: voltar a incluir en)
             SUB=""; [ "$L" != "pt" ] && SUB="/$L"; mkdir -p /tmp/estado$SUB
             export LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB
             python src/fila.py encher || true
