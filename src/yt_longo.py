@@ -26,9 +26,10 @@ def completo(d, allw, clip, pos0):
     calmo = any(j in clip[0].name for j in ("subway", "roblox", "gta"))
     video.build_mc(clip[0], pos0 % max(1, clip[1] - total), total, mp3, ass, vert, None, calmo, cap_over=250e6)
     out = d / "completo.mp4"
+    mx = int(min(3_500_000, 105e6 * 8 / max(total, 1) * 0.93 - 130_000))   # arquivo final <= ~105 MB (limite do Zapier ~150 MB)
     video.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(vert), "-filter_complex",
                "[0:v]split[a][b];[a]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,boxblur=24:6[bg];"
                "[b]scale=-2:720[fg];[bg][fg]overlay=(W-w)/2:0[v]", "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-preset", "veryfast",
-               "-crf", "22", "-maxrate", "3500k", "-bufsize", "7000k", "-pix_fmt", "yuv420p", "-c:a", "copy", "-movflags", "+faststart", str(out)])
+               "-crf", "22", "-maxrate", str(mx), "-bufsize", str(mx * 2), "-pix_fmt", "yuv420p", "-c:a", "copy", "-movflags", "+faststart", str(out)])
     vert.unlink(missing_ok=True)
     print(f"completo.mp4: {_dur(out):.0f}s", flush=True)

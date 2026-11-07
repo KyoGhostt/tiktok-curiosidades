@@ -1,0 +1,16 @@
+name: yt-diario
+# Publica 1 video completo por dia: o Zapier ve a release nova e envia ao YouTube (publico).
+on:
+  schedule: [{cron: "0 15 * * 1-6"}]   # 12h de Brasilia, de segunda a sabado
+  workflow_dispatch: {}
+permissions: {contents: write}
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    env: {GH_TOKEN: "${{ github.token }}"}
+    steps:
+      - name: Publicar o rascunho mais antigo
+        run: |
+          ID=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq '[.[]|select(.draft and (.tag_name|startswith("yt-")))]|sort_by(.created_at)|.[0].id // empty')
+          [ -z "$ID" ] && { echo "::warning::sem video completo em estoque"; exit 0; }
+          gh api -X PATCH "repos/$GITHUB_REPOSITORY/releases/$ID" -F draft=false --jq '.name' | sed 's/^/::notice::publicada: /'

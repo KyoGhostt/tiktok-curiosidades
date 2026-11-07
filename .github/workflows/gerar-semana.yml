@@ -55,6 +55,11 @@ jobs:
           SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
           export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB
           : > $ESTADO_DIR/gerar-log.txt
+          if [ "$LANG_CODE" = pt ]; then
+            NR=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq '[.[]|select(.draft and (.tag_name|startswith("yt-")))]|length' 2>/dev/null || echo 99)
+            [ "${NR:-99}" -lt 7 ] && export YT_COMPLETO=1
+            echo "::notice::rascunhos YouTube=$NR YT_COMPLETO=${YT_COMPLETO:-0}"
+          fi
           for i in $(seq 1 12); do
             E=$(python src/fila.py estoque)
             echo "== estoque $E / alvo $ALVO"
@@ -66,6 +71,11 @@ jobs:
               D=$(ls -dt output/hist-*/ | head -1)
               echo "::notice::historia $i pronta em $D: $(ls $D | tr '\n' ' ' | cut -c1-200)"
               python src/fila.py add "${D%/}"
+              if [ -f "${D}completo.mp4" ]; then
+                T=$(python -c "import json;print(json.load(open('${D}info.json'))['titulo'])")
+                gh release create "yt-$(basename ${D%/})" "${D}completo.mp4" --draft --title "$T | História Completa" \
+                  --notes "$T: a história completa, do começo ao fim. Relato real da internet narrado em português. Inscreva-se e ative o sininho! #historiasreais #historiasdoreddit #drama" || echo "::warning::release do YouTube falhou"
+              fi
               cp output/used_*.json $ESTADO_DIR/ 2>/dev/null || true
               [ -f /tmp/previa.done ] || { touch /tmp/previa.done; cp -r "${D%/}" /tmp/primeira; }
             else
