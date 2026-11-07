@@ -50,3 +50,8 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 - Removido "en" de: banco.yml, fila.yml, gerar-semana.yml (padrao "todos"), monitor.yml.
 - Reativar: voltar a incluir "en" nesses 4 workflows (ou rodar manualmente com lang=en) + reconectar TikTok US no Buffer.
 - Proximo: conectar YouTube no Buffer (Shorts auto; longos manual), confirmar ID do canal.
+
+## 07/11 — YouTube (canal curiosoemalta, Buffer id 6aeeb178e29c69a1718e4a04)
+- Buffer so aceita Shorts no YouTube (vertical, ate 3 min). Video completo (16:9, ~10 min) = upload manual pelo usuario.
+- src/yt_longo.py + yt-teste.yml: gera completo.mp4 (sem selo Parte X, voz/fundo unicos) em release yt-<id>. Release yt-hist-20261107-022551 NAO apagar ate o Short das 18:00 de 07/11 sair (Buffer le de la); depois apagar.
+- Short teste agendado 07/11 18:00. Proximo: Shorts ~90 s (resumo da historia, "historia completa no canal"), plano 2 Shorts + 1 completo/dia; so apos ok do usuario.
