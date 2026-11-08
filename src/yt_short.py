@@ -21,15 +21,18 @@ def _resumo(data):
     import writer
     base = "\n".join(p["texto"] for p in data["partes"])[:9000]
     for name, url, key, model in writer.providers():
-        for t in range(3):
+        fb = ""
+        for t in range(4):
             try:
-                d = writer._chat(url, key, model, SYSTEM, f"Titulo: {data['titulo']}\n\nHistoria:\n{base}", tokens=1800)
+                d = writer._chat(url, key, model, SYSTEM, f"Titulo: {data['titulo']}\n\nHistoria:\n{base}{fb}", tokens=2200)
                 txt = " ".join(str(d.get("texto", "")).split())
-                if 220 <= len(txt.split()) <= 360:
+                n = len(txt.split())
+                if 230 <= n <= 360:
                     return txt
-                print(f"  short: {len(txt.split())} palavras, refazendo", flush=True)
+                print(f"::warning::short ({name}): {n} palavras, refazendo", flush=True)
+                fb = f"\n\nATENCAO: seu texto anterior teve {n} palavras. Escreva entre 270 e 330 palavras (um texto LONGO, com mais detalhes do enredo)."
             except Exception as e:
-                print(f"  short ({name}) falhou:", str(e)[:100], flush=True)
+                print(f"::warning::short ({name}) falhou: {str(e)[:100]}", flush=True)
                 break
     raise RuntimeError("sem resumo")
 

@@ -1,0 +1,34 @@
+name: yt-short-teste
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+concurrency: {group: yt-teste, cancel-in-progress: false}
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      PYTHONPATH: src
+      LANG_CODE: pt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core fonts-montserrat
+      - run: pip install -r requirements.txt
+      - run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          mkdir -p output
+          export ESTADO_DIR=/tmp/estado
+          python -u src/yt_short_teste.py 2>&1 | tee /tmp/o.txt || { echo "::error::$(tail -n 4 /tmp/o.txt | tr '\n' '|' | cut -c1-400)"; exit 1; }
+          D=output/hist-teste-short
+          python src/yt_short.py publicar $D
+          python src/yt_short.py agendar 2>&1 | tee /tmp/a.txt || true
+          echo "::notice::$(grep -E 'short.mp4|agendado|recusou' /tmp/o.txt /tmp/a.txt | tr '\n' '|' | cut -c1-400)"
