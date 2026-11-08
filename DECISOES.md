@@ -40,3 +40,4 @@ Só leia quando for mudar algo parecido. Estado atual está em STATUS.md.
 ## Como o Claude deve trabalhar neste repo
 - Ler INDEX.md e STATUS.md primeiro. Perguntar antes de alterar e dizer sempre como reverter.
 - No fim de cada bloco de trabalho, atualizar o STATUS.md só com o que mudou (até ~10 linhas).
+- 07/11: YouTube = Shorts via Buffer (auto) + video completo via Zap do GitHub Release (API direta trava em privado sem auditoria). Dono quer tudo automatico.

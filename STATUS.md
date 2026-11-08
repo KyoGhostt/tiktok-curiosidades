@@ -52,6 +52,8 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 - Proximo: conectar YouTube no Buffer (Shorts auto; longos manual), confirmar ID do canal.
 
 ## 07/11 — YouTube (canal curiosoemalta, Buffer id 6aeeb178e29c69a1718e4a04)
-- Buffer so aceita Shorts no YouTube (vertical, ate 3 min). Video completo (16:9, ~10 min) = upload manual pelo usuario.
-- src/yt_longo.py + yt-teste.yml: gera completo.mp4 (sem selo Parte X, voz/fundo unicos) em release yt-<id>. Release yt-hist-20261107-022551 NAO apagar ate o Short das 18:00 de 07/11 sair (Buffer le de la); depois apagar.
-- Short teste agendado 07/11 18:00. Proximo: Shorts ~90 s (resumo da historia, "historia completa no canal"), plano 2 Shorts + 1 completo/dia; so apos ok do usuario.
+- Canal US (EN) desativado nos workflows (reativar: incluir "en" em banco/fila/gerar-semana/monitor).
+- Shorts (<=3 min, vertical): Buffer YouTube; src/yt_short.py faz resumo ~90 s por historia -> release yts-<id> -> agenda 18h/21h seg-sab. Teste em yt-teste.yml.
+- Video completo (16:9, <=105 MB): src/yt_longo.py; fica em release RASCUNHO yt-<id> (max 7); yt-diario.yml publica 1/dia 12h seg-sab; ZAP do usuario (GitHub New Release -> YouTube Upload Video, Public) envia.
+- Upload direto pela API do Google fica PRIVADO/travado ate auditoria (secrets YT_* existem, token expira em 7 dias em modo Teste): nao usar.
+- Zapier MCP: YouTube conectado (so executa na sessao; nao cria Zaps).
