@@ -2,7 +2,7 @@ name: yt-teste
 # Gera 1 história (2+ partes) e a versão COMPLETA p/ YouTube (sem "Parte X de N"). Não mexe na fila nem no Buffer. Resultado: release yt-<id>.
 on: {workflow_dispatch: {}}
 permissions: {contents: write}
-concurrency: {group: fila, cancel-in-progress: false}
+concurrency: {group: yt-teste, cancel-in-progress: false}
 jobs:
   gerar:
     runs-on: ubuntu-latest
@@ -42,5 +42,5 @@ jobs:
           T=$(jq -r .titulo $D/info.json)
           gh release create yt-$ID $D/completo.mp4 --title "$T | História Completa" --notes "$T: a história completa, do começo ao fim. Relato real da internet narrado em português. #historiasreais #historiasdoreddit #drama"
           [ -f $D/short.mp4 ] && python src/yt_short.py publicar $D && python src/yt_short.py agendar || echo "::warning::sem short"
-          push_estado
+          # sem push_estado de proposito: nao sobrescrever o estado da fila durante outros jobs (a release yts-* deste teste e apagada na mao)
           echo "::notice::release yt-$ID: $(jq -r .titulo $D/info.json) / $(du -m $D/completo.mp4 | cut -f1) MB"
