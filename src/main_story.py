@@ -77,6 +77,12 @@ def build_package():
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})
         print(f"parte {i}/{n}: {secs:.0f}s fundo={next((j for j in ('subway', 'gta', 'roblox') if j in clip[0].name), 'minecraft') if clip else 'stock'} avisos={probs}", flush=True)
+    if clip and os.environ.get("YT_SHORT"):
+        try:
+            import yt_short
+            yt_short.criar(d, data, voz, clip, pos0)
+        except Exception as e:
+            print("::warning::short do YouTube falhou:", str(e)[:200], flush=True)
     if n > 1 and clip and os.environ.get("YT_COMPLETO"):
         import yt_longo
         yt_longo.completo(d, allw, clip, pos0)

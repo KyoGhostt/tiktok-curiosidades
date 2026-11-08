@@ -2,7 +2,7 @@ name: yt-teste
 # Gera 1 história (2+ partes) e a versão COMPLETA p/ YouTube (sem "Parte X de N"). Não mexe na fila nem no Buffer. Resultado: release yt-<id>.
 on: {workflow_dispatch: {}}
 permissions: {contents: write}
-concurrency: {group: yt-teste, cancel-in-progress: false}
+concurrency: {group: fila, cancel-in-progress: false}
 jobs:
   gerar:
     runs-on: ubuntu-latest
@@ -18,6 +18,8 @@ jobs:
       PYTHONPATH: src
       LANG_CODE: pt
       YT_COMPLETO: "1"
+      YT_SHORT: "1"
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,6 +39,8 @@ jobs:
           done
           D=${D%/}; ID=$(basename $D)
           [ -f $D/completo.mp4 ] || { echo "::error::sem completo.mp4 (historia com 1 parte?)"; exit 1; }
-          ffmpeg -loglevel error -y -i $D/parte1.mp4 -t 58 -c copy $D/short_teste.mp4
-          gh release create yt-$ID $D/completo.mp4 $D/short_teste.mp4 --title "yt-$ID" --notes "teste YouTube"
+          T=$(jq -r .titulo $D/info.json)
+          gh release create yt-$ID $D/completo.mp4 --title "$T | História Completa" --notes "$T: a história completa, do começo ao fim. Relato real da internet narrado em português. #historiasreais #historiasdoreddit #drama"
+          [ -f $D/short.mp4 ] && python src/yt_short.py publicar $D && python src/yt_short.py agendar || echo "::warning::sem short"
+          push_estado
           echo "::notice::release yt-$ID: $(jq -r .titulo $D/info.json) / $(du -m $D/completo.mp4 | cut -f1) MB"
