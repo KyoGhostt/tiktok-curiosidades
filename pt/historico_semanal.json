@@ -1,0 +1,15 @@
+[
+ {
+  "quando": "2026-11-09",
+  "pesos_duracao": {
+   "1.5": 0.333,
+   "2.0": 0.333,
+   "2.5": 0.333
+  },
+  "pesos_tema": {
+   "trabalho": 1.02
+  },
+  "n_historias": 2,
+  "mudancas": []
+ }
+]
