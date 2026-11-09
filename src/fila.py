@@ -122,6 +122,18 @@ def encher():
     print(f"buffer ativos={len(ativos)} novos={len(novos)} estoque={estoque(f)}")
 
 
+def _registrar(s):
+    """Guarda duracao/parte/tema de cada parte postada (o cerebro cruza com as metricas do Buffer pelo buffer_id)."""
+    h = ESTADO / "historico.json"
+    lst = json.loads(h.read_text()) if h.exists() else []
+    ja = {x.get("buffer_id") for x in lst}
+    for p in s["partes"]:
+        if p.get("buffer_id") and p["buffer_id"] not in ja:
+            lst.append({"buffer_id": p["buffer_id"], "duracao_s": p.get("duracao_s"), "parte": p["parte"], "n": len(s["partes"]),
+                        "tema": s.get("tema"), "titulo": s["titulo"]})
+    h.write_text(json.dumps(lst[-600:], ensure_ascii=False))
+
+
 def limpar():
     """Apaga do branch media as histórias totalmente postadas (ou removidas) há mais de 1 dia."""
     f = load()
@@ -133,6 +145,7 @@ def limpar():
     for s in f["stories"]:
         fim = all(p["status"] in ("postado", "erro", "removido") for p in s["partes"]) and all(velho(p) for p in s["partes"])
         if fim:
+            _registrar(s)
             shutil.rmtree(MEDIA / s["id"], ignore_errors=True); apagadas += 1
         else:
             manter.append(s)

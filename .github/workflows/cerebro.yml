@@ -1,0 +1,40 @@
+name: cerebro
+# Aprende com os resultados de CADA comunidade (BR, ES; US desativada) e ajusta duracao e temas dos proximos videos. Roda todo dia apos o otimizar.
+on:
+  schedule: [{cron: "50 12 * * *"}]
+  workflow_dispatch:
+    inputs:
+      acao: {description: "rodar | simular (nao grava)", default: "rodar"}
+permissions: {contents: write}
+concurrency: {group: fila, cancel-in-progress: false}
+jobs:
+  cerebro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix: {lang: [pt, es]}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONPATH: src
+      LANG_CODE: ${{ matrix.lang }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests
+      - name: Executar
+        run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
+          mkdir -p /tmp/estado$SUB
+          export ESTADO_DIR=/tmp/estado$SUB
+          A="${{ github.event.inputs.acao || 'rodar' }}"
+          python -u src/cerebro.py "$A" 2>&1 | tee /tmp/c.txt || { echo "::error::$(tail -n 3 /tmp/c.txt | tr '\n' '|' | cut -c1-400)"; exit 1; }
+          echo "::notice::$(cat /tmp/c.txt | head -8 | tr '\n' '|' | cut -c1-600)"
+          [ "$A" = "simular" ] || push_estado

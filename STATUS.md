@@ -63,3 +63,4 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 - Fim do 5:00 fixo: cada historia sorteia 1:30/2:00/2:30 (lang.py alvo_opcoes, POR comunidade; ALVO_MIN no ambiente forca). Comparar retencao por duracao e por comunidade (BR, ES, US sempre separados).
 - Roteiro: toda parte >=2 abre com mini-resumo; gancho a cada ~100 palavras; final com pergunta polemica. Historias de trabalho/chefe/vinganca/relacionamento vem primeiro (_PREF em story.py).
 - Reverter: git revert do commit "Duracao 1:30-2:30..." (volta ao 5:00).
+- CEREBRO (09/11): src/cerebro.py + cerebro.yml (diario 09h50 BRT, pt e es separados, estado/<lang>/cerebro.json). Aprende duracao (bandit 1:30/2:00/2:30, abre vizinhas) e peso por tema com views x retencao; story.py le os pesos. Relatorio no Telegram (2a ou quando muda). fila.limpar grava historico.json. Desligar: apagar cerebro.yml (geracao volta ao sorteio uniforme).

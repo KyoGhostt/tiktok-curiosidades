@@ -104,11 +104,26 @@ def _pref(p):
     return bool(_PREF.search(p["title"] + " " + p["text"][:600]))
 
 
+_TEMAS_RX = {"trabalho": r"\bboss|manager|coworker|co-worker|\bwork|\bjob\b|office|overtime|\bfired|jefe|trabajo|oficina|chefe|trabalho",
+             "vinganca": r"revenge|payback|venganza|vingan",
+             "relacionamento": r"husband|\bwife|boyfriend|girlfriend|fianc|cheat|affair|marido|esposa|novi[oa]|namorad|esposo",
+             "familia": r"in-laws|mother-in-law|\bsister|\bbrother|\bmom\b|\bdad\b|suegra|sogra|hermana|hermano"}
+
+
+def _peso_tema(p):
+    """Peso aprendido pelo cerebro para o tema deste relato (1.0 = neutro)."""
+    pt = _cerebro().get("pesos_tema") or {}
+    t = p["title"] + " " + p["text"][:800]
+    for tema, rx in _TEMAS_RX.items():
+        if re.search(rx, t, re.I): return pt.get(tema, 1.0)
+    return pt.get("drama", 1.0)
+
+
 def _longos_primeiro(lst):
     """Relatos longos (2+ partes) vêm antes; relato curto (1 parte só) só entra se não houver longo."""
     longos = [p for p in lst if len(p["text"]) >= MULTI_CHARS]
     curtos = [p for p in lst if len(p["text"]) < MULTI_CHARS]
-    return sorted(longos, key=lambda p: not _pref(p)) + sorted(curtos, key=lambda p: not _pref(p))
+    return sorted(longos, key=lambda p: (-_peso_tema(p), not _pref(p))) + sorted(curtos, key=lambda p: (-_peso_tema(p), not _pref(p)))
 
 
 _FORTE = re.compile(r"suicid|kill myself|end my life|self[- ]harm|overdos|rape|molest|sobredosis|matarme|violaci[oó]n|me matar|estupro|automutila|sobredose", re.I)
@@ -161,7 +176,23 @@ PPM = lang.L["ppm"]   # palavras narradas por minuto com a voz em +8% (medido em
 
 # 09/11: o dono nao quis mais 5:00 fixo (so ~15% do video e visto). Cada historia sorteia uma duracao das opcoes da PROPRIA comunidade (lang.py: alvo_opcoes)
 # para comparar por comunidade qual segura mais; > 60 s mantem a elegibilidade ao Creator Rewards. ALVO_MIN=2 no ambiente forca um valor.
-ALVO_MIN = float(os.environ.get("ALVO_MIN") or random.choice(lang.L.get("alvo_opcoes") or [5]))
+def _cerebro():
+    try:
+        return json.loads((Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "cerebro.json").read_text())
+    except Exception:
+        return {}
+
+
+def _sortear_duracao():
+    """Sorteia a duracao pelos pesos aprendidos (cerebro.py); sem aprendizado ainda => uniforme entre lang.alvo_opcoes."""
+    w = {float(k): v for k, v in (_cerebro().get("pesos_duracao") or {}).items() if DUR_OK[0] <= float(k) <= DUR_OK[1]}
+    if not w:
+        return random.choice(lang.L.get("alvo_opcoes") or [5])
+    return random.choices(list(w), weights=list(w.values()), k=1)[0]
+
+
+DUR_OK = (1.1, 4.0)
+ALVO_MIN = float(os.environ.get("ALVO_MIN") or _sortear_duracao())
 ALVO_LBL = f"{int(ALVO_MIN)}:{int(round(ALVO_MIN % 1 * 60)):02d}"
 
 
