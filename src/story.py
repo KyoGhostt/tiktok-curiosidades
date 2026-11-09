@@ -1,5 +1,5 @@
 """Histórias estilo Reddit: busca relatos (RSS público) ou cria história original; adapta para PT-BR em 3 a 6 partes."""
-import html, json, random, re, requests, time
+import html, json, os, random, re, requests, time
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from config import OUT
@@ -18,13 +18,12 @@ dados que identifiquem a pessoa (sobrenomes completos, @, links, telefones, ende
 pode condensar, mas NÃO invente acontecimentos importantes. Se não houver texto-base, crie uma história ORIGINAL de drama
 cotidiano (família, trabalho, vizinhos, amizade, relacionamento) com conflito e reviravolta.
 @@DIVISAO@@ Corte em pontos de suspense: toda parte, menos a última,
-termina num gancho forte; a parte 1 começa com um gancho forte (a PRIMEIRA FRASE tem no máximo 12 palavras e é o fato mais chocante, sem apresentação nem contexto antes), jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta que gere comentários.
+termina num gancho forte; a parte 1 começa com um gancho forte (a PRIMEIRA FRASE tem no máximo 12 palavras e é o fato mais chocante, sem apresentação nem contexto antes), jogando o ouvinte direto no fato mais chocante ou numa frase de impacto (sem cumprimento: NUNCA comece nenhuma parte com "Gente", "Galera", "Pessoal", "Oi", "Olá" nem chame o público; varie a primeira frase de cada história); a última parte traz o desfecho e termina com uma pergunta polêmica que divida opiniões ("quem estava certo?", "você perdoaria?").
 ROTEIRO QUE PRENDE ATÉ O FIM (obrigatório): antes de escrever, defina uma PERGUNTA CENTRAL impactante, específica e intrigante (ex.: "o que ele
 guardava no porão?", "quem mandou a mensagem?") que fica martelando na cabeça do ouvinte. Ela aparece nos primeiros segundos da parte 1,
 ganha pistas e reviravoltas nas partes do meio SEM ser respondida, e só é respondida de verdade na última parte, com um desfecho que
 surpreende e é coerente com tudo que veio antes (resposta genérica ou fraca é proibida). Cada parte: (1) abre já no fato mais forte, sem
-preâmbulo; (2) tem um mini-arco próprio com uma virada no meio, para quem chegou agora entender; (3) planta no meio uma segunda dúvida
-("mas o pior ainda estava por vir"); (4) termina com um gancho concreto sobre o que vem na próxima parte, nunca vago. A história precisa ter
+preâmbulo e, nas partes 2 em diante, logo na 2ª frase um mini-resumo de até 15 palavras do que já aconteceu (para quem chegou direto nesta parte); (2) tem um mini-arco próprio com uma virada no meio, para quem chegou agora entender; (3) a cada ~100 palavras (uns 30 segundos) uma frase que renova a curiosidade ("mas o pior ainda estava por vir", "e foi aí que tudo mudou"), para ninguém sair; (4) termina com um gancho concreto sobre o que vem na próxima parte, nunca vago. A história precisa ter
 um plot muito bom, com conflito forte, detalhes específicos e pelo menos uma reviravolta inesperada. Na última parte, inclua um detalhe
 final que dê vontade de rever.
 Rejeite com {"rejeitar": true} se envolver: menores de idade em situação sexual ou de abuso, violência gráfica, automutilação ou
@@ -42,11 +41,11 @@ source text; you may condense but do NOT invent important events. If there is no
 (family, work, neighbors, friendship, relationships) with conflict and a twist.
 @@DIVISAO@@ Cut at suspense points: every part except the last ends on a strong hook; part 1 starts with a strong hook (the FIRST SENTENCE is at most 12 words and is the most shocking fact, no introduction or setup before it), throwing the listener straight into the most
 shocking fact or an impact line (no greetings: NEVER open any part with "Hey", "Hi", "Guys", "Hello" or address the audience; vary the first sentence of each story);
-the last part brings the resolution and ends with a question that invites comments.
+the last part brings the resolution and ends with a divisive question that splits opinions ("who was right?", "would you forgive?").
 STORY THAT HOLDS UNTIL THE END (mandatory): before writing, define a striking, specific, intriguing CENTRAL QUESTION (e.g. "what was he hiding in the basement?",
 "who sent the message?") that keeps nagging at the listener. It appears in the first seconds of part 1, gains clues and twists in the middle parts WITHOUT being answered, and is only
-truly answered in the last part with a surprising ending coherent with everything before (a generic or weak answer is forbidden). Each part: (1) opens on the strongest fact, no preamble;
-(2) has its own mini-arc with a turn in the middle, so someone arriving now understands; (3) plants a second doubt midway ("but the worst was yet to come"); (4) ends with a concrete hook about
+truly answered in the last part with a surprising ending coherent with everything before (a generic or weak answer is forbidden). Each part: (1) opens on the strongest fact, no preamble and, from part 2 on, a 15-word-max recap of what already happened in the 2nd sentence (for people landing straight on this part);
+(2) has its own mini-arc with a turn in the middle, so someone arriving now understands; (3) every ~100 words (about 30 seconds) a line that renews curiosity ("but the worst was yet to come", "and that is when everything changed") so nobody leaves; (4) ends with a concrete hook about
 the next part, never vague. The story needs a really good plot, strong conflict, specific details and at least one unexpected twist. In the last part include a final detail that makes people want to rewatch.
 Reject with {"rejeitar": true} if it involves: minors in sexual or abuse situations, graphic violence, self-harm or suicide, hard drugs, politics or parties, hate speech, or real public figures.
 Answer ONLY with valid JSON (the text fields are in @@IDIOMA@@, the "fundos" searches in English): {"titulo": "short catchy title, without the word part", "pergunta_central": "the intriguing question of the story",
@@ -98,10 +97,18 @@ def _nota(p):
 MULTI_CHARS = 8500   # ~1600+ palavras: rende 2 ou mais partes de 5 min ("Parte 1 de N")
 
 
+_PREF = re.compile(r"\bboss|manager|coworker|co-worker|\bwork|\bjob\b|office|overtime|\bfired|revenge|payback|husband|\bwife|boyfriend|girlfriend|fianc|cheat|affair|in-laws|mother-in-law|jefe|trabajo|oficina|horas extra|venganza|marido|esposa|novi[oa]|suegra|chefe|trabalho|vingan|sogra|namorad|esposo", re.I)   # temas que mais renderam (BR e ES, 09/11): trabalho/chefe/vinganca/relacionamento
+
+
+def _pref(p):
+    return bool(_PREF.search(p["title"] + " " + p["text"][:600]))
+
+
 def _longos_primeiro(lst):
     """Relatos longos (2+ partes) vêm antes; relato curto (1 parte só) só entra se não houver longo."""
     longos = [p for p in lst if len(p["text"]) >= MULTI_CHARS]
-    return longos + [p for p in lst if len(p["text"]) < MULTI_CHARS]
+    curtos = [p for p in lst if len(p["text"]) < MULTI_CHARS]
+    return sorted(longos, key=lambda p: not _pref(p)) + sorted(curtos, key=lambda p: not _pref(p))
 
 
 _FORTE = re.compile(r"suicid|kill myself|end my life|self[- ]harm|overdos|rape|molest|sobredosis|matarme|violaci[oó]n|me matar|estupro|automutila|sobredose", re.I)
@@ -152,12 +159,15 @@ def pick_story(n=3):
 PPM = lang.L["ppm"]   # palavras narradas por minuto com a voz em +8% (medido em 31/10: ~198 wpm; antes eu supunha 240)
 
 
-ALVO_MIN = 5   # todo vídeo tem 5 minutos (pedido do dono, 31/10)
+# 09/11: o dono nao quis mais 5:00 fixo (so ~15% do video e visto). Cada historia sorteia uma duracao das opcoes da PROPRIA comunidade (lang.py: alvo_opcoes)
+# para comparar por comunidade qual segura mais; > 60 s mantem a elegibilidade ao Creator Rewards. ALVO_MIN=2 no ambiente forca um valor.
+ALVO_MIN = float(os.environ.get("ALVO_MIN") or random.choice(lang.L.get("alvo_opcoes") or [5]))
+ALVO_LBL = f"{int(ALVO_MIN)}:{int(round(ALVO_MIN % 1 * 60)):02d}"
 
 
 def plano(post=None):
     """Cada vídeo tem ~5 min (~1200 palavras). O nº de partes depende do tamanho do relato real."""
-    pal = ALVO_MIN * PPM
+    pal = int(ALVO_MIN * PPM)
     if post:
         w = len(post["text"].split())
         n = max(1, min(5, (w + 500) // pal))
@@ -169,12 +179,12 @@ def plano(post=None):
 def _divisao(pl):
     n, pal = pl["n"], pl["pal"]
     if lang.CODE != "pt":
-        corpo = (f"Each part is a 5-minute narrated video: write about {pal} words per part (between {int(pal*0.92)} and {int(pal*1.08)}), pure story, no filler or repetition: "
+        corpo = (f"Each part is a {ALVO_LBL}-minute narrated video: write about {pal} words per part (between {int(pal*0.92)} and {int(pal*1.08)}), pure story, no filler or repetition: "
                  "use every detail, line of dialogue, thought and context of the source text (without inventing important events) so the text reaches the requested length.")
         if n == 1:
             return "The story becomes ONE SINGLE video (1 part), with no continuation hooks: open with the strong hook and close with the resolution and a question that invites comments. " + corpo
         return f"Split it into EXACTLY {n} PARTS. " + corpo
-    corpo = (f"Cada parte é um vídeo de 5 minutos narrados: escreva cerca de {pal} palavras por parte (entre {int(pal*0.92)} e {int(pal*1.08)}), "
+    corpo = (f"Cada parte é um vídeo de {ALVO_LBL} minutos narrados: escreva cerca de {pal} palavras por parte (entre {int(pal*0.92)} e {int(pal*1.08)}), "
              "pura história, sem enrolação nem repetição: aproveite todos os detalhes, falas, pensamentos e contexto do texto-base "
              "(sem inventar acontecimentos importantes) para o texto ter o tamanho pedido.")
     if n == 1:

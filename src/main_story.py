@@ -72,7 +72,7 @@ def build_package():
             fundos = data["fundos"]
             scenes = [(fundos[k % len(fundos)], total / 6) for k in range(6)]
             video.build(scenes, mp3, ass, total, d, mp4, card)
-        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=240, hi=story.ALVO_MIN * 60 * 1.2)
+        probs, secs = reviewer.check(mp4, {"hashtags": ["x"] * 5, "roteiro": p["texto"]}, lo=story.ALVO_MIN * 60 * 0.7, hi=story.ALVO_MIN * 60 * 1.2)
         cap = otimo.legenda(titulo, i, n, tema)   # hashtags otimizadas (5 no total)
         partes.append({"parte": i, "arquivo": f"parte{i}.mp4", "titulo": titulo, "legenda": cap,
                        "duracao_s": round(secs), "avisos": probs, "fundo": (next((j for j in ("subway", "gta", "roblox") if j in clip[0].name), "minecraft")) if clip else "stock"})

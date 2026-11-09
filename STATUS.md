@@ -57,3 +57,9 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 - Video completo (16:9, <=105 MB): src/yt_longo.py; fica em release RASCUNHO yt-<id> (max 7); yt-diario.yml publica 1/dia 12h seg-sab; ZAP do usuario (GitHub New Release -> YouTube Upload Video, Public) envia.
 - Upload direto pela API do Google fica PRIVADO/travado ate auditoria (secrets YT_* existem, token expira em 7 dias em modo Teste): nao usar.
 - Zapier MCP: YouTube conectado (so executa na sessao; nao cria Zaps).
+
+## 09/11 — Duracao e roteiro (analise por comunidade)
+- Dados (Buffer): BR ~1 min = 44% visto, ~585 views; 5:00 = ~15% visto; ES 5:00 = 8% visto, ~190 views. Gente sai em 25-50 s.
+- Fim do 5:00 fixo: cada historia sorteia 1:30/2:00/2:30 (lang.py alvo_opcoes, POR comunidade; ALVO_MIN no ambiente forca). Comparar retencao por duracao e por comunidade (BR, ES, US sempre separados).
+- Roteiro: toda parte >=2 abre com mini-resumo; gancho a cada ~100 palavras; final com pergunta polemica. Historias de trabalho/chefe/vinganca/relacionamento vem primeiro (_PREF em story.py).
+- Reverter: git revert do commit "Duracao 1:30-2:30..." (volta ao 5:00).

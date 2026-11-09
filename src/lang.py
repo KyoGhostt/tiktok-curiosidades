@@ -10,7 +10,7 @@ _PT_SUBS = ["AmItheAsshole", "pettyrevenge", "MaliciousCompliance", "TIFU", "ent
 CFG = {
     "pt": dict(
         nome="Curioso em Alta", canal="curiosoemalta", tz="America/Sao_Paulo", slots=[[12, 0], [17, 0], [20, 0]],
-        voz={"m": "pt-BR-AntonioNeural", "f": "pt-BR-FranciscaNeural"}, ppm=200, avatar="avatar.png",
+        voz={"m": "pt-BR-AntonioNeural", "f": "pt-BR-FranciscaNeural"}, ppm=200, alvo_opcoes=[1.5, 2.0, 2.5], avatar="avatar.png",
         subs=_PT_SUBS, idioma="português do Brasil", nomes="nomes brasileiros comuns",
         ui=dict(parte="PARTE {i} DE {n}", completa="HISTÓRIA COMPLETA", continua="CONTINUA NA PARTE {j}", gancho="A história continua",
                 sufixo=" (Parte {i} de {n})", final="Final! O que você teria feito? Comenta! ", unico="O que você teria feito? Comenta! "),
@@ -19,7 +19,7 @@ CFG = {
     ),
     "en": dict(
         nome="Curious Trending", canal="curioustrending", tz="America/New_York", slots=[[12, 0], [18, 0], [21, 0]],
-        voz={"m": "en-US-AndrewMultilingualNeural", "f": "en-US-AvaMultilingualNeural"}, ppm=175, avatar="avatar_US_vermelho.png",
+        voz={"m": "en-US-AndrewMultilingualNeural", "f": "en-US-AvaMultilingualNeural"}, ppm=175, alvo_opcoes=[1.5, 2.0, 2.5], avatar="avatar_US_vermelho.png",
         subs=["AmItheAsshole", "AITAH", "pettyrevenge", "MaliciousCompliance", "ProRevenge", "entitledparents", "TrueOffMyChest",
               "JustNoMIL", "offmychest", "BestofRedditorUpdates", "TalesFromRetail", "relationship_advice", "TIFU"],
         periodo="month", idioma="American English", nomes="common American first names",
@@ -30,7 +30,7 @@ CFG = {
     ),
     "es": dict(
         nome="Curioso en Alza", canal="curiosoenalza", tz="America/Mexico_City", slots=[[12, 0], [18, 0], [21, 0]],
-        voz={"m": "es-MX-JorgeNeural", "f": "es-MX-DaliaNeural"}, ppm=200, avatar="avatar_ES_verde.png",
+        voz={"m": "es-MX-JorgeNeural", "f": "es-MX-DaliaNeural"}, ppm=200, alvo_opcoes=[1.5, 2.0, 2.5], avatar="avatar_ES_verde.png",
         subs=["relatos", "desahogo", "askspain", "es"], periodo="year",   # sondagem 01/11: poucos relatos longos em espanhol; r/confesiones não existe
         idioma="español latinoamericano neutro", nomes="nombres latinoamericanos comunes",
         ui=dict(parte="PARTE {i} DE {n}", completa="HISTORIA COMPLETA", continua="CONTINÚA EN LA PARTE {j}", gancho="La historia continúa",
