@@ -43,7 +43,7 @@ jobs:
       - name: Preparar estoque
         run: |
           source scripts/branches.sh
-          prep estado /tmp/estado; prep media /tmp/media
+          prep estado /tmp/estado; prep media /tmp/media; prep analises /tmp/analises
           SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
           mkdir -p /tmp/estado$SUB /tmp/media$SUB
           mkdir -p output && cp /tmp/estado$SUB/used_*.json output/ 2>/dev/null || true
@@ -53,7 +53,7 @@ jobs:
           ALVO=${{ github.event.inputs.alvo || '' }}
           [ -z "$ALVO" ] && { [ "$LANG_CODE" = pt ] && ALVO=18 || ALVO=12; }
           SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
-          export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB
+          export ESTADO_DIR=/tmp/estado$SUB MEDIA_DIR=/tmp/media$SUB CEREBRO_DIR=/tmp/analises/$LANG_CODE
           : > $ESTADO_DIR/gerar-log.txt
           if [ "$LANG_CODE" = pt ]; then
             NR=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq '[.[]|select(.draft and (.tag_name|startswith("yt-")))]|length' 2>/dev/null || echo 99)

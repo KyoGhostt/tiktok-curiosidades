@@ -16,3 +16,13 @@ push_media() {
   git add -A && git commit -q -m "media $(date +%F-%H%M)" && { git push -f "$REMOTE" HEAD:media 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] || { cd "$GITHUB_WORKSPACE"; return 1; }; }
   cd "$GITHUB_WORKSPACE"
 }
+push_analises() {  # branch `analises`: so o cerebro escreve; historico preservado (push normal com retry, sem force)
+  cd /tmp/analises
+  [ -d .git ] || { git init -q -b analises; git remote add origin "$REMOTE"; }
+  _git; git add -A; git commit -q -m "analises $(date +%F-%H%M)" || { cd "$GITHUB_WORKSPACE"; return 0; }
+  for i in 1 2 3; do
+    git push -q origin HEAD:analises 2>/dev/null && break
+    git fetch -q origin analises && git rebase -q -X theirs origin/analises 2>/dev/null || true
+  done
+  cd "$GITHUB_WORKSPACE"
+}

@@ -1,10 +1,10 @@
 name: cerebro
-# Aprende com os resultados de CADA comunidade (BR, ES; US desativada) e ajusta duracao e temas dos proximos videos. Roda todo dia apos o otimizar.
+# Aprende com os resultados de CADA comunidade (BR, ES; US desativada) e ajusta duracao e temas dos proximos videos. Roda todo dia: coleta e avalia; so MUDA pesos aos domingos (ou acao=aplicar). Saida na branch `analises`.
 on:
   schedule: [{cron: "50 12 * * *"}]
   workflow_dispatch:
     inputs:
-      acao: {description: "rodar | simular (nao grava)", default: "rodar"}
+      acao: {description: "rodar (aplica so domingo) | aplicar (forca) | simular (nao grava)", default: "rodar"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
@@ -30,11 +30,11 @@ jobs:
       - name: Executar
         run: |
           source scripts/branches.sh
-          prep estado /tmp/estado
+          prep estado /tmp/estado; prep analises /tmp/analises
           SUB=""; [ "$LANG_CODE" != "pt" ] && SUB="/$LANG_CODE"
-          mkdir -p /tmp/estado$SUB
-          export ESTADO_DIR=/tmp/estado$SUB
+          mkdir -p /tmp/estado$SUB /tmp/analises/$LANG_CODE
+          export ESTADO_DIR=/tmp/estado$SUB ANALISES_DIR=/tmp/analises/$LANG_CODE
           A="${{ github.event.inputs.acao || 'rodar' }}"
           python -u src/cerebro.py "$A" 2>&1 | tee /tmp/c.txt || { echo "::error::$(tail -n 3 /tmp/c.txt | tr '\n' '|' | cut -c1-400)"; exit 1; }
-          echo "::notice::$(cat /tmp/c.txt | head -8 | tr '\n' '|' | cut -c1-600)"
-          [ "$A" = "simular" ] || push_estado
+          echo "::notice::$(cat /tmp/c.txt | head -14 | tr '\n' '|' | cut -c1-900)"
+          [ "$A" = "simular" ] || push_analises

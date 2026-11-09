@@ -177,10 +177,12 @@ PPM = lang.L["ppm"]   # palavras narradas por minuto com a voz em +8% (medido em
 # 09/11: o dono nao quis mais 5:00 fixo (so ~15% do video e visto). Cada historia sorteia uma duracao das opcoes da PROPRIA comunidade (lang.py: alvo_opcoes)
 # para comparar por comunidade qual segura mais; > 60 s mantem a elegibilidade ao Creator Rewards. ALVO_MIN=2 no ambiente forca um valor.
 def _cerebro():
-    try:
-        return json.loads((Path(os.environ.get("ESTADO_DIR", "/tmp/estado")) / "cerebro.json").read_text())
-    except Exception:
-        return {}
+    for d in (os.environ.get("CEREBRO_DIR"), os.environ.get("ESTADO_DIR", "/tmp/estado")):   # pesos vem da branch `analises`; estado = legado
+        try:
+            if d: return json.loads((Path(d) / "cerebro.json").read_text())
+        except Exception:
+            pass
+    return {}
 
 
 def _sortear_duracao():
