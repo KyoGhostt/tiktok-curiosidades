@@ -12,9 +12,9 @@
  "duracao": {
   "ref1.0": {
    "n": 2,
-   "views": 666,
-   "ret": 0.583,
-   "r": 7.671,
+   "views": 668,
+   "ret": 0.573,
+   "r": 7.598,
    "likes": 161.5,
    "com": 1.0,
    "shares": 1.0
@@ -23,9 +23,9 @@
  "tema": {
   "trabalho": {
    "n": 2,
-   "views": 666,
-   "ret": 0.583,
-   "r": 7.671,
+   "views": 668,
+   "ret": 0.573,
+   "r": 7.598,
    "likes": 161.5,
    "com": 1.0,
    "shares": 1.0
@@ -34,7 +34,7 @@
  "pesos_tema": {
   "trabalho": 1.02
  },
- "atualizado": "2026-11-09T23:24:01.793087+00:00",
+ "atualizado": "2026-11-10T20:02:00.997907+00:00",
  "ultima_atualizacao": "2026-11-09T23:24:01.793077+00:00",
  "historico_pesos": [
   {
