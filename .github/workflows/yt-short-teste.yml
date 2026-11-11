@@ -4,7 +4,7 @@ permissions: {contents: write}
 concurrency: {group: yt-teste, cancel-in-progress: false}
 jobs:
   t:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
       GH_TOKEN: ${{ github.token }}
