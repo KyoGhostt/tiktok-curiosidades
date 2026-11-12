@@ -60,10 +60,35 @@ def providers():
     return out
 
 
+_VIVO = {}
+_PREF = ("llama-3.3-70b", "llama-3.1-70b", "gpt-oss-120b", "qwen3-235b", "qwen2.5-72b", "qwen3-32b", "deepseek-v3", "deepseek-chat", "llama-4", "mistral-large", "gemma-3-27b")
+
+
+def _descobrir(url, key, ruim):
+    """Lista /models do provedor e escolhe o melhor modelo de texto disponivel (gratuito no OpenRouter)."""
+    try:
+        r = requests.get(url.replace("/chat/completions", "/models"), headers={"Authorization": f"Bearer {key}"}, timeout=30)
+        ids = [m["id"] for m in r.json().get("data", []) if m.get("id") and m["id"] != ruim]
+    except Exception:
+        return None
+    if "openrouter" in url: ids = [i for i in ids if i.endswith(":free")]
+    for p in _PREF:
+        for i in ids:
+            if p in i.lower() and not any(x in i.lower() for x in ("vision", "embed", "guard", "whisper")): return i
+    return None
+
+
 def _chat(url, key, model, system, user, tokens=4096):
     body = {"model": model, "temperature": 0.8, "max_tokens": tokens, "response_format": {"type": "json_object"},
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+    model = _VIVO.get(url, model)
+    body["model"] = model
     r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
+    if r.status_code in (404, 410):    # modelo aposentado pelo provedor: descobre outro vivo em /models e tenta de novo
+        novo = _descobrir(url, key, model)
+        if novo:
+            _VIVO[url] = novo; body["model"] = novo
+            r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
     if r.status_code == 400:      # alguns provedores não aceitam response_format: tenta sem (o JSON é extraído do texto)
         body.pop("response_format"); r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
     r.raise_for_status()

@@ -13,7 +13,7 @@ push_estado() {
 }
 push_media() {
   cd /tmp/media && rm -rf .git && git init -q -b media && _git
-  git add -A && git commit -q -m "media $(date +%F-%H%M)" && { git push -f "$REMOTE" HEAD:media 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] || { cd "$GITHUB_WORKSPACE"; return 1; }; }
+  git add -A && git commit -q -m "media $(date +%F-%H%M)" && { for t in 1 2 3 4; do git push -f "$REMOTE" HEAD:media 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] && break; [ $t -eq 4 ] && { cd "$GITHUB_WORKSPACE"; return 1; }; sleep $((t*20)); done; }
   cd "$GITHUB_WORKSPACE"
 }
 push_analises() {  # branch `analises`: so o cerebro escreve; historico preservado (push normal com retry, sem force)
