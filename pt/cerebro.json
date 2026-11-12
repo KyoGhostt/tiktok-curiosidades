@@ -11,21 +11,21 @@
  },
  "duracao": {
   "ref1.0": {
-   "n": 3,
-   "views": 615,
-   "ret": 0.502,
-   "r": 6.999,
-   "likes": 137.0,
-   "com": 1.0,
-   "shares": 0.7
+   "n": 4,
+   "views": 650,
+   "ret": 0.456,
+   "r": 6.72,
+   "likes": 126.0,
+   "com": 1.2,
+   "shares": 0.8
   }
  },
  "tema": {
   "trabalho": {
    "n": 2,
-   "views": 668,
-   "ret": 0.572,
-   "r": 7.591,
+   "views": 669,
+   "ret": 0.564,
+   "r": 7.528,
    "likes": 161.0,
    "com": 1.0,
    "shares": 1.0
@@ -38,12 +38,21 @@
    "likes": 89.0,
    "com": 1.0,
    "shares": 0.0
+  },
+  "relacionamento": {
+   "n": 1,
+   "views": 754,
+   "ret": 0.333,
+   "r": 6.008,
+   "likes": 93.0,
+   "com": 2.0,
+   "shares": 1.0
   }
  },
  "pesos_tema": {
   "trabalho": 1.02
  },
- "atualizado": "2026-11-11T19:52:44.328783+00:00",
+ "atualizado": "2026-11-12T20:28:35.117144+00:00",
  "ultima_atualizacao": "2026-11-09T23:24:01.793077+00:00",
  "historico_pesos": [
   {
@@ -56,5 +65,5 @@
    "n_historias": 2
   }
  ],
- "amostra_historias": 3
+ "amostra_historias": 4
 }
