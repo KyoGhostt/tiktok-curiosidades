@@ -24,7 +24,8 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legend
 ## Branches
 `media` (vídeos, limpa o que foi postado há mais de 1 h), `estado` (fila.json, otimizacao.json, banco.json), `previews` (quadros de conferência).
 
-## Canais EN e ES (código pronto, NÃO agendados)
+## 13/11: US (en) REATIVADO (canal curioustrending no Buffer). YouTube DESLIGADO (fora do Buffer): gerar-semana sem YT_SHORT/YT_COMPLETO/agendar, yt-diario sem cron. Reativar YT: ver comentarios nesses arquivos.
+## Canais EN e ES (código pronto; ES e EN rodando)
 - `src/lang.py` (LANG_CODE = pt | en | es). EN: canal `curioustrending`, ET 12h/18h/21h, PPM 175. ES: `curiosoenalza`, Cidade do México 12h/18h/21h, PPM 200.
 - Estado separado por idioma em `en/` e `es/`; PT continua na raiz e não depende de LANG_CODE.
 - O cron NÃO inclui en/es. Só ligar quando o dono mandar. Há 1 vídeo de teste de cada idioma no estoque, aguardando aprovação.

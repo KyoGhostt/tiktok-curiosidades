@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       acao: {description: "encher | sonda (testa espelhos do Reddit)", default: "encher"}
-      langs: {description: "idiomas", default: "pt es"}
+      langs: {description: "idiomas", default: "pt es en"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
@@ -21,7 +21,7 @@ jobs:
           if [ "${{ github.event.inputs.acao }}" = "sonda" ]; then
             python -u src/banco.py sonda 2>&1 | tee /tmp/estado/sonda-reddit.txt | while IFS= read -r l; do echo "::notice::$l"; done
           else
-            for L in ${{ github.event.inputs.langs || 'pt es' }}; do
+            for L in ${{ github.event.inputs.langs || 'pt es en' }}; do
               SUB=""; [ "$L" != "pt" ] && SUB="/$L"; mkdir -p /tmp/estado$SUB
               LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB python -u src/banco.py 2>&1 | tee -a /tmp/estado/banco-log.txt || true
             done

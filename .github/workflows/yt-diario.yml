@@ -1,7 +1,7 @@
 name: yt-diario
 # Publica 1 video completo por dia: o Zapier ve a release nova e envia ao YouTube (publico).
 on:
-  schedule: [{cron: "0 15 * * 1-6"}]   # 12h de Brasilia, de segunda a sabado
+  # schedule desligado 13/11 (YT fora do ar); reativar: schedule: [{cron: "0 15 * * 1-6"}]   # 12h de Brasilia, de segunda a sabado
   workflow_dispatch: {}
 permissions: {contents: write}
 jobs:

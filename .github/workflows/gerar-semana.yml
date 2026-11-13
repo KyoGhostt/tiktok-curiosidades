@@ -5,7 +5,7 @@ on:
     inputs:
       alvo: {description: "Partes em estoque a alcançar (18 = uma semana, 3 vídeos por dia, sem domingo)", default: "18"}
       pausar: {description: "true = gera mas NÃO agenda no Buffer (para revisar antes) E pausa a fila PT inteira: evite", default: "false"}
-      lang: {description: "todos (padrão: pt e es; en DESATIVADO, ver STATUS.md) | pt | en | es", default: "todos"}
+      lang: {description: "todos (padrão: pt, es e en) | pt | en | es", default: "todos"}
       agendar: {description: "false = só gera e guarda no estoque, não agenda no Buffer", default: "true"}
 permissions: {contents: write, issues: write, actions: write}
 concurrency: {group: fila, cancel-in-progress: false}
@@ -17,7 +17,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","es"]' || format('["{0}"]', github.event.inputs.lang)) }}
+        lang: ${{ fromJSON((github.event.inputs.lang == '' || github.event.inputs.lang == 'todos') && '["pt","es","en"]' || format('["{0}"]', github.event.inputs.lang)) }}
     env:
       GH_TOKEN: ${{ github.token }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -57,8 +57,8 @@ jobs:
           : > $ESTADO_DIR/gerar-log.txt
           if [ "$LANG_CODE" = pt ]; then
             NR=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq '[.[]|select(.draft and (.tag_name|startswith("yt-")))]|length' 2>/dev/null || echo 99)
-            [ "${NR:-99}" -lt 7 ] && export YT_COMPLETO=1
-            export YT_SHORT=1
+            : # YT_COMPLETO desligado
+            : # YT desligado 13/11 (reativar: export YT_SHORT=1)
             echo "::notice::rascunhos YouTube=$NR YT_COMPLETO=${YT_COMPLETO:-0}"
           fi
           for i in $(seq 1 12); do
@@ -113,7 +113,7 @@ jobs:
           export ESTADO_DIR=/tmp/estado$SUB
           sleep 20   # deixa o GitHub liberar os links públicos
           python -u src/fila.py encher
-          [ "$LANG_CODE" = pt ] && { python -u src/yt_short.py agendar || echo "::warning::agendar shorts YouTube falhou"; }
+          false && { python -u src/yt_short.py agendar || echo "::warning::agendar shorts YouTube falhou"; }
           source scripts/branches.sh; push_estado
       - name: Avisar no Telegram se falhar
         if: failure()

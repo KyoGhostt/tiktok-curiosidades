@@ -1,5 +1,5 @@
 name: cerebro
-# Aprende com os resultados de CADA comunidade (BR, ES; US desativada) e ajusta duracao e temas dos proximos videos. Roda todo dia: coleta e avalia; so MUDA pesos aos domingos (ou acao=aplicar). Saida na branch `analises`.
+# Aprende com os resultados de CADA comunidade (BR, ES, US) e ajusta duracao e temas dos proximos videos. Roda todo dia: coleta e avalia; so MUDA pesos aos domingos (ou acao=aplicar). Saida na branch `analises`.
 on:
   schedule: [{cron: "50 12 * * *"}]
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 1
       fail-fast: false
-      matrix: {lang: [pt, es]}
+      matrix: {lang: [pt, es, en]}
     env:
       GH_TOKEN: ${{ github.token }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
