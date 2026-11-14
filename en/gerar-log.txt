@@ -1,0 +1,171 @@
+=== iteracao 1 rc=1
+plano: 5 parte(s) de ~350 palavras (alvo 2.0 min)
+minecraft: 5-Minecraft-Parkour-Gameplay-Vertical.zip -> 5 Minecraft Parkour Gameplay Vertical.mp4 (10.0 min)
+jogo sorteado: minecraft
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 50, in build_package
+    words = tts.synth(p["texto"], mp3, voz, rate=f"{r:+d}%")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/tts.py", line 30, in synth
+    return asyncio.run(_run(text, mp3, voice, rate))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/tts.py", line 10, in _run
+    async for ch in com.stream():
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/edge_tts/communicate.py", line 588, in stream
+    async for message in self.__stream():
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/edge_tts/communicate.py", line 562, in __stream
+    raise NoAudioReceived(
+edge_tts.exceptions.NoAudioReceived: No audio was received. Please verify that your parameters are correct.
+=== iteracao 2 rc=1
+plano: 5 parte(s) de ~437 palavras (alvo 2.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 3 rc=0
+plano: 5 parte(s) de ~262 palavras (alvo 1.5 min)
+minecraft: 4-Minecraft-Parkour-Gameplay-Vertical.zip -> 4 Minecraft Parkour Gameplay Vertical.mp4 (6.8 min)
+jogo sorteado: minecraft
+  parte 1: 252 palavras, voz +4% -> 87s (alvo 89s)
+  áudio 87.8s -> 89.4s (atempo 0.982)
+parte 1/5: 90s fundo=minecraft avisos=[]
+  parte 2: 252 palavras, voz +4% -> 90s (alvo 89s)
+  áudio 90.8s -> 89.4s (atempo 1.016)
+parte 2/5: 90s fundo=minecraft avisos=[]
+  parte 3: 270 palavras, voz +11% -> 91s (alvo 89s)
+  áudio 91.5s -> 89.4s (atempo 1.024)
+parte 3/5: 90s fundo=minecraft avisos=[]
+  parte 4: 250 palavras, voz +3% -> 89s (alvo 89s)
+  áudio 89s (alvo 89s): sem ajuste
+parte 4/5: 90s fundo=minecraft avisos=[]
+  parte 5: 241 palavras, voz -1% -> 91s (alvo 89s)
+  áudio 91.9s -> 89.4s (atempo 1.028)
+parte 5/5: 90s fundo=minecraft avisos=[]
+=== iteracao 4 rc=1
+plano: 5 parte(s) de ~437 palavras (alvo 2.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 5 rc=1
+plano: 5 parte(s) de ~350 palavras (alvo 2.0 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 6 rc=1
+plano: 5 parte(s) de ~437 palavras (alvo 2.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 7 rc=0
+plano: 5 parte(s) de ~437 palavras (alvo 2.5 min)
+minecraft: 12-Minecraft-Gameplay-Vertical.zip -> 12 Minecraft Gameplay Vertical.mp4 (10.5 min)
+jogo sorteado: minecraft
+  parte 1: 458 palavras, voz +13% -> 132s (alvo 149s)
+  parte 1: 458 palavras, voz +0% -> 147s (alvo 149s)
+  áudio 147.7s -> 149.4s (atempo 0.989)
+parte 1/5: 150s fundo=minecraft avisos=[]
+  parte 2: 473 palavras, voz +17% -> 128s (alvo 149s)
+  parte 2: 473 palavras, voz +0% -> 148s (alvo 149s)
+  áudio 148.1s -> 149.4s (atempo 0.991)
+parte 2/5: 150s fundo=minecraft avisos=[]
+  parte 3: 364 palavras, voz -10% -> 130s (alvo 149s)
+  parte 3: 364 palavras, voz -22% -> 149s (alvo 149s)
+  áudio 149.9s -> 149.4s (atempo 1.003)
+parte 3/5: 150s fundo=minecraft avisos=[]
+  parte 4: 352 palavras, voz -13% -> 127s (alvo 149s)
+  parte 4: 352 palavras, voz -26% -> 147s (alvo 149s)
+  áudio 147.6s -> 149.4s (atempo 0.988)
+parte 4/5: 150s fundo=minecraft avisos=[]
+  parte 5: 454 palavras, voz +12% -> 132s (alvo 149s)
+  parte 5: 454 palavras, voz -1% -> 149s (alvo 149s)
+  áudio 149.9s -> 149.4s (atempo 1.003)
+parte 5/5: 150s fundo=minecraft avisos=[]
+=== iteracao 8 rc=1
+plano: 5 parte(s) de ~262 palavras (alvo 1.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 9 rc=1
+plano: 5 parte(s) de ~350 palavras (alvo 2.0 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 10 rc=1
+plano: 5 parte(s) de ~437 palavras (alvo 2.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 11 rc=0
+plano: 5 parte(s) de ~350 palavras (alvo 2.0 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 349 palavras, voz +8% -> 109s (alvo 119s)
+  parte 1: 349 palavras, voz -2% -> 120s (alvo 119s)
+  áudio 120.2s -> 119.4s (atempo 1.007)
+parte 1/5: 120s fundo=subway avisos=[]
+  parte 2: 331 palavras, voz +2% -> 115s (alvo 119s)
+  áudio 115.2s -> 119.4s (atempo 0.965)
+parte 2/5: 120s fundo=subway avisos=[]
+  parte 3: 337 palavras, voz +4% -> 113s (alvo 119s)
+  parte 3: 337 palavras, voz -2% -> 120s (alvo 119s)
+  áudio 120.2s -> 119.4s (atempo 1.007)
+parte 3/5: 120s fundo=subway avisos=[]
+  parte 4: 314 palavras, voz -3% -> 113s (alvo 119s)
+  parte 4: 314 palavras, voz -8% -> 119s (alvo 119s)
+  áudio 119s (alvo 119s): sem ajuste
+parte 4/5: 120s fundo=subway avisos=[]
+  parte 5: 299 palavras, voz -8% -> 115s (alvo 119s)
+  áudio 115.8s -> 119.4s (atempo 0.970)
+parte 5/5: 120s fundo=subway avisos=[]

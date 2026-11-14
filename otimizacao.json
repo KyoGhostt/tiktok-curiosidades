@@ -1,0 +1,281 @@
+{
+ "slots": [
+  [
+   11,
+   0
+  ],
+  [
+   17,
+   0
+  ],
+  [
+   20,
+   0
+  ]
+ ],
+ "tags": {
+  "historiasdoreddit": {
+   "n": 44,
+   "media": 508.5681818181818
+  },
+  "redditbrasil": {
+   "n": 2,
+   "media": 629.5
+  },
+  "chefedura": {
+   "n": 2,
+   "media": 629.5
+  },
+  "fy": {
+   "n": 2,
+   "media": 629.5
+  },
+  "regrasdobranco": {
+   "n": 2,
+   "media": 629.5
+  },
+  "maliciouscompliancebrasil": {
+   "n": 2,
+   "media": 629.5
+  },
+  "storytime": {
+   "n": 12,
+   "media": 403.0
+  },
+  "parte2": {
+   "n": 14,
+   "media": 449.7142857142857
+  },
+  "salãodebeleza": {
+   "n": 2,
+   "media": 629.5
+  },
+  "parte3": {
+   "n": 9,
+   "media": 685.5555555555555
+  },
+  "parte1": {
+   "n": 14,
+   "media": 453.2142857142857
+  },
+  "casal": {
+   "n": 5,
+   "media": 284.4
+  },
+  "relacionamento": {
+   "n": 5,
+   "media": 284.4
+  },
+  "parte4": {
+   "n": 5,
+   "media": 565.0
+  },
+  "trabalho": {
+   "n": 6,
+   "media": 453.1666666666667
+  },
+  "chefe": {
+   "n": 6,
+   "media": 453.1666666666667
+  },
+  "vidacorporativa": {
+   "n": 5,
+   "media": 860.6
+  },
+  "historiasreais": {
+   "n": 24,
+   "media": 566.0833333333334
+  },
+  "tretanotrabalho": {
+   "n": 3,
+   "media": 1178.0
+  },
+  "parte5": {
+   "n": 1,
+   "media": 536.0
+  },
+  "familia": {
+   "n": 8,
+   "media": 580.125
+  },
+  "sogra": {
+   "n": 4,
+   "media": 513.75
+  },
+  "drama": {
+   "n": 9,
+   "media": 557.6666666666666
+  },
+  "casamento": {
+   "n": 6,
+   "media": 483.5
+  },
+  "marido": {
+   "n": 6,
+   "media": 483.5
+  },
+  "treta": {
+   "n": 3,
+   "media": 318.6666666666667
+  },
+  "plottwist": {
+   "n": 3,
+   "media": 318.6666666666667
+  },
+  "historiasdetiktok": {
+   "n": 10,
+   "media": 456.7
+  },
+  "relacionamentoamoroso": {
+   "n": 2,
+   "media": 622.5
+  },
+  "familiatreta": {
+   "n": 6,
+   "media": 394.0
+  },
+  "relacionamentoabusivo": {
+   "n": 2,
+   "media": 479.0
+  },
+  "relacionamentotoxico": {
+   "n": 2,
+   "media": 479.0
+  },
+  "novelas": {
+   "n": 1,
+   "media": 378.0
+  },
+  "historia": {
+   "n": 1,
+   "media": 378.0
+  }
+ },
+ "escolhidas": {
+  "trabalho": [
+   "tretanotrabalho",
+   "vidacorporativa",
+   "historiasreais"
+  ],
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "relacionamentoabusivo",
+   "relacionamentotoxico"
+  ],
+  "familia": [
+   "familia",
+   "drama",
+   "sogra"
+  ],
+  "vinganca": [
+   "vinganca",
+   "justica",
+   "karma"
+  ],
+  "vizinhos": [
+   "vizinhos",
+   "confusao",
+   "tretas"
+  ],
+  "amizade": [
+   "amizade",
+   "amigos",
+   "traicao"
+  ],
+  "escola": [
+   "escola",
+   "adolescencia",
+   "colegio"
+  ],
+  "drama": [
+   "novelas",
+   "historia",
+   "drama"
+  ]
+ },
+ "candidatas": {
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "relacionamentoabusivo",
+   "relacionamentotoxico"
+  ],
+  "familia": [],
+  "vinganca": [],
+  "vizinhos": [
+   "vizinhoinvejoso"
+  ],
+  "escola": [],
+  "drama": [
+   "novelas",
+   "historia"
+  ]
+ },
+ "teste": {
+  "idx": 0,
+  "base": 12,
+  "novo": 11
+ },
+ "base_n": 44,
+ "atualizado": "2026-11-14T18:24:35.521292+00:00",
+ "pesquisa": {
+  "status": {
+   "google_trends": "ok",
+   "tiktok_hashtags": "falhou: resposta sem lista: {'code': 40101, 'msg': 'no permission', 'request_id': '202611150224330D5FF1FD9CBCD7314FAA'}",
+   "endless_tiktok_br": "ok",
+   "buscas_por_tema": "ok",
+   "reddit_semana": "falhou: 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/pettyrevenge/top/.rss?t=week&limit=10"
+  },
+  "trends": [
+   {
+    "termo": "xbox",
+    "buscas": "1000+"
+   },
+   {
+    "termo": "figueirense",
+    "buscas": "200+"
+   },
+   {
+    "termo": "ravenna football club",
+    "buscas": "100+"
+   },
+   {
+    "termo": "br-277",
+    "buscas": "500+"
+   },
+   {
+    "termo": "lima duarte",
+    "buscas": "200+"
+   },
+   {
+    "termo": "portugal seleção",
+    "buscas": "100+"
+   },
+   {
+    "termo": "romário",
+    "buscas": "200+"
+   },
+   {
+    "termo": "feriado 15 de novembro",
+    "buscas": "100+"
+   },
+   {
+    "termo": "mirassol x atlético-mg",
+    "buscas": "200+"
+   },
+   {
+    "termo": "wolfsburg x fc bayern münchen",
+    "buscas": "200+"
+   }
+  ]
+ },
+ "historico": [
+  {
+   "quando": "2026-11-10",
+   "base": 12,
+   "novo": 13,
+   "base_views": 689,
+   "novo_views": 375,
+   "vencedor": 12
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+=== iteracao 1 rc=1
+plano: 4 parte(s) de ~500 palavras (alvo 2.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 2 rc=1
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+Traceback (most recent call last):
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 97, in <module>
+    build_package()
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/main_story.py", line 18, in build_package
+    data = story.write(cand); post = cand
+           ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/tiktok-curiosidades/tiktok-curiosidades/src/story.py", line 265, in write
+    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+RuntimeError: LLM falhou -> openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions | openrouter: HTTPError 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+=== iteracao 3 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_70d7.mp4 (11.4 min)
+jogo sorteado: gta
+  parte 1: 358 palavras, voz +29% -> 88s (alvo 89s)
+  áudio 89.1s -> 89.4s (atempo 0.997)
+parte 1/5: 90s fundo=gta avisos=[]
+  parte 2: 346 palavras, voz +25% -> 93s (alvo 89s)
+  áudio 93.6s -> 89.4s (atempo 1.047)
+parte 2/5: 90s fundo=gta avisos=[]
+  parte 3: 336 palavras, voz +21% -> 90s (alvo 89s)
+  áudio 90.4s -> 89.4s (atempo 1.011)
+parte 3/5: 90s fundo=gta avisos=[]
+  parte 4: 333 palavras, voz +20% -> 90s (alvo 89s)
+  áudio 90.8s -> 89.4s (atempo 1.016)
+parte 4/5: 90s fundo=gta avisos=[]
+  parte 5: 364 palavras, voz +31% -> 87s (alvo 89s)
+  áudio 88.0s -> 89.4s (atempo 0.984)
+parte 5/5: 90s fundo=gta avisos=[]
+short.mp4: 82s
+=== iteracao 4 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_70d7.mp4 (11.4 min)
+jogo sorteado: gta
+  parte 1: 304 palavras, voz +9% -> 90s (alvo 89s)
+  áudio 90.4s -> 89.4s (atempo 1.011)
+parte 1/5: 90s fundo=gta avisos=[]
+  parte 2: 330 palavras, voz +19% -> 91s (alvo 89s)
+  áudio 91.5s -> 89.4s (atempo 1.024)
+parte 2/5: 90s fundo=gta avisos=[]
+  parte 3: 352 palavras, voz +27% -> 89s (alvo 89s)
+  áudio 90.1s -> 89.4s (atempo 1.008)
+parte 3/5: 90s fundo=gta avisos=[]
+  parte 4: 365 palavras, voz +31% -> 86s (alvo 89s)
+  áudio 87.0s -> 89.4s (atempo 0.973)
+parte 4/5: 90s fundo=gta avisos=[]
+  parte 5: 300 palavras, voz +8% -> 87s (alvo 89s)
+  áudio 87.4s -> 89.4s (atempo 0.977)
+parte 5/5: 90s fundo=gta avisos=[]
+short.mp4: 92s
+=== iteracao 5 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_efa6.mp4 (15.9 min)
+jogo sorteado: gta
+  parte 1: 321 palavras, voz +16% -> 105s (alvo 89s)
+  parte 1: 321 palavras, voz +35% -> 90s (alvo 89s)
+  áudio 90.5s -> 89.4s (atempo 1.012)
+parte 1/5: 90s fundo=gta avisos=[]
+  parte 2: 258 palavras, voz -7% -> 107s (alvo 89s)
+  parte 2: 258 palavras, voz +11% -> 90s (alvo 89s)
+  áudio 90.5s -> 89.4s (atempo 1.012)
+parte 2/5: 90s fundo=gta avisos=[]
+  parte 3: 241 palavras, voz -13% -> 101s (alvo 89s)
+  parte 3: 241 palavras, voz -2% -> 90s (alvo 89s)
+  áudio 90.8s -> 89.4s (atempo 1.016)
+parte 3/5: 90s fundo=gta avisos=[]
+  parte 4: 250 palavras, voz -10% -> 103s (alvo 89s)
+  parte 4: 250 palavras, voz +3% -> 90s (alvo 89s)
+  áudio 90.4s -> 89.4s (atempo 1.012)
+parte 4/5: 90s fundo=gta avisos=[]
+  parte 5: 328 palavras, voz +18% -> 108s (alvo 89s)
+  parte 5: 328 palavras, voz +43% -> 89s (alvo 89s)
+  áudio 89.9s -> 89.4s (atempo 1.006)
+parte 5/5: 90s fundo=gta avisos=[]
+short.mp4: 104s
