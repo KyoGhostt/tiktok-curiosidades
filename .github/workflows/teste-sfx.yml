@@ -1,0 +1,40 @@
+name: teste-sfx
+# Teste 14/11: 1 historia BR com efeitos sonoros (SFX=1) e 1:30, publicada como release de teste para o dono aprovar. Nao agenda nada.
+on: {workflow_dispatch: {}}
+permissions: {contents: write}
+concurrency: {group: yt-teste, cancel-in-progress: false}
+jobs:
+  t:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      FREELLM_URL: ${{ secrets.FREELLM_URL }}
+      FREELLM_KEY: ${{ secrets.FREELLM_KEY }}
+      FREELLM_MODEL: ${{ secrets.FREELLM_MODEL }}
+      PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+      PYTHONPATH: src
+      LANG_CODE: pt
+      SFX: "1"
+      ALVO_MIN: "1.5"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core fonts-montserrat
+      - run: pip install -r requirements.txt
+      - run: |
+          source scripts/branches.sh
+          prep estado /tmp/estado
+          mkdir -p output; cp /tmp/estado/used_*.json output/ 2>/dev/null || true
+          export ESTADO_DIR=/tmp/estado
+          python -u src/run.py > /tmp/o.txt 2>&1 || { echo "::error::$(tail -n 4 /tmp/o.txt | tr '\n' '|' | cut -c1-400)"; exit 1; }
+          D=$(ls -dt output/hist-*/ | head -1); D=${D%/}
+          TAG="teste-sfx-$(date +%H%M%S)"
+          gh release create "$TAG" "$D/parte1.mp4" --title "Teste SFX" --notes "teste" --prerelease
+          echo "::notice::TAG=$TAG partes=$(ls $D/parte*.mp4 | wc -l) $(du -h $D/parte1.mp4 | cut -f1)"

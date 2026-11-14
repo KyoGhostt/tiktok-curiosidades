@@ -140,6 +140,21 @@ def render_scene(query, dur, workdir, i, used):
     return out
 
 
+def _sfx(total):
+    """Efeitos sonoros leves (SFX=1 no ambiente; teste 14/11): impacto no 1o segundo e 'pop' a cada ~30 s (onde a historia renova a curiosidade)."""
+    import os
+    if os.environ.get("SFX") != "1": return "", 0
+    ev = [(0.05, "sine=f=70:d=0.4:r=48000,afade=t=out:st=0.05:d=0.35,volume=0.9", 0),
+          (0.05, "sine=f=1400:d=0.12:r=48000,afade=t=out:st=0.02:d=0.1,volume=0.12", 0)]
+    t = 28.0
+    while t < total - 6:
+        ev.append((t, "sine=f=1050:d=0.14:r=48000,afade=t=out:st=0.03:d=0.11,volume=0.16", 0)); t += 28.0
+    out = ""
+    for i, (at, src, _) in enumerate(ev):
+        out += f";{src},aformat=channel_layouts=stereo,adelay={int(at * 1000)}|{int(at * 1000)}[s{i}]"
+    return out, len(ev)
+
+
 def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2, cap_over=None):
     """Passo final: fundo + (cartão de abertura) + legenda + voz."""
     ass_path = str(Path(ass).resolve()).replace(":", r"\:")
@@ -152,8 +167,9 @@ def _final(bg_inputs, vf_bg, mp3, ass, total, out, card=None, card_s=3.2, cap_ov
     else:
         fc = f"[0:v]{vf_bg},subtitles='{ass_path}'{esc}[v]"
     # audio padronizado (48 kHz estéreo) + leve ruído de sala: evita falso positivo do TikTok ("som indisponível", 29/10)
-    fc += (f";[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0[vz];anoisesrc=c=pink:a=0.004:r=48000:d={total + 1:.2f}[nz];"
-           "[vz][nz]amix=inputs=2:duration=first:normalize=0[a]")
+    sfx, ns = _sfx(total)
+    fc += (f";[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0[vz];anoisesrc=c=pink:a=0.004:r=48000:d={total + 1:.2f}[nz]{sfx};"
+           f"[vz][nz]{''.join(f'[s{i}]' for i in range(ns))}amix=inputs={2 + ns}:duration=first:normalize=0[a]")
     # vídeos longos: limita o bitrate para o arquivo ficar abaixo de ~85 MB (limite de 100 MB por arquivo no GitHub)
     import lang
     cap = 85e6 if lang.CODE == "pt" else 55e6   # EN/ES menores: o branch media tem 2 GB por push e o estoque de 3 canais não cabe com 80 MB por vídeo
