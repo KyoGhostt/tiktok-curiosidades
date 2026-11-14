@@ -27,6 +27,11 @@ def build_package():
     origem = f"Reddit ({sub})" if post else "original"
     now = datetime.now(schedule.TZ)
     d = OUT / ("hist-" + now.strftime("%Y%m%d-%H%M%S")); d.mkdir(parents=True)
+    # Teste A/B (14/11): so no PT, metade das historias com efeitos sonoros leves (video.py _sfx). SFX=0/1 no ambiente forca. O cerebro compara com x sem.
+    if "SFX" not in os.environ and lang.CODE == "pt":
+        import random
+        os.environ["SFX"] = random.choice(["0", "1"])
+    sfx = os.environ.get("SFX") == "1"
     voz = VOZES.get(data.get("genero_narrador", "m"), VOZES["m"])
     n = len(data["partes"])
     tema = otimo.classificar(" ".join(p["texto"] for p in data["partes"]), data["titulo"])
@@ -87,7 +92,7 @@ def build_package():
         import yt_longo
         yt_longo.completo(d, allw, clip, pos0)
     info = {"id": d.name, "titulo": data["titulo"], "origem": origem, "fonte": post and post["id"], "n": n,
-            "tema": tema, "partes": partes, "debug": story.DEBUG}
+            "tema": tema, "sfx": sfx, "partes": partes, "debug": story.DEBUG}
     (d / "info.json").write_text(json.dumps(info, ensure_ascii=False, indent=2))
     return d
 

@@ -68,6 +68,11 @@ def tema_de(texto):
         return "drama"
 
 
+def sfx_map():
+    """buffer_id -> True/False/None (efeitos sonoros ligados na historia; teste A/B so no PT)."""
+    return {x.get("buffer_id"): x.get("sfx") for x in _j(HIST, [])} if HIST.exists() else {}
+
+
 def eng(m, v):
     return (m.get("reactions", 0) + 2 * m.get("comments", 0) + 3 * m.get("shares", 0)) / max(v, 1)
 
@@ -80,7 +85,7 @@ def titulo_de(texto):
     return re.split(r" \((?:Parte|Part) \d+|\s#", texto)[0].strip()
 
 
-def historias(posts, dur):
+def historias(posts, dur, sfxm=None):
     """Agrupa posts em historias. Retorna lista de dicts com partes, maturidade e nota."""
     g = {}
     for n in posts:
@@ -104,7 +109,8 @@ def historias(posts, dur):
         completa = len(partes) >= total and all(p["views"] > 20 for p in partes)
         maduro = completa and idade >= MADURO_D
         k = len(partes)
-        out.append(dict(titulo=tit, n=total, enviadas=k, idade_dias=round(idade, 1), maduro=maduro,
+        sf = next((sfxm.get(x[0]["id"]) for x in ps if sfxm and sfxm.get(x[0]["id"]) is not None), None)
+        out.append(dict(titulo=tit, n=total, sfx=sf, enviadas=k, idade_dias=round(idade, 1), maduro=maduro,
                         status="avaliada" if maduro else ("amadurecendo" if completa else "partes pendentes"),
                         dur=sum(p["dur_s"] for p in partes) / k / 60, tema=tema_de(tit),
                         views=sum(p["views"] for p in partes), views_media=round(sum(p["views"] for p in partes) / k),
@@ -186,6 +192,9 @@ def relatorio(c, hs, ds, ts, opts, antigos, log, aplicou, yt):
     for k, v in sorted(ts.items(), key=lambda kv: -kv[1]["views"]): L.append(f"| {k} | {v['n']} | {v['views']} | {c['pesos_tema'].get(k, 1.0)} |")
     L += ["", "## Histórias", "| título | partes | idade | status | duração | tema | views | retenção | curtidas | coment. | compart. | nota |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for h in hs: L.append(f"| {h['titulo'][:50]} | {h['enviadas']}/{h['n']} | {h['idade_dias']}d | {h['status']} | {h['dur']:.1f} | {h['tema']} | {h['views']} | {h['ret']} | {h['likes']} | {h['com']} | {h['shares']} | {h['r']} |")
+    if c.get("efeitos_sonoros"):
+        L += ["", "## Teste A/B: efeitos sonoros (só informativo, não muda peso)", "| grupo | histórias | views/parte | retenção | curtidas | coment. | compart. | nota |", "|---|---|---|---|---|---|---|---|"]
+        for k, v in c["efeitos_sonoros"].items(): L.append(f"| {k} | {v['n']} | {v['views']} | {v['ret']} | {v['likes']} | {v['com']} | {v['shares']} | {v['r']} |")
     if log: L += ["", "## Mudanças desta semana"] + [f"- {x}" for x in log]
     if yt: L += ["", "## YouTube Shorts (BR, canal separado)", f"{yt['n']} Shorts enviados, {yt['views_total']} views no total ({yt['views_media']} em média), {yt['curtidas']} curtidas, {yt['comentarios']} comentários, {yt['compartilhamentos']} compart."]
     return "\n".join(L) + "\n"
@@ -198,11 +207,12 @@ def rodar(modo="rodar"):
     if not c and (ESTADO / "cerebro.json").exists(): c = _j(ESTADO / "cerebro.json", {})   # migra pesos antigos
     opts = [float(x) for x in c.get("opcoes", lang.L.get("alvo_opcoes") or [2.0])]
     tk, yt = coletar()
-    hs = historias(tk, duracoes())
+    hs = historias(tk, duracoes(), sfx_map())
     ok = [h for h in hs if h["maduro"]]
     log = []
     ds = agrupar(ok, lambda h: arm(h["dur"], opts)) if ok else {}
     ts = agrupar(ok, lambda h: h["tema"])
+    sf = agrupar([h for h in ok if h.get("sfx") is not None], lambda h: "com efeitos" if h["sfx"] else "sem efeitos")
     antigos = dict(c.get("pesos_duracao") or {})
     ptema_ant = dict(c.get("pesos_tema") or {})
     if aplicar:
@@ -223,7 +233,7 @@ def rodar(modo="rodar"):
     else:
         c.setdefault("pesos_duracao", {str(o): round(1 / len(opts), 3) for o in opts} if not antigos else antigos)
         c.setdefault("pesos_tema", {})
-    c.update(opcoes=opts, duracao=ds, tema=ts, amostra_historias=len(ok), atualizado=datetime.now(timezone.utc).isoformat())
+    c.update(opcoes=opts, duracao=ds, tema=ts, efeitos_sonoros=sf, amostra_historias=len(ok), atualizado=datetime.now(timezone.utc).isoformat())
     for k in ("parte", "amostra", "historico"): c.pop(k, None)
     rel = relatorio(c, hs, ds, ts, opts, antigos, log, aplicar, yt_resumo(yt))
     print(rel[:1500], flush=True)

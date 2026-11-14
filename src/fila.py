@@ -54,7 +54,7 @@ def add(d):
     for p in info["partes"]:
         shutil.copy(d / p["arquivo"], dest / p["arquivo"])
     f = load()
-    f["stories"].append({"id": info["id"], "titulo": info["titulo"], "n": info["n"], "origem": info["origem"], "tema": info.get("tema"),
+    f["stories"].append({"id": info["id"], "titulo": info["titulo"], "n": info["n"], "origem": info["origem"], "tema": info.get("tema"), "sfx": info.get("sfx"),
                          "partes": [{"parte": p["parte"], "arquivo": p["arquivo"], "titulo": p["titulo"],
                                      "legenda": p["legenda"], "duracao_s": p["duracao_s"], "status": "pendente",
                                      "buffer_id": None, "due": None} for p in info["partes"]]})
@@ -130,7 +130,7 @@ def _registrar(s):
     for p in s["partes"]:
         if p.get("buffer_id") and p["buffer_id"] not in ja:
             lst.append({"buffer_id": p["buffer_id"], "duracao_s": p.get("duracao_s"), "parte": p["parte"], "n": len(s["partes"]),
-                        "tema": s.get("tema"), "titulo": s["titulo"]})
+                        "tema": s.get("tema"), "titulo": s["titulo"], "sfx": s.get("sfx")})
     h.write_text(json.dumps(lst[-600:], ensure_ascii=False))
 
 
