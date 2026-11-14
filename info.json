@@ -1,0 +1,43 @@
+{
+  "id": "hist-20261114-100353",
+  "titulo": "El paquete que casi desata una bomba",
+  "origem": "original",
+  "fonte": null,
+  "n": 1,
+  "tema": "drama",
+  "partes": [
+    {
+      "parte": 1,
+      "arquivo": "parte1.mp4",
+      "titulo": "El paquete que casi desata una bomba",
+      "legenda": "El paquete que casi desata una bomba ¿Qué habrías hecho? ¡Comenta! #historiasdereddit #storytime #drama #historiasreales #chisme",
+      "duracao_s": 120,
+      "avisos": [],
+      "fundo": "minecraft"
+    }
+  ],
+  "debug": [
+    "reddit r/askspain/top: http 200",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/askspain/c",
+    "reddit r/es/top: http 200",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/es/controv",
+    "reddit r/relatos/top: http 429",
+    "reddit r/relatos/top: http 200",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/relatos/co",
+    "reddit r/desahogo/top: http 429",
+    "reddit r/desahogo/top: http 200",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/desahogo/c"
+  ]
+}
