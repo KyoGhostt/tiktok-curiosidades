@@ -11,57 +11,57 @@
  },
  "duracao": {
   "ref1.0": {
-   "n": 3,
-   "views": 709,
-   "ret": 0.406,
-   "r": 6.443,
-   "likes": 133.3,
-   "com": 1.3,
-   "shares": 0.3
+   "n": 2,
+   "views": 636,
+   "ret": 0.329,
+   "r": 5.787,
+   "likes": 91.0,
+   "com": 1.5,
+   "shares": 0.5
   },
   "1.5": {
    "n": 1,
    "views": 646,
-   "ret": 0.456,
-   "r": 6.681,
+   "ret": 0.443,
+   "r": 6.589,
    "likes": 119.0,
    "com": 0.0,
    "shares": 1.0
+  },
+  "2.0": {
+   "n": 1,
+   "views": 208,
+   "ret": 0.37,
+   "r": 5.337,
+   "likes": 46.0,
+   "com": 0.0,
+   "shares": 0.0
   }
  },
  "tema": {
-  "trabalho": {
-   "n": 1,
-   "views": 859,
-   "ret": 0.544,
-   "r": 7.637,
-   "likes": 218.0,
-   "com": 1.0,
-   "shares": 0.0
-  },
   "drama": {
    "n": 2,
-   "views": 579,
-   "ret": 0.398,
-   "r": 6.176,
+   "views": 580,
+   "ret": 0.39,
+   "r": 6.117,
    "likes": 104.0,
    "com": 0.5,
    "shares": 0.5
   },
   "relacionamento": {
-   "n": 1,
-   "views": 757,
-   "ret": 0.335,
-   "r": 6.019,
-   "likes": 93.0,
-   "com": 2.0,
-   "shares": 1.0
+   "n": 2,
+   "views": 484,
+   "ret": 0.346,
+   "r": 5.633,
+   "likes": 69.5,
+   "com": 1.0,
+   "shares": 0.5
   }
  },
  "pesos_tema": {
   "trabalho": 1.02
  },
- "atualizado": "2026-11-13T20:04:02.324709+00:00",
+ "atualizado": "2026-11-14T18:30:13.023729+00:00",
  "ultima_atualizacao": "2026-11-09T23:24:01.793077+00:00",
  "historico_pesos": [
   {
