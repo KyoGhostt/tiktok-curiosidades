@@ -83,6 +83,7 @@ def _chat(url, key, model, system, user, tokens=4096):
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     model = _VIVO.get(url, model)
     body["model"] = model
+    if "generativelanguage" in url: body["reasoning_effort"] = "none"   # gemini 2.5: o "pensar" gasta os tokens e a resposta JSON sai cortada
     r = requests.post(url, headers={"Authorization": f"Bearer {key}"}, timeout=180, json=body)
     if r.status_code in (404, 410):    # modelo aposentado pelo provedor: descobre outro vivo em /models e tenta de novo
         novo = _descobrir(url, key, model)
