@@ -261,5 +261,7 @@ def write(post=None):
                 if isinstance(e, ValueError) and ("palavras" in str(e) or "partes" in str(e)):   # devolve o erro ao modelo para ele corrigir o tamanho
                     fb = f"\n\nPREVIOUS ATTEMPT REJECTED: {e}. Fix exactly this: respect the number of parts and write FULL-length parts (every part about {pl['pal']} words; count them); do not shorten."
                 writer.time.sleep(6 * (attempt + 1))
-                if any(c in str(e) for c in ("401", "402", "403")): break
-    raise RuntimeError("LLM falhou -> " + " | ".join(errs[-4:]))
+                if any(c in str(e) for c in ("401", "402", "403", "404", "410")): break
+    resumo = {}
+    for x in errs: resumo.setdefault(x.split(":")[0], x[:110])
+    raise RuntimeError("LLM falhou -> " + " | ".join(resumo.values()))
