@@ -231,7 +231,7 @@ def _validate(d, pl):
     if len(ps) != pl["n"]: raise ValueError(f"{len(ps)} partes (precisa de {pl['n']})")
     for i, p in enumerate(ps, 1):
         n = len(p["texto"].split())
-        if not pl["pal"] * 0.8 <= n <= pl["pal"] * 1.25: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
+        if not pl["pal"] * 0.75 <= n <= pl["pal"] * 1.5: raise ValueError(f"parte {i} com {n} palavras (alvo {pl['pal']})")
     if len(d.get("fundos", [])) < 2: raise ValueError("poucos fundos")
     d["_plano"] = pl
     return d
@@ -247,13 +247,21 @@ def write(post=None):
     system = (SYSTEM if lang.CODE == "pt" else SYSTEM_I18N.replace("@@IDIOMA@@", lang.L["idioma"]).replace("@@NOMES@@", lang.L["nomes"])).replace("@@DIVISAO@@", _divisao(pl))
     tokens = int(min(30000, max(8192, pl["n"] * pl["pal"] * 3.5)))
     errs = []
+    melhor = None
     user0, fb = user, ""
     for name, url, key, model in writer.providers():
         for attempt in range(4):
             try:
                 d = writer._chat(url, key, model, system, user0 + fb, tokens=tokens)
                 if d.get("rejeitar"): raise writer.TopicRejected("rejeitada")
-                return _validate(d, pl)
+                try:
+                    return _validate(d, pl)
+                except ValueError:
+                    ps = d.get("partes", [])
+                    if len(ps) == pl["n"] and len(d.get("fundos", [])) >= 2 and all(0.6 * pl["pal"] <= len(p["texto"].split()) <= 1.8 * pl["pal"] for p in ps):
+                        dev = max(abs(len(p["texto"].split()) / pl["pal"] - 1) for p in ps)
+                        if melhor is None or dev < melhor[0]: melhor = (dev, d)   # guarda o mais proximo do alvo, usado se nenhuma tentativa passar no limite estreito
+                    raise
             except writer.TopicRejected:
                 raise
             except Exception as e:
@@ -262,6 +270,10 @@ def write(post=None):
                     fb = f"\n\nPREVIOUS ATTEMPT REJECTED: {e}. Fix exactly this: respect the number of parts and write FULL-length parts (every part about {pl['pal']} words; count them); do not shorten."
                 writer.time.sleep(6 * (attempt + 1))
                 if any(c in str(e) for c in ("401", "402", "403", "404", "410")): break
+    if melhor:
+        print(f"aviso: usando a tentativa mais proxima do alvo (desvio {melhor[0]:.0%})", flush=True)
+        melhor[1]["_plano"] = pl
+        return melhor[1]
     resumo = {}
     for x in errs: resumo.setdefault(x.split(":")[0], x[:110])
     raise RuntimeError("LLM falhou -> " + " | ".join(resumo.values()))
