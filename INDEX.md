@@ -4,7 +4,9 @@
 |---|---|
 | Retomar o trabalho / saber o estado de hoje | `STATUS.md` |
 | Saber por que algo foi decidido assim | `DECISOES.md` |
-| Detalhe antigo de uma mudança (28/10 a 01/11) | `HISTORICO.md` (só se precisar) |
+| Detalhe antigo de uma mudança (28/10 a 01/11) | `arquivo/HISTORICO.md` (só se precisar) |
+| Algo desligado (YouTube) | `arquivo/LEIA-ME.md` |
+| Resultados e pesos do cérebro por canal | branch `analises` (`<lang>/RELATORIO.md`) |
 | Visão geral e secrets | `README.md` |
 | Mexer em horários, voz, idioma | `src/lang.py`, `src/schedule.py` |
 | Mexer em roteiro e tamanho dos vídeos | `src/story.py` (`plano`, `ALVO_MIN`, `PPM`) |

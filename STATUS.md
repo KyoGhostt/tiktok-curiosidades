@@ -1,5 +1,5 @@
 # STATUS — Curioso em Alta (leia SÓ este arquivo ao retomar o trabalho)
-Atualizado: 03/11/2026 (conferido contra o código). Detalhes antigos: HISTORICO.md. Motivos das escolhas: DECISOES.md.
+Atualizado: 03/11/2026 (conferido contra o código). Detalhes antigos: arquivo/HISTORICO.md. Motivos das escolhas: DECISOES.md.
 
 ## Estado atual (canal PT @curiosoemalta.br)
 - 3 vídeos por dia, 12h / 17h / 20h (Brasília). Domingo é folga, sem vídeo (`src/schedule.py`).
@@ -19,12 +19,12 @@ Atualizado: 03/11/2026 (conferido contra o código). Detalhes antigos: HISTORICO
 | `monitor.yml` | 06h30, 12h30, 18h30, 21h30 | avisos no Telegram |
 | `otimizar.yml` | todo dia 09h30 (ou manual: rodar, simular, schema, fontes) | lê views no Buffer, testa horários e hashtags |
 | `biblioteca.yml` | manual | traz fundos novos: `drive=<link> nome=<jogo>`, `normalizar=conferir` (quadros) ou `amostra:<prefixo>` |
-Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `voz-*`, `vozes`, `legendas-limpar`, `telegram-conectar`) são testes e manutenção, rodam só manual.
+Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `telegram-conectar`) são testes e manutenção, rodam só manual.
 
 ## Branches
 `media` (vídeos, limpa o que foi postado há mais de 1 h), `estado` (fila.json, otimizacao.json, banco.json), `previews` (quadros de conferência).
 
-## 13/11: US (en) REATIVADO (canal curioustrending no Buffer). YouTube DESLIGADO (fora do Buffer): gerar-semana sem YT_SHORT/YT_COMPLETO/agendar, yt-diario sem cron. Reativar YT: ver comentarios nesses arquivos.
+## 13/11: US (en) REATIVADO (canal curioustrending no Buffer). YouTube DESLIGADO (fora do Buffer): gerar-semana sem YT_SHORT/YT_COMPLETO/agendar, workflows do YT movidos para arquivo/youtube (ver arquivo/LEIA-ME.md).
 ## Canais EN e ES (código pronto; ES e EN rodando)
 - `src/lang.py` (LANG_CODE = pt | en | es). EN: canal `curioustrending`, ET 12h/18h/21h, PPM 175. ES: `curiosoenalza`, Cidade do México 12h/18h/21h, PPM 200.
 - Estado separado por idioma em `en/` e `es/`; PT continua na raiz e não depende de LANG_CODE.
