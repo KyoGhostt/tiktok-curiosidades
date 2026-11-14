@@ -1,0 +1,24 @@
+name: llm-diag
+on: {workflow_dispatch: {}}
+permissions: {contents: read}
+jobs:
+  d:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      FREELLM_URL: ${{ secrets.FREELLM_URL }}
+      FREELLM_KEY: ${{ secrets.FREELLM_KEY }}
+      FREELLM_MODEL: ${{ secrets.FREELLM_MODEL }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: pip install -r requirements.txt
+      - run: python -u src/llm_diag.py
