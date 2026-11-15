@@ -11,19 +11,19 @@
  },
  "duracao": {
   "ref1.0": {
-   "n": 2,
-   "views": 636,
-   "ret": 0.329,
-   "r": 5.787,
-   "likes": 91.0,
-   "com": 1.5,
-   "shares": 0.5
+   "n": 1,
+   "views": 761,
+   "ret": 0.325,
+   "r": 5.95,
+   "likes": 93.0,
+   "com": 2.0,
+   "shares": 1.0
   },
   "1.5": {
    "n": 1,
-   "views": 646,
-   "ret": 0.443,
-   "r": 6.589,
+   "views": 647,
+   "ret": 0.441,
+   "r": 6.578,
    "likes": 119.0,
    "com": 0.0,
    "shares": 1.0
@@ -31,38 +31,58 @@
   "2.0": {
    "n": 1,
    "views": 208,
-   "ret": 0.37,
-   "r": 5.337,
+   "ret": 0.363,
+   "r": 5.291,
    "likes": 46.0,
+   "com": 0.0,
+   "shares": 0.0
+  },
+  "ref5.0": {
+   "n": 1,
+   "views": 205,
+   "ret": 0.155,
+   "r": 3.83,
+   "likes": 10.0,
    "com": 0.0,
    "shares": 0.0
   }
  },
  "tema": {
-  "drama": {
-   "n": 2,
-   "views": 580,
-   "ret": 0.39,
-   "r": 6.117,
-   "likes": 104.0,
-   "com": 0.5,
-   "shares": 0.5
-  },
   "relacionamento": {
    "n": 2,
    "views": 484,
-   "ret": 0.346,
-   "r": 5.633,
+   "ret": 0.344,
+   "r": 5.62,
    "likes": 69.5,
    "com": 1.0,
    "shares": 0.5
+  },
+  "drama": {
+   "n": 1,
+   "views": 647,
+   "ret": 0.441,
+   "r": 6.578,
+   "likes": 119.0,
+   "com": 0.0,
+   "shares": 1.0
+  },
+  "amizade": {
+   "n": 1,
+   "views": 205,
+   "ret": 0.155,
+   "r": 3.83,
+   "likes": 10.0,
+   "com": 0.0,
+   "shares": 0.0
   }
  },
  "pesos_tema": {
-  "trabalho": 1.02
+  "relacionamento": 1.0,
+  "drama": 1.0,
+  "amizade": 1.0
  },
- "atualizado": "2026-11-14T18:30:13.023729+00:00",
- "ultima_atualizacao": "2026-11-09T23:24:01.793077+00:00",
+ "atualizado": "2026-11-15T19:07:34.992500+00:00",
+ "ultima_atualizacao": "2026-11-15T19:07:34.992487+00:00",
  "historico_pesos": [
   {
    "quando": "2026-11-09",
@@ -72,7 +92,17 @@
     "2.5": 0.333
    },
    "n_historias": 2
+  },
+  {
+   "quando": "2026-11-15",
+   "pesos": {
+    "1.5": 0.333,
+    "2.0": 0.333,
+    "2.5": 0.333
+   },
+   "n_historias": 4
   }
  ],
- "amostra_historias": 4
+ "amostra_historias": 4,
+ "efeitos_sonoros": {}
 }
