@@ -1,5 +1,5 @@
 # STATUS — Curioso em Alta (leia SÓ este arquivo ao retomar o trabalho)
-Atualizado: 03/11/2026 (conferido contra o código). Detalhes antigos: arquivo/HISTORICO.md. Motivos das escolhas: DECISOES.md.
+Atualizado: 15/11/2026. Detalhes antigos: arquivo/HISTORICO.md. Motivos: DECISOES.md.
 
 ## Estado atual (canal PT @curiosoemalta.br)
 - 3 vídeos por dia, 12h / 17h / 20h (Brasília). Domingo é folga, sem vídeo (`src/schedule.py`).
@@ -65,3 +65,10 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `teleg
 - Roteiro: toda parte >=2 abre com mini-resumo; gancho a cada ~100 palavras; final com pergunta polemica. Historias de trabalho/chefe/vinganca/relacionamento vem primeiro (_PREF em story.py).
 - Reverter: git revert do commit "Duracao 1:30-2:30..." (volta ao 5:00).
 - CEREBRO v2 (09/11): cerebro.py + cerebro.yml (diario coleta; SO muda pesos aos domingos, passo max 15 pts). Avalia historia inteira (todas as partes, 7+ dias) com views, retencao, curtidas, comentarios, compartilhamentos. Saida na branch `analises` (<lang>/RELATORIO.md, cerebro.json, historias.json) - Claude le com git fetch origin analises. story.py le CEREBRO_DIR. Desligar: apagar cerebro.yml.
+
+## 15/11/2026 — limpeza e ajustes
+- Repo limpo: testes/voz/diag apagados; YouTube arquivado em `arquivo/` (LEIA-ME.md diz como religar). Releases de teste e branch `diag` removidos; só `fundos` fica.
+- US (en) ativo de novo. Cerebro v2 roda diário (pt/es/en), muda pesos só domingo; saída na branch `analises`.
+- Teste A/B de efeitos sonoros só no PT (cerebro mostra com/sem).
+- LLM: Gemini funciona; Groq/NVIDIA/OpenRouter quebrados (baixa prioridade). Runner fixo em ubuntu-24.04.
+- Repo precisa ficar público (Buffer lê mp4 da branch `media`).
