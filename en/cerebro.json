@@ -13,5 +13,18 @@
  "duracao": {},
  "tema": {},
  "amostra_historias": 0,
- "atualizado": "2026-11-14T18:30:36.961823+00:00"
+ "atualizado": "2026-11-15T19:08:06.382667+00:00",
+ "ultima_atualizacao": "2026-11-15T19:08:06.382657+00:00",
+ "historico_pesos": [
+  {
+   "quando": "2026-11-15",
+   "pesos": {
+    "1.5": 0.333,
+    "2.0": 0.333,
+    "2.5": 0.333
+   },
+   "n_historias": 0
+  }
+ ],
+ "efeitos_sonoros": {}
 }
