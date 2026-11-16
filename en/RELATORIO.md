@@ -1,6 +1,6 @@
 # Cérebro — Curious Trending (EN)
 
-Gerado em 2026-11-15T19:08:06.382667+00:00. **PESOS ATUALIZADOS nesta execução** (domingo/aplicar).
+Gerado em 2026-11-16T22:32:59.759307+00:00. Só coleta: os pesos NÃO mudaram hoje (mudam 1x por semana, no domingo).
 Regra: avalia a história inteira (todas as partes, 7+ dias após a última). Passo máximo ±15 pts/semana. Favoritos/salvos: o Buffer não informa.
 
 ## Pesos de duração (vigentes)
@@ -17,4 +17,4 @@ Regra: avalia a história inteira (todas as partes, 7+ dias após a última). Pa
 ## Histórias
 | título | partes | idade | status | duração | tema | views | retenção | curtidas | coment. | compart. | nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| The Placement That Broke the Office | 3/5 | 0.7d | partes pendentes | 1.5 | trabalho | 321 | 0.033 | 3 | 0 | 0 | 2.537 |
+| The Placement That Broke the Office | 4/5 | 0.2d | partes pendentes | 1.5 | trabalho | 400 | 0.023 | 3 | 0 | 0 | 1.977 |
