@@ -12,65 +12,65 @@
  "duracao": {
   "ref1.0": {
    "n": 1,
-   "views": 761,
+   "views": 763,
    "ret": 0.325,
-   "r": 5.95,
+   "r": 5.953,
    "likes": 93.0,
    "com": 2.0,
    "shares": 1.0
   },
   "1.5": {
    "n": 1,
-   "views": 647,
-   "ret": 0.441,
-   "r": 6.578,
+   "views": 648,
+   "ret": 0.44,
+   "r": 6.572,
    "likes": 119.0,
    "com": 0.0,
    "shares": 1.0
   },
   "2.0": {
    "n": 1,
-   "views": 208,
-   "ret": 0.363,
-   "r": 5.291,
+   "views": 209,
+   "ret": 0.346,
+   "r": 5.192,
    "likes": 46.0,
    "com": 0.0,
    "shares": 0.0
   },
   "ref5.0": {
-   "n": 1,
-   "views": 205,
-   "ret": 0.155,
-   "r": 3.83,
-   "likes": 10.0,
+   "n": 2,
+   "views": 291,
+   "ret": 0.16,
+   "r": 4.062,
+   "likes": 24.0,
    "com": 0.0,
-   "shares": 0.0
+   "shares": 0.5
   }
  },
  "tema": {
   "relacionamento": {
    "n": 2,
-   "views": 484,
-   "ret": 0.344,
-   "r": 5.62,
+   "views": 486,
+   "ret": 0.336,
+   "r": 5.572,
    "likes": 69.5,
    "com": 1.0,
    "shares": 0.5
   },
   "drama": {
-   "n": 1,
-   "views": 647,
-   "ret": 0.441,
-   "r": 6.578,
-   "likes": 119.0,
+   "n": 2,
+   "views": 512,
+   "ret": 0.302,
+   "r": 5.435,
+   "likes": 78.5,
    "com": 0.0,
    "shares": 1.0
   },
   "amizade": {
    "n": 1,
-   "views": 205,
-   "ret": 0.155,
-   "r": 3.83,
+   "views": 206,
+   "ret": 0.154,
+   "r": 3.827,
    "likes": 10.0,
    "com": 0.0,
    "shares": 0.0
@@ -81,7 +81,7 @@
   "drama": 1.0,
   "amizade": 1.0
  },
- "atualizado": "2026-11-15T19:07:34.992500+00:00",
+ "atualizado": "2026-11-16T22:32:31.462161+00:00",
  "ultima_atualizacao": "2026-11-15T19:07:34.992487+00:00",
  "historico_pesos": [
   {
@@ -103,6 +103,6 @@
    "n_historias": 4
   }
  ],
- "amostra_historias": 4,
+ "amostra_historias": 5,
  "efeitos_sonoros": {}
 }
