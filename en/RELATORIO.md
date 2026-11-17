@@ -1,6 +1,6 @@
 # Cérebro — Curious Trending (EN)
 
-Gerado em 2026-11-16T22:32:59.759307+00:00. Só coleta: os pesos NÃO mudaram hoje (mudam 1x por semana, no domingo).
+Gerado em 2026-11-17T21:22:03.891800+00:00. Só coleta: os pesos NÃO mudaram hoje (mudam 1x por semana, no domingo).
 Regra: avalia a história inteira (todas as partes, 7+ dias após a última). Passo máximo ±15 pts/semana. Favoritos/salvos: o Buffer não informa.
 
 ## Pesos de duração (vigentes)
@@ -17,4 +17,5 @@ Regra: avalia a história inteira (todas as partes, 7+ dias após a última). Pa
 ## Histórias
 | título | partes | idade | status | duração | tema | views | retenção | curtidas | coment. | compart. | nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| The Placement That Broke the Office | 4/5 | 0.2d | partes pendentes | 1.5 | trabalho | 400 | 0.023 | 3 | 0 | 0 | 1.977 |
+| The Placement That Broke the Office | 5/5 | 0.9d | amadurecendo | 1.5 | trabalho | 601 | 0.031 | 5 | 0 | 0 | 2.585 |
+| My Ex Can't Handle Our Breakup | 2/5 | 0.2d | partes pendentes | 2.5 | relacionamento | 87 | 0.01 | 0 | 0 | 0 | 1.164 |
