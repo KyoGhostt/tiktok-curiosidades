@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Funções para os branches `estado` (manifesto, pequeno) e `media` (vídeos públicos para o Buffer).
 REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
-prep() {  # $1=branch  $2=pasta
+prep() {  # $1=branch  $2=pasta   (branch media do ES = media-es: cada idioma pesado fica em branch proprio)
   rm -rf "$2"
+  [ "$1" = media ] && [ "$LANG_CODE" = es ] && set -- media-es "$2"
   git clone -q --depth=1 -b "$1" "$REMOTE" "$2" 2>/dev/null || mkdir -p "$2"
 }
 _git() { git config user.name github-actions; git config user.email actions@github.com; }
@@ -12,8 +13,9 @@ push_estado() {
   cd "$GITHUB_WORKSPACE"
 }
 push_media() {
+  MB=media; [ "$LANG_CODE" = es ] && MB=media-es
   cd /tmp/media && rm -rf .git && git init -q -b media && _git
-  git add -A && git commit -q -m "media $(date +%F-%H%M)" && { for t in 1 2 3 4; do git push -f "$REMOTE" HEAD:media 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] && break; [ $t -eq 4 ] && { cd "$GITHUB_WORKSPACE"; return 1; }; sleep $((t*20)); done; }
+  git add -A && git commit -q -m "media $(date +%F-%H%M)" && { for t in 1 2 3 4; do git push -f "$REMOTE" HEAD:$MB 2>&1 | tail -4 | sed "s/^/::warning::push media: /"; [ "${PIPESTATUS[0]}" -eq 0 ] && break; [ $t -eq 4 ] && { cd "$GITHUB_WORKSPACE"; return 1; }; sleep $((t*20)); done; }
   cd "$GITHUB_WORKSPACE"
 }
 push_analises() {  # branch `analises`: so o cerebro escreve; historico preservado (push normal com retry, sem force)

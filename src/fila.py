@@ -11,7 +11,7 @@ import schedule, lang
 ESTADO = Path(os.environ.get("ESTADO_DIR", "/tmp/estado"))
 MEDIA = Path(os.environ.get("MEDIA_DIR", "/tmp/media"))
 REPO = os.environ.get("GITHUB_REPOSITORY", "KyoGhostt/tiktok-curiosidades")
-RAW = f"https://raw.githubusercontent.com/{REPO}/media" + ("" if lang.CODE == "pt" else f"/{lang.CODE}")
+RAW = f"https://raw.githubusercontent.com/{REPO}/" + ("media-es" if lang.CODE == "es" else "media") + ("" if lang.CODE == "pt" else f"/{lang.CODE}")
 LIMITE = int(os.environ.get("LIMITE_BUFFER", "10"))   # o plano grátis aceita 10 agendados; o dia incompleto é completado nas próximas rodadas
 FILA = ESTADO / "fila.json"
 
