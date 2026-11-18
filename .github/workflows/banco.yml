@@ -21,7 +21,7 @@ jobs:
           if [ "${{ github.event.inputs.acao }}" = "sonda" ]; then
             python -u src/banco.py sonda 2>&1 | tee /tmp/estado/sonda-reddit.txt | while IFS= read -r l; do echo "::notice::$l"; done
           else
-            for L in ${{ github.event.inputs.langs || 'pt es en' }}; do
+            for L in ${{ github.event.inputs.langs || 'pt es' }}; do
               SUB=""; [ "$L" != "pt" ] && SUB="/$L"; mkdir -p /tmp/estado$SUB
               LANG_CODE=$L ESTADO_DIR=/tmp/estado$SUB python -u src/banco.py 2>&1 | tee -a /tmp/estado/banco-log.txt || true
             done
