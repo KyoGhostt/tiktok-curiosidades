@@ -72,3 +72,7 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `teleg
 - Teste A/B de efeitos sonoros só no PT (cerebro mostra com/sem).
 - LLM: Gemini funciona; Groq/NVIDIA/OpenRouter quebrados (baixa prioridade). Runner fixo em ubuntu-24.04.
 - Repo precisa ficar público (Buffer lê mp4 da branch `media`).
+
+## 17/11/2026
+- US (en) DESLIGADO (resultados ruins): fora das matrizes de fila/gerar-semana/cerebro/banco/monitor. Religar: voltar `en` nessas linhas. Posts en já agendados no Buffer seguem até acabar.
+- ES vazio: push de 1,4 GB na branch media falhava (HTTP 500). ES agora usa branch `media-es`.

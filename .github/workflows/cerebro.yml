@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 1
       fail-fast: false
-      matrix: {lang: [pt, es, en]}
+      matrix: {lang: [pt, es]}   # en (US) desligado 17/11: para religar, volte a [pt, es, en] aqui e nos outros workflows
     env:
       GH_TOKEN: ${{ github.token }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}

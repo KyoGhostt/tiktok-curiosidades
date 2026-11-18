@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       acao: {description: "encher | sonda (testa espelhos do Reddit)", default: "encher"}
-      langs: {description: "idiomas", default: "pt es en"}
+      langs: {description: "idiomas", default: "pt es"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:
