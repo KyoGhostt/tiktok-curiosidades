@@ -76,3 +76,7 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `teleg
 ## 17/11/2026
 - US (en) DESLIGADO (resultados ruins): fora das matrizes de fila/gerar-semana/cerebro/banco/monitor. Religar: voltar `en` nessas linhas. Posts en já agendados no Buffer seguem até acabar.
 - ES vazio: push de 1,4 GB na branch media falhava (HTTP 500). ES agora usa branch `media-es`.
+
+## 21/11/2026
+- Todo vídeo (parte) termina falando "segue a conta pra ver a parte N / a próxima história" (lang.UI seguir_cont/seguir_fim, main_story.py). Vale só p/ vídeos novos.
+- PT: vídeos de 1,5 min vão bem (história de 5 partes ~3.700-4.000 views, retenção ~0,25-0,31). ES: ~100-200 views/parte, retenção ~0,1; histórias originais repetitivas ("La caja...").
