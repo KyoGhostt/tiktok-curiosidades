@@ -80,3 +80,4 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `teleg
 ## 21/11/2026
 - Todo vídeo (parte) termina falando "segue a conta pra ver a parte N / a próxima história" (lang.UI seguir_cont/seguir_fim, main_story.py). Vale só p/ vídeos novos.
 - PT: vídeos de 1,5 min vão bem (história de 5 partes ~3.700-4.000 views, retenção ~0,25-0,31). ES: ~100-200 views/parte, retenção ~0,1; histórias originais repetitivas ("La caja...").
+- 21/11: CTA de seguir APROVADO pelo dono (vale p/ PT e ES). ES agora traduz relatos do Reddit em inglês (lang.py subs; banco.py semeia com o banco do EN). EN segue desligado.
