@@ -1,0 +1,59 @@
+{
+  "id": "hist-20261120-204717",
+  "titulo": "El vecino que me vigilaba",
+  "origem": "original",
+  "fonte": null,
+  "n": 2,
+  "tema": "vizinhos",
+  "sfx": false,
+  "partes": [
+    {
+      "parte": 1,
+      "arquivo": "parte1.mp4",
+      "titulo": "El vecino que me vigilaba (Parte 1 de 2)",
+      "legenda": "El vecino que me vigilaba (Parte 1 de 2) #parte1 #historiasdereddit #storytime #vecinos #vecina",
+      "duracao_s": 120,
+      "avisos": [],
+      "fundo": "gta"
+    },
+    {
+      "parte": 2,
+      "arquivo": "parte2.mp4",
+      "titulo": "El vecino que me vigilaba (Parte 2 de 2)",
+      "legenda": "El vecino que me vigilaba (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #vecinos #vecina",
+      "duracao_s": 120,
+      "avisos": [],
+      "fundo": "gta"
+    }
+  ],
+  "debug": [
+    "reddit r/es/top: http 404",
+    "reddit r/es/top: erro HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/r/es/top/.rss?t=year",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: http 429",
+    "reddit r/es/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/es/controv",
+    "reddit r/desahogo/top: http 429",
+    "reddit r/desahogo/top: http 429",
+    "reddit r/desahogo/top: http 404",
+    "reddit r/desahogo/top: erro HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/r/desahogo/top/.rss?",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: http 429",
+    "reddit r/desahogo/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/desahogo/c",
+    "reddit r/relatos/top: http 429",
+    "reddit r/relatos/top: http 404",
+    "reddit r/relatos/top: erro HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/r/relatos/top/.rss?t",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: http 429",
+    "reddit r/relatos/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/relatos/co",
+    "reddit r/askspain/top: http 429",
+    "reddit r/askspain/top: http 404",
+    "reddit r/askspain/top: erro HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/r/askspain/top/.rss?",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: http 429",
+    "reddit r/askspain/controversial: erro HTTPError 429 Client Error: Too Many Requests for url: https://www.reddit.com/r/askspain/c"
+  ]
+}
