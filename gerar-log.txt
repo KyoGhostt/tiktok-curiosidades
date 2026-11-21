@@ -1,0 +1,21 @@
+=== iteracao 1 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_0b2e.mp4 (10.9 min)
+jogo sorteado: gta
+  parte 1: 385 palavras, voz +39% -> 90s (alvo 89s)
+  áudio 90.9s -> 89.4s (atempo 1.016)
+parte 1/5: 90s fundo=gta avisos=[]
+  parte 2: 437 palavras, voz +57% -> 92s (alvo 89s)
+  áudio 92.5s -> 89.4s (atempo 1.035)
+parte 2/5: 90s fundo=gta avisos=[]
+  parte 3: 440 palavras, voz +58% -> 71s (alvo 89s)
+  parte 3: 440 palavras, voz +26% -> 117s (alvo 89s)
+  parte 3: 440 palavras, voz +60% -> 92s (alvo 89s)
+  áudio 92.4s -> 89.4s (atempo 1.034)
+parte 3/5: 90s fundo=gta avisos=[]
+  parte 4: 398 palavras, voz +43% -> 89s (alvo 89s)
+  áudio 89.7s -> 89.4s (atempo 1.004)
+parte 4/5: 90s fundo=gta avisos=[]
+  parte 5: 262 palavras, voz -6% -> 86s (alvo 89s)
+  áudio 87.3s -> 89.4s (atempo 0.977)
+parte 5/5: 90s fundo=gta avisos=[]

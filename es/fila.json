@@ -1,0 +1,274 @@
+{
+ "stories": [
+  {
+   "id": "hist-20261118-122600",
+   "titulo": "La caja bajo el piso",
+   "n": 3,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "La caja bajo el piso (Parte 1 de 3)",
+     "legenda": "La caja bajo el piso (Parte 1 de 3) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6afdefb5025b095d6474219e",
+     "due": "2026-11-21T12:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "La caja bajo el piso (Parte 2 de 3)",
+     "legenda": "La caja bajo el piso (Parte 2 de 3) #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6afdefb73a2d3b818641a324",
+     "due": "2026-11-21T18:00:00-06:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "La caja bajo el piso (Parte 3 de 3)",
+     "legenda": "La caja bajo el piso (Parte 3 de 3) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte3 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6afe61f53802f5b9fc6056a5",
+     "due": "2026-11-21T21:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-204717",
+   "titulo": "El vecino que me vigilaba",
+   "n": 2,
+   "origem": "original",
+   "tema": "vizinhos",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El vecino que me vigilaba (Parte 1 de 2)",
+     "legenda": "El vecino que me vigilaba (Parte 1 de 2) #parte1 #historiasdereddit #storytime #vecinos #vecina",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b01140f9ffbc8503cf6868f",
+     "due": "2026-11-23T12:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "El vecino que me vigilaba (Parte 2 de 2)",
+     "legenda": "El vecino que me vigilaba (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #vecinos #vecina",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b0114105102766245f35893",
+     "due": "2026-11-23T18:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-205416",
+   "titulo": "Cámara Oculta en el Baño",
+   "n": 1,
+   "origem": "original",
+   "tema": "drama",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "Cámara Oculta en el Baño",
+     "legenda": "Cámara Oculta en el Baño ¿Qué habrías hecho? ¡Comenta! #historiasdereddit #storytime #drama #historiasreales #chisme",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0114119ffbc8503cf686f7",
+     "due": "2026-11-23T21:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-205909",
+   "titulo": "La caja de la puerta",
+   "n": 2,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "La caja de la puerta (Parte 1 de 2)",
+     "legenda": "La caja de la puerta (Parte 1 de 2) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b0114129ffbc8503cf68727",
+     "due": "2026-11-24T12:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "La caja de la puerta (Parte 2 de 2)",
+     "legenda": "La caja de la puerta (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b011413d9cbb430a11858b1",
+     "due": "2026-11-24T18:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-210621",
+   "titulo": "El paquete misterioso del vecino",
+   "n": 2,
+   "origem": "original",
+   "tema": "trabalho",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El paquete misterioso del vecino (Parte 1 de 2)",
+     "legenda": "El paquete misterioso del vecino (Parte 1 de 2) #parte1 #historiasdereddit #storytime #jefe #trabajo",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b0114155102766245f358f5",
+     "due": "2026-11-24T21:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "El paquete misterioso del vecino (Parte 2 de 2)",
+     "legenda": "El paquete misterioso del vecino (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #jefe #trabajo",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b0114169ffbc8503cf68787",
+     "due": "2026-11-25T12:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-211545",
+   "titulo": "La caja del ático",
+   "n": 2,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "La caja del ático (Parte 1 de 2)",
+     "legenda": "La caja del ático (Parte 1 de 2) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "La caja del ático (Parte 2 de 2)",
+     "legenda": "La caja del ático (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-212407",
+   "titulo": "La caja del pasillo",
+   "n": 2,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "La caja del pasillo (Parte 1 de 2)",
+     "legenda": "La caja del pasillo (Parte 1 de 2) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "La caja del pasillo (Parte 2 de 2)",
+     "legenda": "La caja del pasillo (Parte 2 de 2) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-213026",
+   "titulo": "El secreto que arruinó mi familia",
+   "n": 1,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El secreto que arruinó mi familia",
+     "legenda": "El secreto que arruinó mi familia ¿Qué habrías hecho? ¡Comenta! #historiasdereddit #storytime #familia #suegra #drama",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-213622",
+   "titulo": "El bebé desaparecido que nunca fue de mi hermana",
+   "n": 1,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El bebé desaparecido que nunca fue de mi hermana",
+     "legenda": "El bebé desaparecido que nunca fue de mi hermana ¿Qué habrías hecho? ¡Comenta! #historiasdereddit #storytime #familia #suegra #drama",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261120-214106",
+   "titulo": "El préstamo que nunca pedí",
+   "n": 1,
+   "origem": "original",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El préstamo que nunca pedí",
+     "legenda": "El préstamo que nunca pedí ¿Qué habrías hecho? ¡Comenta! #historiasdereddit #storytime #familia #suegra #drama",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  }
+ ]
+}

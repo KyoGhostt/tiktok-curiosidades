@@ -1,0 +1,92 @@
+=== iteracao 1 rc=0
+plano: 2 parte(s) de ~400 palavras (alvo 2.0 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_efa6.mp4 (15.9 min)
+jogo sorteado: gta
+  parte 1: 393 palavras, voz +6% -> 139s (alvo 119s)
+  parte 1: 393 palavras, voz +24% -> 119s (alvo 119s)
+  áudio 120s (alvo 119s): sem ajuste
+parte 1/2: 120s fundo=gta avisos=[]
+  parte 2: 381 palavras, voz +3% -> 143s (alvo 119s)
+  parte 2: 381 palavras, voz +23% -> 120s (alvo 119s)
+  áudio 120.6s -> 119.4s (atempo 1.010)
+parte 2/2: 120s fundo=gta avisos=[]
+=== iteracao 2 rc=0
+plano: 1 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 261 palavras, voz -6% -> 97s (alvo 89s)
+  parte 1: 261 palavras, voz +2% -> 90s (alvo 89s)
+  áudio 90.7s -> 89.4s (atempo 1.015)
+parte 1/1: 90s fundo=subway avisos=[]
+=== iteracao 3 rc=0
+plano: 2 parte(s) de ~400 palavras (alvo 2.0 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_efa6.mp4 (15.9 min)
+jogo sorteado: gta
+  parte 1: 387 palavras, voz +4% -> 143s (alvo 119s)
+  parte 1: 387 palavras, voz +25% -> 119s (alvo 119s)
+  áudio 119s (alvo 119s): sem ajuste
+parte 1/2: 120s fundo=gta avisos=[]
+  parte 2: 347 palavras, voz -6% -> 137s (alvo 119s)
+  parte 2: 347 palavras, voz +8% -> 120s (alvo 119s)
+  áudio 120.4s -> 119.4s (atempo 1.009)
+parte 2/2: 120s fundo=gta avisos=[]
+=== iteracao 4 rc=0
+plano: 2 parte(s) de ~400 palavras (alvo 2.0 min)
+minecraft: 12-Minecraft-Gameplay-Vertical.zip -> 12 Minecraft Gameplay Vertical.mp4 (10.5 min)
+jogo sorteado: minecraft
+  parte 1: 402 palavras, voz +9% -> 133s (alvo 119s)
+  parte 1: 402 palavras, voz +21% -> 120s (alvo 119s)
+  áudio 120.7s -> 119.4s (atempo 1.011)
+parte 1/2: 120s fundo=minecraft avisos=[]
+  parte 2: 365 palavras, voz -1% -> 137s (alvo 119s)
+  parte 2: 365 palavras, voz +13% -> 120s (alvo 119s)
+  áudio 120.5s -> 119.4s (atempo 1.009)
+parte 2/2: 120s fundo=minecraft avisos=[]
+=== iteracao 5 rc=0
+plano: 2 parte(s) de ~500 palavras (alvo 2.5 min)
+minecraft: 7-Minecraft-Parkour-Gameplay-Vertical.zip -> 12 Minecraft Gameplay Vertical.mp4 (10.5 min)
+jogo sorteado: minecraft
+  parte 1: 508 palavras, voz +10% -> 176s (alvo 149s)
+  parte 1: 508 palavras, voz +29% -> 150s (alvo 149s)
+  áudio 150.5s -> 149.4s (atempo 1.008)
+parte 1/2: 150s fundo=minecraft avisos=[]
+  parte 2: 487 palavras, voz +5% -> 175s (alvo 149s)
+  parte 2: 487 palavras, voz +24% -> 149s (alvo 149s)
+  áudio 149s (alvo 149s): sem ajuste
+parte 2/2: 150s fundo=minecraft avisos=[]
+=== iteracao 6 rc=0
+plano: 2 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_0b2e.mp4 (10.9 min)
+jogo sorteado: gta
+  parte 1: 290 palavras, voz +4% -> 106s (alvo 89s)
+  parte 1: 290 palavras, voz +24% -> 89s (alvo 89s)
+  áudio 90s (alvo 89s): sem ajuste
+parte 1/2: 90s fundo=gta avisos=[]
+  parte 2: 294 palavras, voz +6% -> 109s (alvo 89s)
+  parte 2: 294 palavras, voz +29% -> 89s (alvo 89s)
+  áudio 90.0s -> 89.4s (atempo 1.007)
+parte 2/2: 90s fundo=gta avisos=[]
+=== iteracao 7 rc=0
+plano: 1 parte(s) de ~500 palavras (alvo 2.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_70d7.mp4 (11.4 min)
+jogo sorteado: gta
+  parte 1: 550 palavras, voz +19% -> 184s (alvo 149s)
+  parte 1: 550 palavras, voz +46% -> 150s (alvo 149s)
+  áudio 150.3s -> 149.4s (atempo 1.006)
+parte 1/1: 150s fundo=gta avisos=[]
+=== iteracao 8 rc=0
+plano: 1 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_0b2e.mp4 (10.9 min)
+jogo sorteado: gta
+  parte 1: 296 palavras, voz +7% -> 99s (alvo 89s)
+  parte 1: 296 palavras, voz +18% -> 90s (alvo 89s)
+  áudio 90.4s -> 89.4s (atempo 1.011)
+parte 1/1: 90s fundo=gta avisos=[]
+=== iteracao 9 rc=0
+plano: 1 parte(s) de ~500 palavras (alvo 2.5 min)
+minecraft: 7-Minecraft-Parkour-Gameplay-Vertical.zip -> 12 Minecraft Gameplay Vertical.mp4 (10.5 min)
+jogo sorteado: minecraft
+  parte 1: 562 palavras, voz +21% -> 168s (alvo 149s)
+  parte 1: 562 palavras, voz +36% -> 149s (alvo 149s)
+  áudio 149.9s -> 149.4s (atempo 1.003)
+parte 1/1: 150s fundo=minecraft avisos=[]
