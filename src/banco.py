@@ -21,6 +21,13 @@ def load():
 def encher(combos=3):
     banco = load()
     ids = {p["id"] for p in banco} | story._used()
+    if lang.CODE == "es":   # ES usa os relatos em inglês: aproveita o banco do EN (desligado) que já está pronto
+        try:
+            en = json.loads((ARQ.parent.parent / "en" / "banco.json").read_text())
+            for p in en:
+                if p["id"] not in ids: banco.append(p); ids.add(p["id"])
+        except Exception:
+            pass
     comb = [(s, k) for s in lang.L["subs"] for k in ("top", "controversial")]
     random.shuffle(comb)
     novos = 0
