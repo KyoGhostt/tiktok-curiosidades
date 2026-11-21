@@ -47,6 +47,7 @@ def build_package():
     for i, p in enumerate(data["partes"], 1):
         mp3, ass, mp4 = d / f"voz{i}.mp3", d / f"legenda{i}.ass", d / f"parte{i}.mp4"
         p["texto"] = tts.limpar_texto(p["texto"])  # sem "*", "_", "#" etc. (a voz lia "asterisco")
+        p["texto"] += " " + (lang.UI["seguir_cont"].format(j=i+1) if i < n else lang.UI["seguir_fim"])   # 21/11: pedido de seguir a conta no fim de toda parte (poucos follows)
         nw = len(p["texto"].split())
         alvo_s = story.ALVO_MIN * 60 - 0.6
         mult = nw / story.ALVO_MIN / story.PPM * 1.08          # velocidade relativa da voz (1.0 = normal)
