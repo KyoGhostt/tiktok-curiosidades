@@ -27,5 +27,20 @@
   },
   "n_historias": 8,
   "mudancas": []
+ },
+ {
+  "quando": "2026-11-22",
+  "pesos_duracao": {
+   "1.5": 0.333,
+   "2.0": 0.333,
+   "2.5": 0.333
+  },
+  "pesos_tema": {
+   "vizinhos": 1.0,
+   "amizade": 1.0,
+   "drama": 1.02
+  },
+  "n_historias": 6,
+  "mudancas": []
  }
 ]
