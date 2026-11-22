@@ -26,5 +26,20 @@
   },
   "n_historias": 4,
   "mudancas": []
+ },
+ {
+  "quando": "2026-11-22",
+  "pesos_duracao": {
+   "1.5": 0.333,
+   "2.0": 0.333,
+   "2.5": 0.333
+  },
+  "pesos_tema": {
+   "familia": 0.88,
+   "drama": 1.12,
+   "relacionamento": 1.0
+  },
+  "n_historias": 7,
+  "mudancas": []
  }
 ]
