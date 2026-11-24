@@ -11,39 +11,48 @@
  },
  "duracao": {
   "ref5.0": {
-   "n": 7,
-   "views": 455,
-   "ret": 0.198,
-   "r": 4.699,
-   "likes": 42.4,
-   "com": 0.9,
-   "shares": 0.1
+   "n": 6,
+   "views": 463,
+   "ret": 0.2,
+   "r": 4.755,
+   "likes": 45.5,
+   "com": 0.8,
+   "shares": 0.2
+  },
+  "1.5": {
+   "n": 1,
+   "views": 812,
+   "ret": 0.246,
+   "r": 5.375,
+   "likes": 154.0,
+   "com": 1.0,
+   "shares": 0.0
   }
  },
  "tema": {
   "familia": {
-   "n": 3,
-   "views": 399,
-   "ret": 0.233,
-   "r": 4.832,
-   "likes": 52.7,
-   "com": 1.7,
+   "n": 2,
+   "views": 395,
+   "ret": 0.27,
+   "r": 5.149,
+   "likes": 67.0,
+   "com": 2.0,
    "shares": 0.0
   },
   "drama": {
-   "n": 3,
-   "views": 509,
-   "ret": 0.147,
-   "r": 4.383,
-   "likes": 35.0,
-   "com": 0.3,
-   "shares": 0.3
+   "n": 4,
+   "views": 586,
+   "ret": 0.169,
+   "r": 4.614,
+   "likes": 64.8,
+   "com": 0.5,
+   "shares": 0.2
   },
   "relacionamento": {
    "n": 1,
-   "views": 457,
-   "ret": 0.246,
-   "r": 5.249,
+   "views": 459,
+   "ret": 0.231,
+   "r": 5.149,
    "likes": 34.0,
    "com": 0.0,
    "shares": 0.0
@@ -54,7 +63,7 @@
   "drama": 1.12,
   "relacionamento": 1.0
  },
- "atualizado": "2026-11-22T19:59:06.292196+00:00",
+ "atualizado": "2026-11-24T00:23:52.373119+00:00",
  "ultima_atualizacao": "2026-11-22T19:59:06.292188+00:00",
  "historico_pesos": [
   {
