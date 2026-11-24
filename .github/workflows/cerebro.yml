@@ -1,10 +1,10 @@
 name: cerebro
-# Aprende com os resultados de CADA comunidade (BR, ES, US) e ajusta duracao e temas dos proximos videos. Roda todo dia: coleta e avalia; so MUDA pesos aos domingos (ou acao=aplicar). Saida na branch `analises`.
+# Aprende com os resultados de CADA comunidade (BR, ES, US) e ajusta duracao e temas dos proximos videos. Roda todo dia: coleta e avalia; NAO muda pesos sozinho (24/11): so da nota e sugere melhorias; pesos so mudam com acao=aplicar aprovado pelo dono. Saida na branch `analises`.
 on:
   schedule: [{cron: "50 12 * * *"}]
   workflow_dispatch:
     inputs:
-      acao: {description: "rodar (aplica so domingo) | aplicar (forca) | simular (nao grava)", default: "rodar"}
+      acao: {description: "rodar (so nota e sugere) | aplicar (aplica os pesos, so com aprovacao do dono) | simular (nao grava)", default: "rodar"}
 permissions: {contents: write}
 concurrency: {group: fila, cancel-in-progress: false}
 jobs:

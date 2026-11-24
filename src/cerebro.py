@@ -177,9 +177,39 @@ def yt_resumo(yt):
                 posts=[dict(texto=n["text"][:70], enviado=(n.get("sentAt") or "")[:10], **{k: n["m"].get(k, 0) for k in ("views", "reactions", "comments", "shares", "averageTimeWatched")}) for n in yt])
 
 
+def melhorias(hs, ds, ts, c, opts):
+    """Notas e sugestoes (so texto; nada muda sozinho)."""
+    env = [h for h in hs if h["enviadas"] >= 1]
+    ok = [h for h in env if h["maduro"]]
+    out = ["", "## O que daria pra melhorar (sugestões — nada é aplicado sem aprovação)"]
+    if not env:
+        return out + ["- Ainda sem histórias com dados."]
+    top = sorted(env, key=lambda h: -h["r"])
+    out.append("- **Melhores notas:** " + "; ".join(f"{h['titulo'][:35]} ({h['r']})" for h in top[:3]))
+    out.append("- **Piores notas:** " + "; ".join(f"{h['titulo'][:35]} ({h['r']})" for h in top[-3:] if h["r"] > 0))
+    fracas = [h for h in env if h["views"] >= 50 and h["ret"] < 0.12]
+    if fracas:
+        out.append(f"- **Retenção baixa (<0,12) em {len(fracas)} história(s)**: o começo não segura. Sugestão: gancho mais forte na 1ª frase / cortar introdução. Ex.: " + "; ".join(h["titulo"][:30] for h in fracas[:3]))
+    com = sum(h["com"] for h in env); sh = sum(h["shares"] for h in env)
+    if com <= max(2, len(env) // 4):
+        out.append(f"- **Quase ninguém comenta ({com} comentários em {len(env)} histórias)**: sugestão: pergunta final mais polêmica ou pedir resposta (\"A ou B? Comenta\").")
+    if sh <= max(1, len(env) // 6):
+        out.append(f"- **Quase ninguém compartilha ({sh})**: sugestão: finais mais chocantes / frase \"manda pra quem...\".")
+    by = {k: v for k, v in ds.items() if v["n"] >= 1}
+    if len(by) >= 2:
+        b = max(by.items(), key=lambda kv: kv[1]["r"]); w = min(by.items(), key=lambda kv: kv[1]["r"])
+        out.append(f"- **Duração:** melhor nota em {b[0].replace('ref', '')} min ({b[1]['r']}), pior em {w[0].replace('ref', '')} min ({w[1]['r']}). Amostra pequena: confirmar com mais histórias antes de mudar peso.")
+    bt = {k: v for k, v in ts.items() if v["n"] >= 1}
+    if len(bt) >= 2:
+        b = max(bt.items(), key=lambda kv: kv[1]["r"]); w = min(bt.items(), key=lambda kv: kv[1]["r"])
+        out.append(f"- **Tema:** melhor {b[0]} (nota {b[1]['r']}), pior {w[0]} (nota {w[1]['r']}).")
+    out.append(f"- **Pesos que eu aplicaria se você aprovar:** " + ", ".join(f"{k} min → {v}" for k, v in passo(dict(c.get('pesos_duracao') or {}), pesos(ds, opts)).items()) if ds else "- Sem dados maduros para sugerir pesos.")
+    return out
+
+
 def relatorio(c, hs, ds, ts, opts, antigos, log, aplicou, yt):
     L = [f"# Cérebro — {lang.L['nome']} ({lang.CODE.upper()})", "",
-         f"Gerado em {c['atualizado']}. {'**PESOS ATUALIZADOS nesta execução** (domingo/aplicar).' if aplicou else 'Só coleta: os pesos NÃO mudaram hoje (mudam 1x por semana, no domingo).'}",
+         f"Gerado em {c['atualizado']}. {'**PESOS ATUALIZADOS nesta execução** (domingo/aplicar).' if aplicou else 'Só dá nota e sugere: os pesos NÃO mudam sozinhos (só com aprovação do dono).'}",
          f"Regra: avalia a história inteira (todas as partes, {MADURO_D}+ dias após a última). Passo máximo ±{int(PASSO*100)} pts/semana. Favoritos/salvos: o Buffer não informa.", "",
          "## Pesos de duração (vigentes)", "| duração | histórias avaliadas | views/parte | retenção | curtidas | coment. | compart. | nota | peso antes → agora |", "|---|---|---|---|---|---|---|---|---|"]
     for o in opts:
@@ -195,6 +225,7 @@ def relatorio(c, hs, ds, ts, opts, antigos, log, aplicou, yt):
     if c.get("efeitos_sonoros"):
         L += ["", "## Teste A/B: efeitos sonoros (só informativo, não muda peso)", "| grupo | histórias | views/parte | retenção | curtidas | coment. | compart. | nota |", "|---|---|---|---|---|---|---|---|"]
         for k, v in c["efeitos_sonoros"].items(): L.append(f"| {k} | {v['n']} | {v['views']} | {v['ret']} | {v['likes']} | {v['com']} | {v['shares']} | {v['r']} |")
+    L += melhorias(hs, ds, ts, c, opts)
     if log: L += ["", "## Mudanças desta semana"] + [f"- {x}" for x in log]
     if yt: L += ["", "## YouTube Shorts (BR, canal separado)", f"{yt['n']} Shorts enviados, {yt['views_total']} views no total ({yt['views_media']} em média), {yt['curtidas']} curtidas, {yt['comentarios']} comentários, {yt['compartilhamentos']} compart."]
     return "\n".join(L) + "\n"
@@ -202,7 +233,7 @@ def relatorio(c, hs, ds, ts, opts, antigos, log, aplicou, yt):
 
 def rodar(modo="rodar"):
     simular = modo == "simular"
-    aplicar = modo == "aplicar" or (modo == "rodar" and datetime.now(timezone.utc).weekday() == 6)
+    aplicar = modo == "aplicar"   # 24/11: o cérebro NÃO muda mais nada sozinho; só dá nota e sugere. Pesos só mudam com o dono aprovando (acao=aplicar)
     c = _j(ARQ, {})
     if not c and (ESTADO / "cerebro.json").exists(): c = _j(ESTADO / "cerebro.json", {})   # migra pesos antigos
     opts = [float(x) for x in c.get("opcoes", lang.L.get("alvo_opcoes") or [2.0])]

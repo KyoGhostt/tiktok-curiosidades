@@ -68,7 +68,7 @@ Os demais (`fundos-*`, `fontes-reddit`, `sondar-subs`, `legendas-limpar`, `teleg
 
 ## 15/11/2026 — limpeza e ajustes
 - Repo limpo: testes/voz/diag apagados; YouTube arquivado em `arquivo/` (LEIA-ME.md diz como religar). Releases de teste e branch `diag` removidos; só `fundos` fica.
-- US (en) ativo de novo. Cerebro v2 roda diário (pt/es/en), muda pesos só domingo; saída na branch `analises`.
+- Cerebro (pt/es) roda diário só DANDO NOTA e sugerindo melhorias (24/11: não muda mais pesos sozinho; só com acao=aplicar aprovado pelo dono). Saída na branch `analises`.
 - Teste A/B de efeitos sonoros só no PT (cerebro mostra com/sem).
 - LLM: Gemini funciona; Groq/NVIDIA/OpenRouter quebrados (baixa prioridade). Runner fixo em ubuntu-24.04.
 - Repo precisa ficar público (Buffer lê mp4 da branch `media`).

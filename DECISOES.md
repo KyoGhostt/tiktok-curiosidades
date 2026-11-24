@@ -45,3 +45,6 @@ Só leia quando for mudar algo parecido. Estado atual está em STATUS.md.
 
 ## 09/11 noite — Cerebro v2
 Motivo: avaliar por post enquanto o Buffer ainda tem posts antigos agendados mistura duracoes e muda rapido demais; estado perdia cerebro.json (race de push). Agora: historia inteira, 7+ dias, mudancas so no domingo e graduais; saida na branch `analises` (sem race). Favoritos nao existem no Buffer.
+
+## 24/11/2026 — cérebro só observa
+Dono pediu: cérebro só dá nota e anota o que melhorar; NADA muda sem aprovação. cerebro.py: aplicar só com acao=aplicar; relatório ganhou seção 'O que daria pra melhorar'. Para voltar ao automático: aplicar = modo=="aplicar" or (modo=="rodar" and weekday()==6).
