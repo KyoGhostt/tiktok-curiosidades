@@ -10,15 +10,6 @@
   "2.5": 0.333
  },
  "duracao": {
-  "ref5.0": {
-   "n": 1,
-   "views": 286,
-   "ret": 0.26,
-   "r": 4.61,
-   "likes": 22.0,
-   "com": 0.0,
-   "shares": 0.0
-  },
   "2.5": {
    "n": 2,
    "views": 181,
@@ -30,19 +21,19 @@
   },
   "1.5": {
    "n": 2,
-   "views": 252,
-   "ret": 0.16,
-   "r": 4.028,
+   "views": 254,
+   "ret": 0.159,
+   "r": 4.029,
    "likes": 24.0,
    "com": 0.0,
    "shares": 0.0
   },
   "2.0": {
-   "n": 1,
-   "views": 248,
-   "ret": 0.125,
-   "r": 3.618,
-   "likes": 28.0,
+   "n": 2,
+   "views": 218,
+   "ret": 0.184,
+   "r": 3.921,
+   "likes": 22.0,
    "com": 0.0,
    "shares": 0.0
   }
@@ -50,18 +41,18 @@
  "tema": {
   "drama": {
    "n": 4,
-   "views": 214,
-   "ret": 0.143,
-   "r": 3.749,
-   "likes": 21.5,
+   "views": 190,
+   "ret": 0.139,
+   "r": 3.653,
+   "likes": 20.0,
    "com": 0.0,
    "shares": 0.0
   },
   "familia": {
    "n": 1,
-   "views": 248,
+   "views": 250,
    "ret": 0.125,
-   "r": 3.618,
+   "r": 3.619,
    "likes": 28.0,
    "com": 0.0,
    "shares": 0.0
@@ -81,7 +72,7 @@
   "amizade": 1.0,
   "drama": 1.02
  },
- "atualizado": "2026-11-24T22:47:49.492502+00:00",
+ "atualizado": "2026-11-25T22:00:23.208949+00:00",
  "ultima_atualizacao": "2026-11-22T19:59:16.279981+00:00",
  "historico_pesos": [
   {
@@ -113,5 +104,15 @@
   }
  ],
  "amostra_historias": 6,
- "efeitos_sonoros": {}
+ "efeitos_sonoros": {
+  "sem efeitos": {
+   "n": 1,
+   "views": 185,
+   "ret": 0.244,
+   "r": 4.223,
+   "likes": 16.0,
+   "com": 0.0,
+   "shares": 0.0
+  }
+ }
 }
