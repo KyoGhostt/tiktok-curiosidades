@@ -1,0 +1,20 @@
+r/desahogo/top: 25 posts, 1 com 2500+ chars; ex.: Ya no quiero ser g4y
+r/desahogo/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/confesiones/top: ERRO HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/
+r/confesiones/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/relatos/top: 12 posts, 5 com 2500+ chars; ex.: Lo que no hice las otras veces, ahora si
+r/relatos/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/mexico/top: 25 posts, 0 com 2500+ chars; ex.: Zócalo (2026).
+r/mexico/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/Colombia/top: 25 posts, 0 com 2500+ chars; ex.: No sé qué esperaban, el tipo hacía mega conciertos en campaña
+r/Colombia/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/argentina/top: 25 posts, 0 com 2500+ chars; ex.: Ravioleeeee
+r/argentina/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/es/top: 5 posts, 1 com 2500+ chars; ex.: Mi adicción a los videojuegos y a la dopamina está acabando con mi vid
+r/es/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/askspain/top: 25 posts, 1 com 2500+ chars; ex.: Que haríais en mi situación (contenido sensible)
+r/askspain/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/cuentos/top: ERRO HTTPError 404 Client Error: Not Found for url: https://www.reddit.com/
+r/cuentos/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red
+r/yoconfieso/top: 0 posts, 0 com 2500+ chars; ex.: -
+r/yoconfieso/controversial: ERRO HTTPError 429 Client Error: Too Many Requests for url: https://www.red

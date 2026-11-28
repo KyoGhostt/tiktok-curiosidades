@@ -1,0 +1,59 @@
+{
+  "id": "hist-20261127-212936",
+  "titulo": "El intruso de mi grabadora de sueño",
+  "origem": "Reddit (r/BestofRedditorUpdates)",
+  "fonte": "https://www.reddit.com/r/BestofRedditorUpdates/comments/1xk0dsf/oop_finds_something_horrifying_on_her_sleep/",
+  "n": 5,
+  "tema": "familia",
+  "sfx": false,
+  "partes": [
+    {
+      "parte": 1,
+      "arquivo": "parte1.mp4",
+      "titulo": "El intruso de mi grabadora de sueño (Parte 1 de 5)",
+      "legenda": "El intruso de mi grabadora de sueño (Parte 1 de 5) #parte1 #historiasdereddit #storytime #familia #suegra",
+      "duracao_s": 90,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 2,
+      "arquivo": "parte2.mp4",
+      "titulo": "El intruso de mi grabadora de sueño (Parte 2 de 5)",
+      "legenda": "El intruso de mi grabadora de sueño (Parte 2 de 5) #parte2 #historiasdereddit #storytime #familia #suegra",
+      "duracao_s": 90,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 3,
+      "arquivo": "parte3.mp4",
+      "titulo": "El intruso de mi grabadora de sueño (Parte 3 de 5)",
+      "legenda": "El intruso de mi grabadora de sueño (Parte 3 de 5) #parte3 #historiasdereddit #storytime #familia #suegra",
+      "duracao_s": 90,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 4,
+      "arquivo": "parte4.mp4",
+      "titulo": "El intruso de mi grabadora de sueño (Parte 4 de 5)",
+      "legenda": "El intruso de mi grabadora de sueño (Parte 4 de 5) #parte4 #historiasdereddit #storytime #familia #suegra",
+      "duracao_s": 90,
+      "avisos": [],
+      "fundo": "subway"
+    },
+    {
+      "parte": 5,
+      "arquivo": "parte5.mp4",
+      "titulo": "El intruso de mi grabadora de sueño (Parte 5 de 5)",
+      "legenda": "El intruso de mi grabadora de sueño (Parte 5 de 5) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte5 #historiasdereddit #storytime #familia #suegra",
+      "duracao_s": 90,
+      "avisos": [],
+      "fundo": "subway"
+    }
+  ],
+  "debug": [
+    "banco: 113 candidatos"
+  ]
+}
