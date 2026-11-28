@@ -1,0 +1,258 @@
+{
+ "slots": [
+  [
+   11,
+   0
+  ],
+  [
+   17,
+   0
+  ],
+  [
+   20,
+   0
+  ]
+ ],
+ "tags": {
+  "storytime": {
+   "n": 12,
+   "media": 377.1666666666667
+  },
+  "parte1": {
+   "n": 15,
+   "media": 494.2
+  },
+  "casal": {
+   "n": 5,
+   "media": 290.4
+  },
+  "historiasdoreddit": {
+   "n": 48,
+   "media": 539.1458333333334
+  },
+  "relacionamento": {
+   "n": 5,
+   "media": 290.4
+  },
+  "parte2": {
+   "n": 15,
+   "media": 502.46666666666664
+  },
+  "parte3": {
+   "n": 9,
+   "media": 713.3333333333334
+  },
+  "parte4": {
+   "n": 5,
+   "media": 570.4
+  },
+  "trabalho": {
+   "n": 6,
+   "media": 455.8333333333333
+  },
+  "chefe": {
+   "n": 6,
+   "media": 455.8333333333333
+  },
+  "vidacorporativa": {
+   "n": 5,
+   "media": 873.0
+  },
+  "historiasreais": {
+   "n": 24,
+   "media": 574.875
+  },
+  "tretanotrabalho": {
+   "n": 3,
+   "media": 1196.6666666666667
+  },
+  "parte5": {
+   "n": 1,
+   "media": 543.0
+  },
+  "sogra": {
+   "n": 7,
+   "media": 687.7142857142857
+  },
+  "drama": {
+   "n": 13,
+   "media": 663.7692307692307
+  },
+  "familia": {
+   "n": 11,
+   "media": 675.1818181818181
+  },
+  "casamento": {
+   "n": 6,
+   "media": 491.1666666666667
+  },
+  "marido": {
+   "n": 6,
+   "media": 491.1666666666667
+  },
+  "treta": {
+   "n": 3,
+   "media": 321.3333333333333
+  },
+  "plottwist": {
+   "n": 3,
+   "media": 321.3333333333333
+  },
+  "relacionamentoamoroso": {
+   "n": 4,
+   "media": 546.5
+  },
+  "historiasdetiktok": {
+   "n": 10,
+   "media": 465.4
+  },
+  "familiatreta": {
+   "n": 6,
+   "media": 400.8333333333333
+  },
+  "relacionamentoabusivo": {
+   "n": 4,
+   "media": 469.75
+  },
+  "relacionamentotoxico": {
+   "n": 4,
+   "media": 469.75
+  },
+  "novelas": {
+   "n": 2,
+   "media": 601.0
+  },
+  "historia": {
+   "n": 2,
+   "media": 601.0
+  }
+ },
+ "escolhidas": {
+  "trabalho": [
+   "tretanotrabalho",
+   "vidacorporativa",
+   "historiasreais"
+  ],
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "historiasreais",
+   "casamento"
+  ],
+  "familia": [
+   "familia",
+   "drama",
+   "sogra"
+  ],
+  "vinganca": [
+   "vinganca",
+   "justica",
+   "karma"
+  ],
+  "vizinhos": [
+   "vizinhos",
+   "confusao",
+   "tretas"
+  ],
+  "amizade": [
+   "amizade",
+   "amigos",
+   "traicao"
+  ],
+  "escola": [
+   "escola",
+   "adolescencia",
+   "colegio"
+  ],
+  "drama": [
+   "historias",
+   "novelas",
+   "historia"
+  ]
+ },
+ "candidatas": {
+  "relacionamento": [
+   "relacionamentoamoroso",
+   "relacionamentoabusivo",
+   "relacionamentotoxico"
+  ],
+  "familia": [],
+  "vinganca": [],
+  "vizinhos": [
+   "vizinhoinvejoso"
+  ],
+  "escola": [],
+  "drama": [
+   "novelas",
+   "historia",
+   "historias"
+  ]
+ },
+ "teste": {
+  "idx": 0,
+  "base": 12,
+  "novo": 11
+ },
+ "base_n": 47,
+ "atualizado": "2026-11-27T21:29:10.239547+00:00",
+ "pesquisa": {
+  "status": {
+   "google_trends": "ok",
+   "tiktok_hashtags": "falhou: resposta sem lista: {'code': 40101, 'msg': 'no permission', 'request_id': '20261128052905F407DE10C06A1F2B7099'}",
+   "endless_tiktok_br": "ok",
+   "buscas_por_tema": "ok",
+   "reddit_semana": "falhou: 404 Client Error: Not Found for url: https://www.reddit.com/r/AmItheAsshole/top/.rss?t=week&limit=10"
+  },
+  "trends": [
+   {
+    "termo": "diogo nogueira",
+    "buscas": "1000+"
+   },
+   {
+    "termo": "flávio dino",
+    "buscas": "500+"
+   },
+   {
+    "termo": "hapv3",
+    "buscas": "100+"
+   },
+   {
+    "termo": "nilo morre em avenida brasil",
+    "buscas": "500+"
+   },
+   {
+    "termo": "vila nova x atlético-go",
+    "buscas": "500+"
+   },
+   {
+    "termo": "deborah secco",
+    "buscas": "200+"
+   },
+   {
+    "termo": "quem ama cuida adriana expulsa pilar",
+    "buscas": "2000+"
+   },
+   {
+    "termo": "bologna x",
+    "buscas": "200+"
+   },
+   {
+    "termo": "southampton",
+    "buscas": "100+"
+   },
+   {
+    "termo": "ana elisa",
+    "buscas": "200+"
+   }
+  ]
+ },
+ "historico": [
+  {
+   "quando": "2026-11-10",
+   "base": 12,
+   "novo": 13,
+   "base_views": 689,
+   "novo_views": 375,
+   "vencedor": 12
+  }
+ ]
+}

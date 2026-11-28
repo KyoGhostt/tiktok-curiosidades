@@ -1,0 +1,245 @@
+{
+ "stories": [
+  {
+   "id": "hist-20261125-133453",
+   "titulo": "El espía de al lado",
+   "n": 5,
+   "origem": "Reddit (r/TrueOffMyChest)",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El espía de al lado (Parte 1 de 5)",
+     "legenda": "El espía de al lado (Parte 1 de 5) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "postado",
+     "buffer_id": "6b073aec4b7ab79f5bde8427",
+     "due": "2026-11-27T21:00:00-06:00",
+     "postado_em": "2026-11-28T03:27:03.476920+00:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "El espía de al lado (Parte 2 de 5)",
+     "legenda": "El espía de al lado (Parte 2 de 5) #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b073aedd54ca56e47660438",
+     "due": "2026-11-28T12:00:00-06:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "El espía de al lado (Parte 3 de 5)",
+     "legenda": "El espía de al lado (Parte 3 de 5) #parte3 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b073aeed54ca56e4766047a",
+     "due": "2026-11-28T18:00:00-06:00"
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "El espía de al lado (Parte 4 de 5)",
+     "legenda": "El espía de al lado (Parte 4 de 5) #parte4 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b07aab6a791bea1b24e9f18",
+     "due": "2026-11-28T21:00:00-06:00"
+    },
+    {
+     "parte": 5,
+     "arquivo": "parte5.mp4",
+     "titulo": "El espía de al lado (Parte 5 de 5)",
+     "legenda": "El espía de al lado (Parte 5 de 5) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte5 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 120,
+     "status": "agendado",
+     "buffer_id": "6b07aab7b8e2338b8588fd85",
+     "due": "2026-11-30T12:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261127-212936",
+   "titulo": "El intruso de mi grabadora de sueño",
+   "n": 5,
+   "origem": "Reddit (r/BestofRedditorUpdates)",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El intruso de mi grabadora de sueño (Parte 1 de 5)",
+     "legenda": "El intruso de mi grabadora de sueño (Parte 1 de 5) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0a57312a2e4f66cafba0ac",
+     "due": "2026-11-30T18:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "El intruso de mi grabadora de sueño (Parte 2 de 5)",
+     "legenda": "El intruso de mi grabadora de sueño (Parte 2 de 5) #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0a573241454797eaed3412",
+     "due": "2026-11-30T21:00:00-06:00"
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "El intruso de mi grabadora de sueño (Parte 3 de 5)",
+     "legenda": "El intruso de mi grabadora de sueño (Parte 3 de 5) #parte3 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0a5733eab081a3f521f2e2",
+     "due": "2026-12-01T12:00:00-06:00"
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "El intruso de mi grabadora de sueño (Parte 4 de 5)",
+     "legenda": "El intruso de mi grabadora de sueño (Parte 4 de 5) #parte4 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0a573470e80ae8f1d0073c",
+     "due": "2026-12-01T18:00:00-06:00"
+    },
+    {
+     "parte": 5,
+     "arquivo": "parte5.mp4",
+     "titulo": "El intruso de mi grabadora de sueño (Parte 5 de 5)",
+     "legenda": "El intruso de mi grabadora de sueño (Parte 5 de 5) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte5 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "agendado",
+     "buffer_id": "6b0a5735eada83daa6c4883f",
+     "due": "2026-12-01T21:00:00-06:00"
+    }
+   ]
+  },
+  {
+   "id": "hist-20261127-215843",
+   "titulo": "El tutor infiel",
+   "n": 5,
+   "origem": "Reddit (r/BestofRedditorUpdates)",
+   "tema": "relacionamento",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "El tutor infiel (Parte 1 de 5)",
+     "legenda": "El tutor infiel (Parte 1 de 5) #parte1 #historiasdereddit #storytime #pareja #matrimonio",
+     "duracao_s": 150,
+     "status": "agendado",
+     "buffer_id": "6b0a573670e80ae8f1d00777",
+     "due": "2026-12-02T12:00:00-06:00"
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "El tutor infiel (Parte 2 de 5)",
+     "legenda": "El tutor infiel (Parte 2 de 5) #parte2 #historiasdereddit #storytime #pareja #matrimonio",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "El tutor infiel (Parte 3 de 5)",
+     "legenda": "El tutor infiel (Parte 3 de 5) #parte3 #historiasdereddit #storytime #pareja #matrimonio",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "El tutor infiel (Parte 4 de 5)",
+     "legenda": "El tutor infiel (Parte 4 de 5) #parte4 #historiasdereddit #storytime #pareja #matrimonio",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 5,
+     "arquivo": "parte5.mp4",
+     "titulo": "El tutor infiel (Parte 5 de 5)",
+     "legenda": "El tutor infiel (Parte 5 de 5) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte5 #historiasdereddit #storytime #pareja #matrimonio",
+     "duracao_s": 150,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  },
+  {
+   "id": "hist-20261127-221054",
+   "titulo": "La verdad detrás de mis dos hogares",
+   "n": 5,
+   "origem": "Reddit (r/TrueOffMyChest)",
+   "tema": "familia",
+   "sfx": false,
+   "partes": [
+    {
+     "parte": 1,
+     "arquivo": "parte1.mp4",
+     "titulo": "La verdad detrás de mis dos hogares (Parte 1 de 5)",
+     "legenda": "La verdad detrás de mis dos hogares (Parte 1 de 5) #parte1 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 2,
+     "arquivo": "parte2.mp4",
+     "titulo": "La verdad detrás de mis dos hogares (Parte 2 de 5)",
+     "legenda": "La verdad detrás de mis dos hogares (Parte 2 de 5) #parte2 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 3,
+     "arquivo": "parte3.mp4",
+     "titulo": "La verdad detrás de mis dos hogares (Parte 3 de 5)",
+     "legenda": "La verdad detrás de mis dos hogares (Parte 3 de 5) #parte3 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 4,
+     "arquivo": "parte4.mp4",
+     "titulo": "La verdad detrás de mis dos hogares (Parte 4 de 5)",
+     "legenda": "La verdad detrás de mis dos hogares (Parte 4 de 5) #parte4 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    },
+    {
+     "parte": 5,
+     "arquivo": "parte5.mp4",
+     "titulo": "La verdad detrás de mis dos hogares (Parte 5 de 5)",
+     "legenda": "La verdad detrás de mis dos hogares (Parte 5 de 5) ¡Final! ¿Qué habrías hecho? ¡Comenta! #parte5 #historiasdereddit #storytime #familia #suegra",
+     "duracao_s": 90,
+     "status": "pendente",
+     "buffer_id": null,
+     "due": null
+    }
+   ]
+  }
+ ]
+}

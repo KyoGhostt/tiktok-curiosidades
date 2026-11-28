@@ -1,0 +1,73 @@
+=== iteracao 1 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+subway surfers: subway-surfers-2024-gameplay-4-k-9x-16-no-copyright-1 (3.2 min)
+jogo sorteado: subway
+  parte 1: 307 palavras, voz +11% -> 102s (alvo 89s)
+  parte 1: 307 palavras, voz +26% -> 90s (alvo 89s)
+  áudio 90.2s -> 89.4s (atempo 1.009)
+parte 1/5: 90s fundo=subway avisos=[]
+  parte 2: 302 palavras, voz +9% -> 102s (alvo 89s)
+  parte 2: 302 palavras, voz +25% -> 89s (alvo 89s)
+  áudio 90.0s -> 89.4s (atempo 1.006)
+parte 2/5: 90s fundo=subway avisos=[]
+  parte 3: 264 palavras, voz -5% -> 102s (alvo 89s)
+  parte 3: 264 palavras, voz +9% -> 89s (alvo 89s)
+  áudio 90.1s -> 89.4s (atempo 1.008)
+parte 3/5: 90s fundo=subway avisos=[]
+  parte 4: 267 palavras, voz -4% -> 99s (alvo 89s)
+  parte 4: 267 palavras, voz +6% -> 89s (alvo 89s)
+  áudio 90.2s -> 89.4s (atempo 1.009)
+parte 4/5: 90s fundo=subway avisos=[]
+  parte 5: 278 palavras, voz +0% -> 100s (alvo 89s)
+  parte 5: 278 palavras, voz +12% -> 89s (alvo 89s)
+  áudio 90.1s -> 89.4s (atempo 1.008)
+parte 5/5: 90s fundo=subway avisos=[]
+=== iteracao 2 rc=0
+plano: 5 parte(s) de ~500 palavras (alvo 2.5 min)
+aviso: usando a tentativa mais proxima do alvo (desvio 32%)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_302d.mp4 (10.5 min)
+jogo sorteado: subway
+  parte 1: 353 palavras, voz -24% -> 180s (alvo 149s)
+  parte 1: 353 palavras, voz -8% -> 149s (alvo 149s)
+  áudio 150s (alvo 149s): sem ajuste
+parte 1/5: 150s fundo=subway avisos=[]
+  parte 2: 380 palavras, voz -18% -> 166s (alvo 149s)
+  parte 2: 380 palavras, voz -9% -> 150s (alvo 149s)
+  áudio 150.8s -> 149.4s (atempo 1.009)
+parte 2/5: 150s fundo=subway avisos=[]
+  parte 3: 424 palavras, voz -8% -> 175s (alvo 149s)
+  parte 3: 424 palavras, voz +7% -> 150s (alvo 149s)
+  áudio 151.0s -> 149.4s (atempo 1.011)
+parte 3/5: 150s fundo=subway avisos=[]
+  parte 4: 376 palavras, voz -19% -> 177s (alvo 149s)
+  parte 4: 376 palavras, voz -4% -> 149s (alvo 149s)
+  áudio 149.9s -> 149.4s (atempo 1.003)
+parte 4/5: 150s fundo=subway avisos=[]
+  parte 5: 347 palavras, voz -25% -> 171s (alvo 149s)
+  parte 5: 347 palavras, voz -14% -> 149s (alvo 149s)
+  áudio 150.0s -> 149.4s (atempo 1.004)
+parte 5/5: 150s fundo=subway avisos=[]
+=== iteracao 3 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: gta_gta-5-gameplay-no-copyright-mega-ramp-ve_efa6.mp4 (15.9 min)
+jogo sorteado: gta
+  parte 1: 290 palavras, voz +4% -> 108s (alvo 89s)
+  parte 1: 290 palavras, voz +26% -> 89s (alvo 89s)
+  áudio 89.9s -> 89.4s (atempo 1.005)
+parte 1/5: 90s fundo=gta avisos=[]
+  parte 2: 242 palavras, voz -13% -> 107s (alvo 89s)
+  parte 2: 242 palavras, voz +4% -> 89s (alvo 89s)
+  áudio 90.1s -> 89.4s (atempo 1.008)
+parte 2/5: 90s fundo=gta avisos=[]
+  parte 3: 266 palavras, voz -4% -> 108s (alvo 89s)
+  parte 3: 266 palavras, voz +16% -> 90s (alvo 89s)
+  áudio 90.5s -> 89.4s (atempo 1.012)
+parte 3/5: 90s fundo=gta avisos=[]
+  parte 4: 259 palavras, voz -7% -> 113s (alvo 89s)
+  parte 4: 259 palavras, voz +17% -> 90s (alvo 89s)
+  áudio 90.2s -> 89.4s (atempo 1.009)
+parte 4/5: 90s fundo=gta avisos=[]
+  parte 5: 262 palavras, voz -6% -> 105s (alvo 89s)
+  parte 5: 262 palavras, voz +11% -> 89s (alvo 89s)
+  áudio 89.8s -> 89.4s (atempo 1.004)
+parte 5/5: 90s fundo=gta avisos=[]

@@ -1,0 +1,46 @@
+=== iteracao 1 rc=0
+plano: 5 parte(s) de ~400 palavras (alvo 2.0 min)
+minecraft: 13-Minecraft-Gameplay-Vertical.zip -> 13 Minecraft Gameplay Vertical.mp4 (10.7 min)
+jogo sorteado: minecraft
+  parte 1: 361 palavras, voz -3% -> 122s (alvo 119s)
+  áudio 123.3s -> 119.4s (atempo 1.033)
+parte 1/5: 120s fundo=minecraft avisos=[]
+  parte 2: 428 palavras, voz +16% -> 125s (alvo 119s)
+  parte 2: 428 palavras, voz +21% -> 120s (alvo 119s)
+  áudio 120.7s -> 119.4s (atempo 1.011)
+parte 2/5: 120s fundo=minecraft avisos=[]
+  parte 3: 388 palavras, voz +5% -> 127s (alvo 119s)
+  parte 3: 388 palavras, voz +12% -> 119s (alvo 119s)
+  áudio 120.2s -> 119.4s (atempo 1.007)
+parte 3/5: 120s fundo=minecraft avisos=[]
+  parte 4: 455 palavras, voz +23% -> 123s (alvo 119s)
+  áudio 123.5s -> 119.4s (atempo 1.034)
+parte 4/5: 120s fundo=minecraft avisos=[]
+  parte 5: 553 palavras, voz +49% -> 125s (alvo 119s)
+  parte 5: 553 palavras, voz +57% -> 119s (alvo 119s)
+  áudio 119s (alvo 119s): sem ajuste
+parte 5/5: 120s fundo=minecraft avisos=[]
+=== iteracao 2 rc=0
+plano: 5 parte(s) de ~300 palavras (alvo 1.5 min)
+biblioteca: subway_subway-surfers-gameplay-no-copyright-ver_aaa4.mp4 (18.5 min)
+jogo sorteado: subway
+  parte 1: 256 palavras, voz -8% -> 111s (alvo 89s)
+  parte 1: 256 palavras, voz +14% -> 90s (alvo 89s)
+  áudio 90.4s -> 89.4s (atempo 1.011)
+parte 1/5: 90s fundo=subway avisos=[]
+  parte 2: 279 palavras, voz +0% -> 110s (alvo 89s)
+  parte 2: 279 palavras, voz +23% -> 89s (alvo 89s)
+  áudio 89.9s -> 89.4s (atempo 1.005)
+parte 2/5: 90s fundo=subway avisos=[]
+  parte 3: 245 palavras, voz -12% -> 109s (alvo 89s)
+  parte 3: 245 palavras, voz +7% -> 89s (alvo 89s)
+  áudio 90.2s -> 89.4s (atempo 1.009)
+parte 3/5: 90s fundo=subway avisos=[]
+  parte 4: 287 palavras, voz +3% -> 115s (alvo 89s)
+  parte 4: 287 palavras, voz +33% -> 89s (alvo 89s)
+  áudio 90.0s -> 89.4s (atempo 1.006)
+parte 4/5: 90s fundo=subway avisos=[]
+  parte 5: 255 palavras, voz -8% -> 110s (alvo 89s)
+  parte 5: 255 palavras, voz +13% -> 89s (alvo 89s)
+  áudio 90.2s -> 89.4s (atempo 1.009)
+parte 5/5: 90s fundo=subway avisos=[]
